@@ -20,8 +20,8 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-u
 .logo{display:block;width:100%;max-width:400px;height:auto;margin:4px auto 0}
 .intro{text-align:center;margin:-4px 0 0;font-size:16px;color:var(--muted);line-height:1.45}
 .intro b{color:var(--blue);font-weight:600}
-.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:end}
-.tile{display:block;width:100%;height:auto;border-radius:16px}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;align-items:end}
+.tile{display:block;width:100%;height:auto;border-radius:12px}
 .btn{display:flex;align-items:center;gap:14px;text-decoration:none;border-radius:22px;padding:16px 16px;min-height:92px;color:#fff;position:relative;overflow:hidden}
 .btn .ic{width:54px;height:54px;border-radius:16px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .btn .tx{flex:1;min-width:0}
@@ -49,7 +49,7 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-u
 @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.08)}}
 @media (prefers-reduced-motion:no-preference){
 .up{animation:rise .55s ease-out both}.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}.d5{animation-delay:.4s}
-.tile{animation:bob 3.6s ease-in-out infinite}.tile:nth-child(2){animation-delay:.5s}.tile:nth-child(3){animation-delay:1s}
+.tile{animation:bob 3.6s ease-in-out infinite}.tile:nth-child(2){animation-delay:.5s}.tile:nth-child(3){animation-delay:1s}.tile:nth-child(4){animation-delay:1.5s}
 .shine{animation:shine 3.4s ease-in-out infinite}.give .shine{animation-delay:1.7s}
 .beat{animation:beat 1.6s ease-in-out infinite;transform-origin:center}
 }
@@ -58,18 +58,19 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-u
 <body>
 <main class="wrap">
 <img class="logo up" src="logo.webp" width="720" height="344" alt="Let Us Care – Caring your loved ones">
-<p class="intro up d1">Trusted, verified carers at home for <b>children</b>, <b>elders</b> and <b>patients</b>.</p>
+<p class="intro up d1">Trusted, verified carers at home for <b>children</b>, <b>elders</b>, <b>patients</b> and <b>new mothers</b>.</p>
 
 <div class="tiles up d2" aria-hidden="true">
 <img class="tile" src="toddler.webp" alt="" width="360" height="364">
 <img class="tile" src="elder.webp" alt="" width="360" height="364">
 <img class="tile" src="patient.webp" alt="" width="360" height="349">
+<img class="tile" src="mother.webp" alt="" width="360" height="364">
 </div>
 
 <a class="btn need up d3" href="family.html">
 <span class="shine"></span>
 <span class="ic"><svg class="beat" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.6A4 4 0 0 1 12 8a4 4 0 0 1 7 2.4C19 15.6 12 20 12 20z"/></svg></span>
-<span class="tx"><span class="t1">I need care</span><span class="t2">For my child, parent or a patient at home</span></span>
+<span class="tx"><span class="t1">I need care</span><span class="t2">For my child, parent, a patient or a new mother</span></span>
 <svg class="ar" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
 </a>
 

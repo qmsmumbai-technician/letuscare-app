@@ -31,7 +31,7 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-ui,san
 .tick{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:var(--green);display:none;align-items:center;justify-content:center}
 .sel{border-color:var(--blue);background:#EEF3FC}
 .sel .tick{display:flex}
-.c-t .n{color:#D35400}.c-e .n{color:var(--blue)}.c-p .n{color:#1B7F3B}
+.c-t .n{color:#D35400}.c-e .n{color:var(--blue)}.c-p .n{color:#1B7F3B}.c-m .n{color:#C2185B}
 .homes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .home{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:104px;padding:10px 6px;border-radius:20px;border:2.5px solid var(--line);background:#fff;font-family:inherit;color:var(--ink);font-size:14.5px;font-weight:600;line-height:1.15;text-align:center;cursor:pointer;position:relative}
 .home svg{color:var(--orange)}
@@ -80,6 +80,11 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-ui,san
 <button type="button" class="cat c-p" data-svc="patient" data-label="Patient care">
 <img src="patient.webp" alt="" width="360" height="349">
 <span><span class="n">Patient care</span><span class="d">Nursing, post-surgery, bedside care</span></span>
+<span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+</button>
+<button type="button" class="cat c-m" data-svc="mother" data-label="Post pregnancy massage">
+<img src="mother.webp" alt="" width="360" height="364">
+<span><span class="n">Post pregnancy massage</span><span class="d">Mother and baby massage at home</span></span>
 <span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
 </button>
 </div>
