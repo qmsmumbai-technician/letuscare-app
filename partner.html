@@ -3,34 +3,309 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>I want to give care – Let Us Care</title>
+<title>Join as a care partner – Let Us Care</title>
 <meta name="theme-color" content="#003B9B">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#fff;color:#1D2433;font-family:'Mukta',system-ui,sans-serif}
-.wrap{max-width:480px;margin:0 auto;padding:18px;min-height:100vh;display:flex;flex-direction:column;gap:18px}
+:root{--blue:#003B9B;--orange:#F57502;--orange-dk:#C95A00;--ink:#1D2433;--muted:#5B6475;--line:#E2E6EE;--soft:#FFF5EC;--soft-line:#FBE3CC;--green:#1C8A4A;--red:#C0261F}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-ui,sans-serif}
+.wrap{max-width:480px;margin:0 auto;padding:16px 18px calc(30px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:18px}
 .top{display:flex;align-items:center;gap:12px}
-.back{width:46px;height:46px;border-radius:14px;border:1px solid #FBE3CC;background:#FFF5EC;display:flex;align-items:center;justify-content:center;color:#C95A00;text-decoration:none}
-h1{margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:24px;color:#C95A00}
-.box{border-radius:22px;background:#FFF5EC;border:1px solid #FBE3CC;padding:24px 18px;text-align:center}
-.box img{width:150px;height:auto;border-radius:16px}
-.box h2{font-family:'Baloo 2',sans-serif;font-size:21px;margin:12px 0 4px;color:#1D2433}
-.box p{margin:0;color:#5B6475;font-size:15.5px;line-height:1.45}
-.home{display:block;text-align:center;text-decoration:none;background:#F57502;color:#fff;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:18px;border-radius:18px;padding:14px;box-shadow:0 5px 0 #C95A00}
+.back{width:46px;height:46px;border-radius:14px;border:1px solid var(--soft-line);background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--orange-dk);text-decoration:none;flex-shrink:0}
+.top h1{margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:24px;color:var(--orange-dk);line-height:1.1}
+.top p{margin:0;font-size:14px;color:var(--muted)}
+.hero{display:flex;gap:12px;align-items:center;background:var(--soft);border:1px solid var(--soft-line);border-radius:20px;padding:12px 14px}
+.hero b{display:block;font-family:'Baloo 2',sans-serif;font-size:17px;line-height:1.2;color:var(--ink)}
+.hero span{font-size:14px;color:var(--muted);line-height:1.35}
+.sec{display:flex;flex-direction:column;gap:8px}
+.lbl{font-weight:600;font-size:15px;color:var(--ink)}
+.lbl small{font-weight:400;color:var(--muted);font-size:13px}
+input[type=text],input[type=tel],input[type=number],textarea{width:100%;height:50px;border-radius:14px;border:1.5px solid var(--line);background:#fff;padding:0 14px;font-family:inherit;font-size:16.5px;color:var(--ink);outline:none}
+textarea{height:84px;padding:10px 14px;resize:none}
+input:focus,textarea:focus{border-color:var(--orange)}
+.tel{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:14px;padding-left:14px;background:#fff}
+.tel:focus-within{border-color:var(--orange)}
+.tel b{color:var(--muted);font-weight:500}
+.tel input{border:0;height:48px}
+.photo{display:flex;align-items:center;gap:14px}
+.ph{width:88px;height:88px;border-radius:50%;background:var(--soft);border:2px dashed var(--orange);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:var(--orange)}
+.ph img{width:100%;height:100%;object-fit:cover}
+.pbtn{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 16px;border-radius:14px;border:1.5px solid var(--orange);color:var(--orange-dk);background:#fff;font-weight:600;font-size:15px;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-family:inherit;font-size:15px;color:var(--ink);cursor:pointer}
+.chip.on{border-color:var(--orange);background:var(--soft);color:var(--orange-dk);font-weight:600}
+.chip.on::before{content:"";width:16px;height:16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C95A00' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.gps{display:flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:14px;border:1.5px solid var(--blue);background:#fff;color:var(--blue);font-family:inherit;font-weight:600;font-size:15.5px;cursor:pointer;width:100%}
+.gps.ok{border-color:var(--green);color:var(--green);background:#EEF8F1}
+.note{font-size:13.5px;color:var(--muted);line-height:1.4}
+.agree{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45;color:var(--ink)}
+.agree input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--orange);flex-shrink:0}
+.go{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:18px;padding:16px;background:var(--orange);color:#fff;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:19px;box-shadow:0 5px 0 var(--orange-dk);cursor:pointer}
+.go:active{transform:translateY(3px);box-shadow:0 2px 0 var(--orange-dk)}
+.go[aria-busy=true]{opacity:.7}
+.err{color:var(--red);font-size:14.5px;text-align:center;min-height:1em;margin:-6px 0 0}
+.card{border-radius:22px;border:1.5px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:12px}
+.status{display:flex;gap:12px;align-items:center}
+.status .av{width:64px;height:64px;border-radius:50%;object-fit:cover;background:var(--soft);flex-shrink:0}
+.status b{display:block;font-family:'Baloo 2',sans-serif;font-size:20px;line-height:1.15}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px}
+.b-pend{background:#FFF1DC;color:#7A4A00}.b-ok{background:#E3F4E9;color:#14693A}
+.steps{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.steps li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.4}
+.steps .d{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:#EEF0F4;color:var(--muted)}
+.steps .d.done{background:var(--green);color:#fff}
+.wa{display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:16px;background:#1FA855;color:#fff;text-decoration:none;font-weight:600;font-size:16px}
+.link{background:none;border:0;color:var(--blue);font-family:inherit;font-size:14.5px;text-decoration:underline;cursor:pointer;padding:6px}
+.loading{text-align:center;color:var(--muted);padding:30px 0}
 </style>
 </head>
 <body>
 <main class="wrap">
-<div class="top"><a class="back" href="index.html" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a><h1>I want to give care</h1></div>
-<div class="box">
-<img src="toddler.webp" alt="" width="360" height="364">
-<h2>Registration opens soon</h2>
-<p>Carers, nurses, cooks, tiffin and cleaning partners will register here. After verification, families near you can contact you directly. You keep 100% of what you earn.</p>
+<div class="top">
+<a class="back" href="index.html" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<div><h1>Join as a care partner</h1><p>Free registration · you keep 100%</p></div>
 </div>
-<a class="home" href="index.html">Back to home</a>
+
+<p class="loading" id="loading">Loading…</p>
+
+<!-- REGISTRATION FORM -->
+<form id="form" hidden novalidate>
+<div class="wrap" style="padding:0">
+<div class="hero"><img src="toddler.webp" alt="" width="64" height="64" style="width:64px;height:64px;border-radius:14px;object-fit:cover"><div><b>Help families near your home</b><span>After verification, families can call or WhatsApp you directly. No fee, no commission.</span></div></div>
+
+<div class="sec" id="s-photo">
+<span class="lbl">Your photo <small>(clear face, families will see it)</small></span>
+<div class="photo">
+<div class="ph" id="phBox"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+<label class="pbtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photo<input type="file" id="photo" accept="image/*" hidden></label>
+</div>
+</div>
+
+<div class="sec" id="s-name"><label class="lbl" for="name">Full name</label><input type="text" id="name" autocomplete="name" maxlength="60" placeholder="Sunita Kamble"></div>
+
+<div class="sec" id="s-phone"><label class="lbl" for="phone">Mobile number <small>(WhatsApp number)</small></label>
+<div class="tel"><b>+91</b><input type="tel" id="phone" inputmode="numeric" maxlength="10" placeholder="98XXXXXXXX"></div></div>
+
+<div class="sec" id="s-gender"><span class="lbl">Gender</span>
+<div class="chips" data-group="gender" data-single="1">
+<button type="button" class="chip" data-v="female">Female</button>
+<button type="button" class="chip" data-v="male">Male</button>
+<button type="button" class="chip" data-v="other">Other</button>
+</div></div>
+
+<div class="sec" id="s-services"><span class="lbl">Services you give <small>(choose all that apply)</small></span>
+<div class="chips" data-group="services">
+<button type="button" class="chip" data-v="toddler">Toddler care</button>
+<button type="button" class="chip" data-v="elder">Elder care</button>
+<button type="button" class="chip" data-v="patient">Patient care</button>
+<button type="button" class="chip" data-v="tiffin">Tiffin service</button>
+<button type="button" class="chip" data-v="cook">Cook at home</button>
+<button type="button" class="chip" data-v="cleaning">Cleaning</button>
+</div></div>
+
+<div class="sec" id="s-periods"><span class="lbl">When can you work?</span>
+<div class="chips" data-group="periods">
+<button type="button" class="chip" data-v="24x7">24 x 7 (live-in)</button>
+<button type="button" class="chip" data-v="day">Day basis</button>
+<button type="button" class="chip" data-v="hours">Time slot or hours</button>
+</div></div>
+
+<div class="grid2">
+<div class="sec" id="s-exp"><label class="lbl" for="exp">Experience <small>(years)</small></label><input type="number" id="exp" inputmode="numeric" min="0" max="50" placeholder="5"></div>
+<div class="sec" id="s-rate"><label class="lbl" for="rate">Your rate</label><input type="text" id="rate" maxlength="60" placeholder="₹250 per hour"></div>
+</div>
+
+<div class="sec" id="s-lang"><span class="lbl">Languages you speak</span>
+<div class="chips" data-group="languages">
+<button type="button" class="chip" data-v="Hindi">Hindi</button>
+<button type="button" class="chip" data-v="Marathi">Marathi</button>
+<button type="button" class="chip" data-v="English">English</button>
+<button type="button" class="chip" data-v="Gujarati">Gujarati</button>
+<button type="button" class="chip" data-v="Urdu">Urdu</button>
+</div></div>
+
+<div class="sec"><label class="lbl" for="about">About you <small>(optional)</small></label>
+<textarea id="about" maxlength="300" placeholder="Worked 3 years with a bedridden elder. Can give medicines on time, cook simple food."></textarea></div>
+
+<div class="sec" id="s-area"><label class="lbl" for="area">Your area</label>
+<input type="text" id="area" maxlength="80" placeholder="Nallasopara West, near station">
+<button type="button" class="gps" id="gps"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg><span id="gpsTxt">Use my current location</span></button>
+<span class="note">Your exact location is never shown. Families only see how far away you are.</span>
+</div>
+
+<label class="agree" id="s-agree"><input type="checkbox" id="agree"><span>I agree to share my Aadhaar and police verification certificate with Let Us Care, and that families can see my name, photo, services and number after approval.</span></label>
+
+<p class="err" id="err" role="alert"></p>
+<button type="submit" class="go" id="submit">Register as care partner</button>
+</div>
+</form>
+
+<!-- STATUS AFTER REGISTRATION -->
+<section id="statusView" hidden>
+<div class="card">
+<div class="status"><img class="av" id="stPhoto" alt=""><div><b id="stName"></b><span class="badge" id="stBadge"></span></div></div>
+<ul class="steps">
+<li><span class="d done">✓</span><span>Registration received</span></li>
+<li><span class="d" id="d2">2</span><span><b>Verify your number:</b> tap the green button and send the WhatsApp message as it is.</span></li>
+<li><span class="d" id="d3">3</span><span><b>Send documents</b> in the same WhatsApp chat: Aadhaar card and police verification certificate (or its application receipt).</span></li>
+<li><span class="d" id="d4">4</span><span><b>Approval:</b> once checked, families near you can see you and call you.</span></li>
+</ul>
+<a class="wa" id="waBtn" href="#" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.6-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>Verify on WhatsApp</a>
+</div>
+<p class="note" style="text-align:center">You can close the app. Your status updates here automatically.</p>
+<button type="button" class="link" id="again">Register a different number</button>
+</section>
 </main>
+
+<script>
+/* ---------- settings ---------- */
+var WHATSAPP_NUMBER = '919860046593'; // Let Us Care verification WhatsApp (with 91)
+
+/* ---------- small helpers ---------- */
+function $(id){return document.getElementById(id);}
+var state={gender:[],services:[],periods:[],languages:[],photo:'',lat:null,lng:null};
+function showErr(msg,secId){$('err').textContent=msg;if(secId&&$(secId)){$(secId).scrollIntoView({behavior:'smooth',block:'center'});}}
+
+/* chips */
+document.querySelectorAll('.chips').forEach(function(g){
+  var key=g.dataset.group,single=!!g.dataset.single;
+  g.querySelectorAll('.chip').forEach(function(c){
+    c.setAttribute('aria-pressed','false');
+    c.addEventListener('click',function(){
+      if(single){g.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-pressed','false');});state[key]=[];}
+      var on=!c.classList.contains('on');
+      c.classList.toggle('on',on);c.setAttribute('aria-pressed',on?'true':'false');
+      if(on){state[key].push(c.dataset.v);}else{state[key]=state[key].filter(function(v){return v!==c.dataset.v;});}
+      $('err').textContent='';
+    });
+  });
+});
+
+/* photo: shrink to 240px JPEG so it fits in the database */
+$('photo').addEventListener('change',function(e){
+  var f=e.target.files&&e.target.files[0];if(!f)return;
+  var img=new Image(),url=URL.createObjectURL(f);
+  img.onload=function(){
+    var s=240,c=document.createElement('canvas');c.width=s;c.height=s;
+    var m=Math.min(img.width,img.height),sx=(img.width-m)/2,sy=(img.height-m)/2;
+    c.getContext('2d').drawImage(img,sx,sy,m,m,0,0,s,s);
+    state.photo=c.toDataURL('image/jpeg',0.72);
+    $('phBox').innerHTML='<img alt="Your photo" src="'+state.photo+'">';
+    URL.revokeObjectURL(url);$('err').textContent='';
+  };
+  img.onerror=function(){showErr('That photo could not be opened. Please try another one.','s-photo');};
+  img.src=url;
+});
+
+/* GPS */
+$('gps').addEventListener('click',function(){
+  if(!navigator.geolocation){showErr('Location is not available on this phone.','s-area');return;}
+  $('gpsTxt').textContent='Finding your location…';
+  navigator.geolocation.getCurrentPosition(function(p){
+    state.lat=+p.coords.latitude.toFixed(5);state.lng=+p.coords.longitude.toFixed(5);
+    $('gps').classList.add('ok');$('gpsTxt').textContent='Location saved';$('err').textContent='';
+  },function(){
+    $('gpsTxt').textContent='Use my current location';
+    showErr('Please allow location access, then tap the button again.','s-area');
+  },{enableHighAccuracy:true,timeout:15000,maximumAge:60000});
+});
+
+/* ---------- Firebase (loaded only when needed) ---------- */
+var FB=null;
+function loadFirebase(){
+  if(FB)return Promise.resolve(FB);
+  var V='10.12.2',B='https://www.gstatic.com/firebasejs/'+V+'/';
+  return Promise.all([import(B+'firebase-app.js'),import(B+'firebase-auth.js'),import(B+'firebase-firestore.js'),import('./firebase-config.js')])
+  .then(function(m){
+    var app=m[0].initializeApp(m[3].firebaseConfig);
+    FB={auth:m[1].getAuth(app),A:m[1],db:m[2].getFirestore(app),F:m[2]};
+    return FB;
+  });
+}
+function signIn(){
+  return loadFirebase().then(function(fb){
+    if(fb.auth.currentUser)return fb.auth.currentUser;
+    return new Promise(function(res){var u=fb.A.onAuthStateChanged(fb.auth,function(user){u();res(user);});})
+      .then(function(user){return user||fb.A.signInAnonymously(fb.auth).then(function(r){return r.user;});});
+  });
+}
+
+/* ---------- views ---------- */
+function showForm(){$('loading').hidden=true;$('statusView').hidden=true;$('form').hidden=false;}
+function waLink(name,phone){
+  var t='Let Us Care - care partner verification\nName: '+name+'\nMobile: '+phone+'\nI will send my Aadhaar and police verification certificate in this chat.';
+  return 'https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(t);
+}
+function showStatus(d){
+  $('loading').hidden=true;$('form').hidden=true;$('statusView').hidden=false;
+  $('stPhoto').src=d.photo||'icon-192.png';$('stName').textContent=d.name;
+  var ok=d.status==='approved';
+  $('stBadge').className='badge '+(ok?'b-ok':'b-pend');
+  $('stBadge').textContent=ok?'Approved · families can see you':'Under review';
+  if(d.numberVerified){$('d2').className='d done';$('d2').textContent='✓';}
+  if(d.policeVerified){$('d3').className='d done';$('d3').textContent='✓';}
+  if(ok){$('d4').className='d done';$('d4').textContent='✓';}
+  $('waBtn').href=waLink(d.name,d.phone);
+  $('waBtn').hidden=!!d.numberVerified&&ok;
+}
+function checkExisting(){
+  var phone=null;try{phone=localStorage.getItem('luc_partner_phone');}catch(e){}
+  if(!phone){showForm();return;}
+  signIn().then(function(){
+    return FB.F.getDoc(FB.F.doc(FB.db,'partners',phone));
+  }).then(function(snap){
+    if(snap.exists()){showStatus(snap.data());}else{try{localStorage.removeItem('luc_partner_phone');}catch(e){}showForm();}
+  }).catch(function(){showForm();});
+}
+$('again').addEventListener('click',function(){try{localStorage.removeItem('luc_partner_phone');}catch(e){}location.reload();});
+
+/* ---------- submit ---------- */
+$('form').addEventListener('submit',function(e){
+  e.preventDefault();
+  var name=$('name').value.trim().replace(/\s+/g,' ');
+  var phone=$('phone').value.replace(/\D/g,'').slice(-10);
+  var exp=parseInt($('exp').value,10);
+  var rate=$('rate').value.trim(),area=$('area').value.trim(),about=$('about').value.trim();
+  if(!state.photo)return showErr('Please add your photo.','s-photo');
+  if(name.length<2)return showErr('Please enter your full name.','s-name');
+  if(!/^[6-9]\d{9}$/.test(phone))return showErr('Please enter a valid 10-digit mobile number.','s-phone');
+  if(!state.gender.length)return showErr('Please choose your gender.','s-gender');
+  if(!state.services.length)return showErr('Please choose at least one service.','s-services');
+  if(!state.periods.length)return showErr('Please choose when you can work.','s-periods');
+  if(isNaN(exp)||exp<0||exp>50)return showErr('Please enter your experience in years (0 if new).','s-exp');
+  if(!rate)return showErr('Please enter your rate, for example ₹250 per hour.','s-rate');
+  if(!state.languages.length)return showErr('Please choose the languages you speak.','s-lang');
+  if(area.length<2)return showErr('Please enter your area.','s-area');
+  if(state.lat===null)return showErr('Please tap "Use my current location".','s-area');
+  if(!$('agree').checked)return showErr('Please tick the agreement box.','s-agree');
+
+  var btn=$('submit');btn.setAttribute('aria-busy','true');btn.textContent='Saving…';$('err').textContent='';
+  signIn().then(function(user){
+    var data={name:name,phone:phone,gender:state.gender[0],services:state.services,periods:state.periods,
+      experience:exp,languages:state.languages,rate:rate,about:about,area:area,lat:state.lat,lng:state.lng,
+      photo:state.photo,ownerUid:user.uid,status:'pending',numberVerified:false,policeVerified:false,
+      createdAt:FB.F.serverTimestamp()};
+    return FB.F.setDoc(FB.F.doc(FB.db,'partners',phone),data).then(function(){return data;});
+  }).then(function(data){
+    try{localStorage.setItem('luc_partner_phone',phone);}catch(e){}
+    showStatus(data);window.scrollTo({top:0,behavior:'smooth'});
+  }).catch(function(err){
+    btn.removeAttribute('aria-busy');btn.textContent='Register as care partner';
+    var code=(err&&err.code)||'';
+    if(code.indexOf('permission-denied')>-1)showErr('This mobile number is already registered. If it is yours, message us on WhatsApp.');
+    else if(code.indexOf('admin-restricted')>-1||code.indexOf('operation-not-allowed')>-1)showErr('Registration is not switched on yet. Please try again later.');
+    else showErr('Could not save. Please check your internet and try again.');
+  });
+});
+
+checkExisting();
+</script>
 </body>
 </html>
