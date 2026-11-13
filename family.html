@@ -23,10 +23,10 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-ui,san
 .num{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .step h2{margin:0;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:20px;line-height:1.1}
 .cats{display:flex;flex-direction:column;gap:12px}
-.cat{display:flex;align-items:center;gap:14px;width:100%;padding:10px 14px 10px 10px;border-radius:22px;border:2.5px solid var(--line);background:#fff;text-align:left;font-family:inherit;color:inherit;cursor:pointer;position:relative;transition:border-color .2s,background .2s,transform .1s}
+.cat{text-decoration:none;display:flex;align-items:center;gap:14px;width:100%;padding:10px 14px 10px 10px;border-radius:22px;border:2.5px solid var(--line);background:#fff;text-align:left;font-family:inherit;color:inherit;cursor:pointer;position:relative;transition:border-color .2s,background .2s,transform .1s}
 .cat:active{transform:scale(.985)}
 .cat img{width:96px;height:96px;object-fit:cover;object-position:center 62%;border-radius:16px;flex-shrink:0}
-.cat .n{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:21px;line-height:1.1;display:block}
+.chev{flex-shrink:0;margin-left:auto}.cat .n{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:21px;line-height:1.1;display:block}
 .cat .d{font-size:14.5px;color:var(--muted);line-height:1.3;display:block;margin-top:2px}
 .tick{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:var(--green);display:none;align-items:center;justify-content:center}
 .sel{border-color:var(--blue);background:#EEF3FC}
@@ -55,102 +55,47 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-ui,san
 @keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:no-preference){.sel .tick{animation:pop .3s ease-out}.up{animation:rise .5s ease-out both}.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}}
+.soon{margin:0;border-radius:14px;background:#EEF3FC;color:#1E3A6E;padding:12px 14px;font-size:15px;text-align:center}
 </style>
 </head>
 <body>
 <main class="wrap">
 <div class="top">
 <a class="back" href="index.html" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
-<div><h1>I need care</h1><p>Choose what you need, then for how long</p></div>
+<div><h1>I need care</h1><p>Tap who needs care</p></div>
 </div>
 
 <section class="up d1">
-<div class="step"><span class="num">1</span><h2>Who needs care?</h2></div>
+
 <div class="cats">
-<button type="button" class="cat c-t" data-svc="toddler" data-label="Toddler care">
+<a class="cat c-t" href="toddler.html" data-svc="toddler" data-label="Toddler care">
 <img src="toddler.webp" alt="" width="360" height="364">
 <span><span class="n">Toddler care</span><span class="d">Nanny, babysitter, child day care</span></span>
-<span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
-</button>
+<svg class="chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA3B2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+</a>
 <button type="button" class="cat c-e" data-svc="elder" data-label="Elder care">
 <img src="elder.webp" alt="" width="360" height="364">
 <span><span class="n">Elder care</span><span class="d">Caregiver, companion, physio support</span></span>
-<span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+<svg class="chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA3B2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
 </button>
 <button type="button" class="cat c-p" data-svc="patient" data-label="Patient care">
 <img src="patient.webp" alt="" width="360" height="349">
 <span><span class="n">Patient care</span><span class="d">Nursing, post-surgery, bedside care</span></span>
-<span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+<svg class="chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA3B2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
 </button>
 <button type="button" class="cat c-m" data-svc="mother" data-label="Post pregnancy massage">
 <img src="mother.webp" alt="" width="360" height="364">
 <span><span class="n">Post pregnancy massage</span><span class="d">Mother and baby massage at home</span></span>
-<span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+<svg class="chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA3B2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
 </button>
 </div>
 </section>
 
-<section class="up d2">
-<p class="or">or choose a home service</p>
-<div class="homes" style="margin-top:10px">
-<button type="button" class="home" data-svc="tiffin" data-label="Tiffin service">
-<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="6" y="4" width="12" height="5" rx="1.5"/><rect x="6" y="10" width="12" height="5" rx="1.5"/><rect x="6" y="16" width="12" height="5" rx="1.5"/><path d="M4 6c-1.5 3-1.5 10 0 13M20 6c1.5 3 1.5 10 0 13"/></svg>Tiffin service
-<span class="tick"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span></button>
-<button type="button" class="home" data-svc="cook" data-label="Cook at home">
-<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><ellipse cx="11" cy="15" rx="8" ry="3.5"/><path d="M19 15l3-1.5"/><path d="M7 6c0 1.5 1 1.5 1 3M11 5c0 1.5 1 1.5 1 3M15 6c0 1.5 1 1.5 1 3"/></svg>Cook at home
-<span class="tick"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span></button>
-<button type="button" class="home" data-svc="cleaning" data-label="Cleaning">
-<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="9" width="9" height="12" rx="2"/><path d="M8 9V5h5v4M13 6h4"/><path d="M19.5 3l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4L17.5 5l1.4-.6z"/></svg>Cleaning
-<span class="tick"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span></button>
-</div>
-</section>
-
-<section class="up d3">
-<div class="step"><span class="num">2</span><h2>For how long?</h2></div>
-<div class="periods">
-<button type="button" class="per" data-per="24x7" data-label="24 x 7">
-<span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9H3z"/><path d="M10 20v-5h4v5"/></svg></span>
-<span><span class="n">24 x 7</span><span class="d">Live-in, stays at home round the clock</span></span></button>
-<button type="button" class="per" data-per="day" data-label="Day basis">
-<span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></span>
-<span><span class="n">Day basis</span><span class="d">Day shift only, goes home at night</span></span></button>
-<button type="button" class="per" data-per="hours" data-label="Time slot / hours">
-<span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-<span><span class="n">Time slot or hours</span><span class="d">Only the hours you need</span></span></button>
-</div>
-</section>
-
-<p class="err" id="err" role="alert"></p>
-<button type="button" class="go" id="go">Find carers near me
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-
-<div class="done" id="done" role="status">
-<h3>Noted: <span id="sum"></span></h3>
-<p>Carers are registering now. Very soon you'll see <b>verified carers near your home</b> here and can call or WhatsApp them directly.</p>
-</div>
+<p class="soon" id="soon" role="status" hidden></p>
 </main>
 <script>
-(function(){
-  var svc=null, per=null;
-  var err=document.getElementById('err');
-  function pickSvc(btn){
-    document.querySelectorAll('[data-svc]').forEach(function(b){b.classList.remove('sel');b.setAttribute('aria-pressed','false');});
-    btn.classList.add('sel');btn.setAttribute('aria-pressed','true');svc=btn;err.textContent='';
-  }
-  function pickPer(btn){
-    document.querySelectorAll('[data-per]').forEach(function(b){b.classList.remove('sel');b.setAttribute('aria-pressed','false');});
-    btn.classList.add('sel');btn.setAttribute('aria-pressed','true');per=btn;err.textContent='';
-  }
-  document.querySelectorAll('[data-svc]').forEach(function(b){b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){pickSvc(b);});});
-  document.querySelectorAll('[data-per]').forEach(function(b){b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){pickPer(b);});});
-  document.getElementById('go').addEventListener('click',function(){
-    if(!svc){err.textContent='Please choose who needs care, or a home service.';svc=null;window.scrollTo({top:0,behavior:'smooth'});return;}
-    if(!per){err.textContent='Please choose for how long you need it.';return;}
-    try{localStorage.setItem('luc_need',JSON.stringify({svc:svc.dataset.svc,per:per.dataset.per,at:Date.now()}));}catch(e){}
-    document.getElementById('sum').textContent=svc.dataset.label+', '+per.dataset.label;
-    var d=document.getElementById('done');d.style.display='block';d.scrollIntoView({behavior:'smooth',block:'center'});
-  });
-})();
+document.querySelectorAll('button.cat').forEach(function(b){b.addEventListener('click',function(){var s=document.getElementById('soon');s.textContent=b.dataset.label+' details page is coming very soon.';s.hidden=false;s.scrollIntoView({behavior:'smooth',block:'center'});});});
 </script>
+
 </body>
 </html>
