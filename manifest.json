@@ -1,0 +1,19 @@
+{
+  "name": "Let Us Care – Caring your loved ones",
+  "short_name": "Let Us Care",
+  "description": "Free community app for trusted toddler, elder and patient care at home, plus tiffin, home cooks and cleaning.",
+  "id": "./index.html",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFFFF",
+  "theme_color": "#003B9B",
+  "lang": "en-IN",
+  "categories": ["medical", "lifestyle", "health"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
