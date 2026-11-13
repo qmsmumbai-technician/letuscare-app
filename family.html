@@ -7,30 +7,145 @@
 <meta name="theme-color" content="#003B9B">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#fff;color:#1D2433;font-family:'Mukta',system-ui,sans-serif}
-.wrap{max-width:480px;margin:0 auto;padding:18px;min-height:100vh;display:flex;flex-direction:column;gap:18px}
+:root{--blue:#003B9B;--blue-dk:#022A6E;--orange:#F57502;--orange-dk:#C95A00;--ink:#1D2433;--muted:#5B6475;--line:#E2E6EE;--soft:#F4F7FC;--green:#1C8A4A}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-ui,sans-serif}
+.wrap{max-width:480px;margin:0 auto;padding:16px 18px calc(28px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:20px}
 .top{display:flex;align-items:center;gap:12px}
-.back{width:46px;height:46px;border-radius:14px;border:1px solid #E7EAF0;background:#F4F7FC;display:flex;align-items:center;justify-content:center;color:#003B9B;text-decoration:none}
-h1{margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:24px;color:#003B9B}
-.box{border-radius:22px;background:#F4F7FC;border:1px solid #E7EAF0;padding:24px 18px;text-align:center}
-.box img{width:150px;height:auto;border-radius:16px}
-.box h2{font-family:'Baloo 2',sans-serif;font-size:21px;margin:12px 0 4px;color:#1D2433}
-.box p{margin:0;color:#5B6475;font-size:15.5px;line-height:1.45}
-.home{display:block;text-align:center;text-decoration:none;background:#003B9B;color:#fff;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:18px;border-radius:18px;padding:14px;box-shadow:0 5px 0 #022A6E}
+.back{width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--blue);text-decoration:none;flex-shrink:0}
+.top h1{margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:24px;color:var(--blue);line-height:1.1}
+.top p{margin:0;font-size:14px;color:var(--muted)}
+.step{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.num{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step h2{margin:0;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:20px;line-height:1.1}
+.cats{display:flex;flex-direction:column;gap:12px}
+.cat{display:flex;align-items:center;gap:14px;width:100%;padding:10px 14px 10px 10px;border-radius:22px;border:2.5px solid var(--line);background:#fff;text-align:left;font-family:inherit;color:inherit;cursor:pointer;position:relative;transition:border-color .2s,background .2s,transform .1s}
+.cat:active{transform:scale(.985)}
+.cat img{width:96px;height:96px;object-fit:cover;object-position:center 62%;border-radius:16px;flex-shrink:0}
+.cat .n{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:21px;line-height:1.1;display:block}
+.cat .d{font-size:14.5px;color:var(--muted);line-height:1.3;display:block;margin-top:2px}
+.tick{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:var(--green);display:none;align-items:center;justify-content:center}
+.sel{border-color:var(--blue);background:#EEF3FC}
+.sel .tick{display:flex}
+.c-t .n{color:#D35400}.c-e .n{color:var(--blue)}.c-p .n{color:#1B7F3B}
+.homes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.home{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:104px;padding:10px 6px;border-radius:20px;border:2.5px solid var(--line);background:#fff;font-family:inherit;color:var(--ink);font-size:14.5px;font-weight:600;line-height:1.15;text-align:center;cursor:pointer;position:relative}
+.home svg{color:var(--orange)}
+.home.sel{border-color:var(--orange);background:#FFF5EC}
+.home .tick{top:6px;right:6px;width:22px;height:22px;background:var(--orange)}
+.or{text-align:center;font-size:13.5px;color:var(--muted);margin:-6px 0 0}
+.periods{display:flex;flex-direction:column;gap:10px}
+.per{display:flex;align-items:center;gap:14px;width:100%;padding:12px 14px;border-radius:18px;border:2.5px solid var(--line);background:#fff;font-family:inherit;color:inherit;text-align:left;cursor:pointer;position:relative}
+.per .ic{width:46px;height:46px;border-radius:14px;background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--blue);flex-shrink:0}
+.per .n{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:19px;line-height:1.1;display:block}
+.per .d{font-size:14px;color:var(--muted);display:block}
+.per.sel{border-color:var(--blue);background:#EEF3FC}
+.per.sel .ic{background:var(--blue);color:#fff}
+.go{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:18px;padding:16px;background:var(--blue);color:#fff;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:19px;box-shadow:0 5px 0 var(--blue-dk);cursor:pointer}
+.go:active{transform:translateY(3px);box-shadow:0 2px 0 var(--blue-dk)}
+.err{color:#C0261F;font-size:14.5px;text-align:center;margin:-8px 0 0;min-height:1em}
+.done{display:none;border-radius:22px;background:#EEF8F1;border:1.5px solid #BFE3CB;padding:18px;text-align:center}
+.done h3{margin:0 0 4px;font-family:'Baloo 2',sans-serif;font-size:20px;color:var(--green)}
+.done p{margin:0;font-size:15px;line-height:1.45;color:var(--ink)}
+.done b{color:var(--blue)}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){.sel .tick{animation:pop .3s ease-out}.up{animation:rise .5s ease-out both}.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}}
 </style>
 </head>
 <body>
 <main class="wrap">
-<div class="top"><a class="back" href="index.html" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a><h1>I need care</h1></div>
-<div class="box">
-<img src="elder.webp" alt="" width="360" height="364">
-<h2>Coming very soon</h2>
-<p>Here you'll choose toddler, elder or patient care, or tiffin, cooking and cleaning, and see verified carers near your home.</p>
+<div class="top">
+<a class="back" href="index.html" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<div><h1>I need care</h1><p>Choose what you need, then for how long</p></div>
 </div>
-<a class="home" href="index.html">Back to home</a>
+
+<section class="up d1">
+<div class="step"><span class="num">1</span><h2>Who needs care?</h2></div>
+<div class="cats">
+<button type="button" class="cat c-t" data-svc="toddler" data-label="Toddler care">
+<img src="toddler.webp" alt="" width="360" height="364">
+<span><span class="n">Toddler care</span><span class="d">Nanny, babysitter, child day care</span></span>
+<span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+</button>
+<button type="button" class="cat c-e" data-svc="elder" data-label="Elder care">
+<img src="elder.webp" alt="" width="360" height="364">
+<span><span class="n">Elder care</span><span class="d">Caregiver, companion, physio support</span></span>
+<span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+</button>
+<button type="button" class="cat c-p" data-svc="patient" data-label="Patient care">
+<img src="patient.webp" alt="" width="360" height="349">
+<span><span class="n">Patient care</span><span class="d">Nursing, post-surgery, bedside care</span></span>
+<span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+</button>
+</div>
+</section>
+
+<section class="up d2">
+<p class="or">or choose a home service</p>
+<div class="homes" style="margin-top:10px">
+<button type="button" class="home" data-svc="tiffin" data-label="Tiffin service">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="6" y="4" width="12" height="5" rx="1.5"/><rect x="6" y="10" width="12" height="5" rx="1.5"/><rect x="6" y="16" width="12" height="5" rx="1.5"/><path d="M4 6c-1.5 3-1.5 10 0 13M20 6c1.5 3 1.5 10 0 13"/></svg>Tiffin service
+<span class="tick"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+<button type="button" class="home" data-svc="cook" data-label="Cook at home">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><ellipse cx="11" cy="15" rx="8" ry="3.5"/><path d="M19 15l3-1.5"/><path d="M7 6c0 1.5 1 1.5 1 3M11 5c0 1.5 1 1.5 1 3M15 6c0 1.5 1 1.5 1 3"/></svg>Cook at home
+<span class="tick"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+<button type="button" class="home" data-svc="cleaning" data-label="Cleaning">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="9" width="9" height="12" rx="2"/><path d="M8 9V5h5v4M13 6h4"/><path d="M19.5 3l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4L17.5 5l1.4-.6z"/></svg>Cleaning
+<span class="tick"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+</div>
+</section>
+
+<section class="up d3">
+<div class="step"><span class="num">2</span><h2>For how long?</h2></div>
+<div class="periods">
+<button type="button" class="per" data-per="24x7" data-label="24 x 7">
+<span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9H3z"/><path d="M10 20v-5h4v5"/></svg></span>
+<span><span class="n">24 x 7</span><span class="d">Live-in, stays at home round the clock</span></span></button>
+<button type="button" class="per" data-per="day" data-label="Day basis">
+<span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></span>
+<span><span class="n">Day basis</span><span class="d">Day shift only, goes home at night</span></span></button>
+<button type="button" class="per" data-per="hours" data-label="Time slot / hours">
+<span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+<span><span class="n">Time slot or hours</span><span class="d">Only the hours you need</span></span></button>
+</div>
+</section>
+
+<p class="err" id="err" role="alert"></p>
+<button type="button" class="go" id="go">Find carers near me
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+
+<div class="done" id="done" role="status">
+<h3>Noted: <span id="sum"></span></h3>
+<p>Carers are registering now. Very soon you'll see <b>verified carers near your home</b> here and can call or WhatsApp them directly.</p>
+</div>
 </main>
+<script>
+(function(){
+  var svc=null, per=null;
+  var err=document.getElementById('err');
+  function pickSvc(btn){
+    document.querySelectorAll('[data-svc]').forEach(function(b){b.classList.remove('sel');b.setAttribute('aria-pressed','false');});
+    btn.classList.add('sel');btn.setAttribute('aria-pressed','true');svc=btn;err.textContent='';
+  }
+  function pickPer(btn){
+    document.querySelectorAll('[data-per]').forEach(function(b){b.classList.remove('sel');b.setAttribute('aria-pressed','false');});
+    btn.classList.add('sel');btn.setAttribute('aria-pressed','true');per=btn;err.textContent='';
+  }
+  document.querySelectorAll('[data-svc]').forEach(function(b){b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){pickSvc(b);});});
+  document.querySelectorAll('[data-per]').forEach(function(b){b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){pickPer(b);});});
+  document.getElementById('go').addEventListener('click',function(){
+    if(!svc){err.textContent='Please choose who needs care, or a home service.';svc=null;window.scrollTo({top:0,behavior:'smooth'});return;}
+    if(!per){err.textContent='Please choose for how long you need it.';return;}
+    try{localStorage.setItem('luc_need',JSON.stringify({svc:svc.dataset.svc,per:per.dataset.per,at:Date.now()}));}catch(e){}
+    document.getElementById('sum').textContent=svc.dataset.label+', '+per.dataset.label;
+    var d=document.getElementById('done');d.style.display='block';d.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+})();
+</script>
 </body>
 </html>
