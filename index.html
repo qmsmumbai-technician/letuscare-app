@@ -20,7 +20,7 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta V
 .logo{display:block;width:auto;max-width:100%;height:15vh;height:15dvh;max-height:150px;min-height:84px;object-fit:contain;margin:0 auto}
 .intro{text-align:center;margin:0;font-size:13.5px;color:var(--muted);line-height:1.35}
 .intro b{color:var(--blue);font-weight:600}
-.tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;align-items:end;max-width:400px;width:100%;margin:0 auto}
+.tiles{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;align-items:end;max-width:400px;width:100%;margin:0 auto}
 .tile{display:block;width:100%;height:auto;border-radius:12px}
 .btn{display:flex;align-items:center;gap:12px;text-decoration:none;border-radius:18px;padding:8px 14px;min-height:62px;color:#fff;position:relative;overflow:hidden}
 .btn .ic{width:44px;height:44px;border-radius:13px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -59,7 +59,7 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta V
 @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.08)}}
 @media (prefers-reduced-motion:no-preference){
 .up{animation:rise .55s ease-out both}.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}.d5{animation-delay:.4s}
-.tile{animation:bob 3.6s ease-in-out infinite}.tile:nth-child(2){animation-delay:.5s}.tile:nth-child(3){animation-delay:1s}.tile:nth-child(4){animation-delay:1.5s}.tile:nth-child(5){animation-delay:2s}
+.tile{animation:bob 3.6s ease-in-out infinite}.tile:nth-child(2){animation-delay:.5s}.tile:nth-child(3){animation-delay:1s}.tile:nth-child(4){animation-delay:1.5s}.tile:nth-child(5){animation-delay:2s}.tile:nth-child(6){animation-delay:2.5s}
 .shine{animation:shine 3.4s ease-in-out infinite}.give .shine{animation-delay:1.7s}
 .beat{animation:beat 1.6s ease-in-out infinite;transform-origin:center}
 }
@@ -76,6 +76,7 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta V
 <img class="tile" src="patient.webp" alt="" width="360" height="349">
 <img class="tile" src="mother.webp" alt="" width="360" height="364">
 <img class="tile" src="special.webp" alt="" width="360" height="364">
+<img class="tile" src="physio.webp" alt="" width="360" height="364">
 </div>
 
 <a class="btn need up d3" href="family.html">

@@ -31,7 +31,7 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani'
 .tick{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:var(--green);display:none;align-items:center;justify-content:center}
 .sel{border-color:var(--blue);background:#EEF3FC}
 .sel .tick{display:flex}
-.c-t .n{color:#D35400}.c-e .n{color:var(--blue)}.c-p .n{color:#1B7F3B}.c-m .n{color:#C2185B}.c-s .n{color:#6A1B9A}
+.c-t .n{color:#D35400}.c-e .n{color:var(--blue)}.c-p .n{color:#1B7F3B}.c-m .n{color:#C2185B}.c-s .n{color:#6A1B9A}.c-y .n{color:#B7791F}
 .homes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .home{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:104px;padding:10px 6px;border-radius:20px;border:2.5px solid var(--line);background:#fff;font-family:inherit;color:var(--ink);font-size:14.5px;font-weight:600;line-height:1.15;text-align:center;cursor:pointer;position:relative}
 .home svg{color:var(--orange)}
@@ -60,9 +60,9 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani'
 /* compact: all 5 cards on one screen */
 .wrap{gap:10px;padding-top:10px;min-height:100dvh}
 .top h1{font-size:22px}.top p{font-size:13.5px}.back{width:40px;height:40px;border-radius:12px}
-.cats{gap:8px}
+.cats{gap:7px}
 .cat{padding:6px 10px 6px 6px;gap:10px;border-radius:18px;border-width:2px}
-.cat img{width:clamp(56px,10.5dvh,84px);height:clamp(56px,10.5dvh,84px);border-radius:12px}
+.cat img{width:clamp(52px,9dvh,76px);height:clamp(52px,9dvh,76px);border-radius:12px}
 .cat .n{font-size:18px}
 .cat .d{font-size:13px;line-height:1.25;margin-top:1px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .chev{width:20px;height:20px}
@@ -93,9 +93,9 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani'
 <span><span class="n">Patient care</span><span class="d">Nursing, post-surgery, bedside care</span></span>
 <svg class="chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA3B2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
 </a>
-<a class="cat c-m" href="mother.html" data-svc="mother" data-label="Post pregnancy massage">
+<a class="cat c-m" href="mother.html" data-svc="mother" data-label="Mother and newborn care">
 <img src="mother.webp" alt="" width="360" height="364">
-<span><span class="n">Post pregnancy massage</span><span class="d">Mother and baby massage at home</span></span>
+<span><span class="n">Mother and newborn care</span><span class="d">Japa maid, mother and baby massage</span></span>
 <svg class="chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA3B2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
 </a>
 <a class="cat c-s" href="special.html" data-svc="special" data-label="Special needs care">
@@ -103,6 +103,11 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani'
 <span><span class="n">Special needs care</span><span class="d">Wheelchair users, blind or low vision, autism, intellectual disability</span></span>
 <svg class="chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA3B2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
 </a>
+<button type="button" class="cat c-y" data-svc="physio" data-label="Physiotherapy at home">
+<img src="physio.webp" alt="" width="360" height="364">
+<span><span class="n">Physiotherapy at home</span><span class="d">After stroke, fracture, knee or hip surgery</span></span>
+<svg class="chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA3B2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+</button>
 </div>
 </section>
 
