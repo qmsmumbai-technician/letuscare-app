@@ -72,9 +72,9 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani'
 .wrap>section{flex:1 0 auto;display:flex}
 .cats{flex:1 0 auto;width:100%}
 .cat{flex:1 0 auto;min-width:0;padding:6px 10px 6px 6px}.cat>span{flex:1;min-width:0}
-.cat img{width:clamp(64px,10.5dvh,96px);height:clamp(64px,10.5dvh,96px)}
-.cat .n{font-size:clamp(17px,2.55dvh,21px);line-height:1.12}
-.cat .d{font-size:clamp(13px,1.95dvh,15px);line-height:1.25}
+.cat img{width:calc(clamp(64px,10.5dvh,96px)*var(--k,1));height:calc(clamp(64px,10.5dvh,96px)*var(--k,1))}
+.cat .n{font-size:calc(clamp(17px,2.55dvh,21px)*var(--k,1));line-height:1.12}
+.cat .d{font-size:calc(clamp(13px,1.95dvh,15px)*var(--k,1));line-height:1.25}
 </style>
 </head>
 <body>
@@ -127,5 +127,19 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani'
 document.querySelectorAll('button.cat').forEach(function(b){b.addEventListener('click',function(){var s=document.getElementById('soon');s.textContent=LUC.T(b.dataset.label)+' – '+LUC.T('This page is coming very soon.');s.hidden=false;s.scrollIntoView({behavior:'smooth',block:'center'});});});
 </script>
 
+<script>
+/* shrink the cards a little until all six fit on one screen (fonts differ per language) */
+(function(){
+  var root=document.documentElement;
+  function fit(){
+    var k=1;root.style.setProperty('--k','1');
+    while(k>0.78&&root.scrollHeight>window.innerHeight+1){k=Math.round((k-0.03)*100)/100;root.style.setProperty('--k',String(k));}
+  }
+  var t;function later(){clearTimeout(t);t=setTimeout(fit,60);}
+  window.addEventListener('resize',later);document.addEventListener('langchange',later);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+  window.addEventListener('load',fit);fit();
+})();
+</script>
 </body>
 </html>
