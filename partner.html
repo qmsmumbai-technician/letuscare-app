@@ -211,7 +211,7 @@ input:focus,textarea:focus{border-color:var(--orange)}
 <li>I will respect the family, their home and their privacy.</li>
 <li>I will show my original ID card at the first visit.</li>
 </ul>
-<label class="agree" id="s-agree"><input type="checkbox" id="agree"><span>I agree. After approval, families can see my name, photo, services and number. I will send my Aadhaar and police certificate on WhatsApp for verification.</span></label>
+<label class="agree" id="s-agree"><input type="checkbox" id="agree"><span>I agree. After approval, families can see my name, photo, services and number.</span></label>
 </section>
 
 <p class="err" id="err" role="alert"></p>
@@ -252,8 +252,7 @@ input:focus,textarea:focus{border-color:var(--orange)}
 <ul class="steps">
 <li><span class="d done">✓</span><span>Registration received</span></li>
 <li><span class="d" id="d2">2</span><span><b>Verify your number:</b> tap the green button and send the WhatsApp message as it is.</span></li>
-<li><span class="d" id="d3">3</span><span><b>Send documents</b> in the same WhatsApp chat: Aadhaar card and police verification certificate (or its application receipt).</span></li>
-<li><span class="d" id="d4">4</span><span><b>Approval:</b> once checked, families near you can see you and call you.</span></li>
+<li><span class="d" id="d4">3</span><span><b>Approval:</b> once checked, families near you can see you and call you.</span></li>
 </ul>
 <a class="wa" id="waBtn" href="#" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg><span>Send on WhatsApp</span></a>
 </div>
@@ -455,7 +454,7 @@ $('rListen').addEventListener('click',function(){
   lines.forEach(function(t,i){var u=new SpeechSynthesisUtterance(t);u.lang=loc;if(vo)u.voice=vo;u.rate=0.9;if(i===lines.length-1){u.onend=function(){speaking=false;setLis();};u.onerror=u.onend;}speechSynthesis.speak(u);});
 });
 function waLink(name,phone){
-  var t='Let Us Care - care partner verification\nName: '+name+'\nMobile: '+phone+'\nI will send my Aadhaar and police verification certificate in this chat.';
+  var t='Let Us Care - care partner verification\nName: '+name+'\nMobile: '+phone+'\nPlease verify my number.';
   return 'https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(t);
 }
 var ME=null,EDIT=false;
@@ -484,9 +483,9 @@ function setAvail(on){var b=$('avail');b.classList.toggle('on',on);b.setAttribut
 function showStatus(d){
   ME=d;$('pgTitle').textContent=T('My care partner page');$('pgSub').textContent=T('Free service · families pay you directly');$('loading').hidden=true;$('form').hidden=true;$('statusView').hidden=false;$('statusView').style.display='flex';
   $('stPhoto').src=d.photo||'icon-192.png';$('stName').textContent=d.name;
-  var ok=d.status==='approved',ver=ok&&d.numberVerified&&d.policeVerified;
+  var ok=d.status==='approved',ver=ok&&d.numberVerified;
   $('stBadge').className='badge '+(ver?'b-ver':ok?'b-ok':'b-pend');
-  $('stBadge').textContent=T(ver?'Verified':ok?'Approved · families can see you':'Under review');
+  $('stBadge').textContent=T(ver?'Approved · number verified':ok?'Approved · families can see you':'Under review');
   $('stSvcs').innerHTML=(d.services||[]).map(function(x){return '<img src="'+SVC_IMG[x]+'" alt="'+esc(T(SVC_NAME[x]))+'" title="'+esc(T(SVC_NAME[x]))+'">';}).join('');
   setAvail(d.available!==false);
   var rows=[['Services',(d.services||[]).map(function(x){return T(SVC_NAME[x]);}).join(', ')],
@@ -496,7 +495,6 @@ function showStatus(d){
     ['Languages',(d.languages||[]).map(T).join(', ')],['Area',d.area],['Mobile','+91 '+d.phone]];
   $('stProfile').innerHTML=rows.filter(function(r){return r[1];}).map(function(r){return '<div><i>'+esc(T(r[0]))+'</i><span>'+esc(r[1])+'</span></div>';}).join('');
   if(d.numberVerified){$('d2').className='d done';$('d2').textContent='✓';}
-  if(d.policeVerified){$('d3').className='d done';$('d3').textContent='✓';}
   if(ok){$('d4').className='d done';$('d4').textContent='✓';}
   $('waBtn').href=waLink(d.name,d.phone);$('waBtn2').href=waLink(d.name,d.phone);$('verifyBox').hidden=!!d.numberVerified;
   var ls=d.lastSeen&&d.lastSeen.toMillis?d.lastSeen.toMillis():0;$('stillBox').hidden=!(ls&&Date.now()-ls>30*86400000&&d.available!==false);

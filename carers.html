@@ -58,7 +58,7 @@ body{margin:0;background:#F7F8FA;color:var(--ink);font-family:'Mukta','Mukta Vaa
 </div>
 
 <div class="flt" id="flt">
-<button type="button" data-f="ver">✓ Verified only</button>
+<button type="button" data-f="ver">✓ Number verified only</button>
 <button type="button" data-f="female">Female</button>
 <button type="button" data-f="male">Male</button>
 <button type="button" data-f="Hindi">Hindi</button>
@@ -69,7 +69,7 @@ body{margin:0;background:#F7F8FA;color:var(--ink);font-family:'Mukta','Mukta Vaa
 
 <button type="button" class="locb" id="locBtn" hidden><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg><span>Show nearest carers first</span></button>
 
-<p class="tip">🛡 Safety tip: check the carer's original ID card at the first meeting.</p>
+<p class="tip">🛡 Before hiring, see the carer's original Aadhaar and police verification certificate. Let Us Care checks only the mobile number.</p>
 <p class="lim" id="limit" hidden>You have contacted 10 carers today. To protect carers' numbers, you can contact more tomorrow.</p>
 
 <div id="list" style="display:flex;flex-direction:column;gap:12px"></div>
@@ -108,7 +108,7 @@ function render(){
   $('svcName').textContent=T(S[0]);
   var list=ALL.filter(function(d){
     if(d.available===false)return false;
-    if(F.ver&&!(d.numberVerified&&d.policeVerified))return false;
+    if(F.ver&&!d.numberVerified)return false;
     if(F.female&&d.gender!=='female')return false;
     if(F.male&&d.gender!=='male')return false;
     var langs=['Hindi','Marathi','Gujarati'].filter(function(l){return F[l];});
@@ -117,21 +117,22 @@ function render(){
     if(HERE&&d.km!=null&&d.travelKm&&d.travelKm<20&&d.km>d.travelKm+1)return false;
     return true;
   });
-  list.sort(function(a,b){if(a.km!=null&&b.km!=null)return a.km-b.km;var x=a.numberVerified&&a.policeVerified?0:1,y=b.numberVerified&&b.policeVerified?0:1;return x-y;});
+  list.sort(function(a,b){if(a.km!=null&&b.km!=null)return a.km-b.km;var x=a.numberVerified?0:1,y=b.numberVerified?0:1;return x-y;});
   list=list.slice(0,40);
   $('count').textContent=list.length?(list.length+' '+T(list.length===1?'carer':'carers')+(HERE?' · '+T('nearest first'):'')):T('No carers found');
   if(!list.length){$('list').innerHTML='<p class="msg"><b>'+esc(T('No carers here yet'))+'</b>'+esc(T('Carers are registering now. Please check again in a few days, or remove a filter.'))+'</p>';return;}
   var cols=['#E9A47A','#7FA6E3','#E58FB2','#7DC49A','#B79AE0','#E3B65C'];
   $('list').innerHTML=list.map(function(d,i){
-    var ver=d.numberVerified&&d.policeVerified;
+    var ver=!!d.numberVerified;
     var av=d.photo?'<img class="av" src="'+d.photo+'" alt="">':'<div class="av" style="background:'+cols[i%cols.length]+'">'+esc((d.name||'?').charAt(0).toUpperCase())+'</div>';
     var facts=[];
     if(d.experience!=null)facts.push('🧰 '+d.experience+' '+T('years experience'));
     if((d.languages||[]).length)facts.push('🗣 '+d.languages.map(T).join(', '));
+    if(d.police==='yes')facts.push('🪪 '+T('Police certificate: carer says yes – ask to see it'));else if(d.police==='applied')facts.push('🪪 '+T('Police certificate: applied'));
     if(d.rate)facts.push('💰 '+esc(d.rate)+(d.rateUnit?' '+T(UNIT[d.rateUnit]):''));
     var sk=(d.skills||[]).slice(0,4);
     return '<article class="cr"><div class="hd">'+av+'<div class="nm"><b>'+esc(d.name)+'</b>'+
-      (ver?'<span class="vb ok">✓ '+esc(T('Verified'))+'</span>':'<span class="vb no">'+esc(T('Not verified yet'))+'</span>')+
+      (ver?'<span class="vb ok">✓ '+esc(T('Number verified'))+'</span>':'<span class="vb no">'+esc(T('Number not verified yet'))+'</span>')+
       '<span class="sn">'+esc(seen(d))+'</span></div>'+(d.km!=null?'<span class="km">'+(d.km<1?d.km.toFixed(1):Math.round(d.km*10)/10)+' km</span>':'')+'</div>'+
       (facts.length?'<div class="facts">'+facts.map(function(f){return '<span>'+f+'</span>';}).join('')+'</div>':'')+
       (sk.length?'<div class="sk">'+sk.map(function(s){return '<i>'+esc(T(s))+'</i>';}).join('')+'</div>':'')+
