@@ -111,7 +111,7 @@ function render(){
   $('list').innerHTML=list.map(function(d){
     var st={pending:['t-p','New'],approved:['t-a','Approved'],hidden:['t-h','Hidden']}[d.status]||['t-h',d.status];
     var tags='<span class="tag '+st[0]+'">'+st[1]+'</span>'+(d.numberVerified?'<span class="tag t-v">✓ Number</span>':'<span class="tag t-n">Number not verified</span>')+
-      (d.policeVerified?'<span class="tag t-v">✓ Documents</span>':'')+(d.available===false?'<span class="tag t-h">Not available</span>':'');
+      (d.police==='yes'?'<span class="tag t-h">Says has police certificate</span>':'')+(d.available===false?'<span class="tag t-h">Not available</span>':'');
     var info=[(d.gender||'')+(d.age?', '+d.age+' yrs':''),(d.services||[]).map(function(s){return SVC[s]||s;}).join(', ')];
     if(d.experience!=null)info.push(d.experience+' yrs experience');
     if((d.qual||[]).length)info.push(d.qual.join(', '));
@@ -130,7 +130,6 @@ function render(){
       '<div class="acts"><a class="btn sm w" style="display:inline-flex;align-items:center;text-decoration:none" href="https://wa.me/91'+esc(d.phone)+'" target="_blank" rel="noopener">WhatsApp</a>'+
       '<a class="btn sm o" style="display:inline-flex;align-items:center;text-decoration:none" href="tel:+91'+esc(d.phone)+'">Call</a>'+
       '<button class="btn sm '+(d.numberVerified?'on':'o')+'" data-a="num" data-id="'+d.id+'">'+(d.numberVerified?'✓ Number verified':'Mark number verified')+'</button>'+
-      '<button class="btn sm '+(d.policeVerified?'on':'o')+'" data-a="pol" data-id="'+d.id+'">'+(d.policeVerified?'✓ Documents checked':'Mark documents checked')+'</button>'+
       ap+hd+del+'</div></div>';
   }).join('');
 }
@@ -141,7 +140,6 @@ $('list').addEventListener('click',function(e){
   if(a==='delete'){CONFIRM=d.id;render();return;}
   if(a==='delete2'){b.disabled=true;FB.F.deleteDoc(FB.F.doc(FB.db,'partners',d.id)).then(function(){ALL=ALL.filter(function(x){return x.id!==d.id;});CONFIRM=null;render();}).catch(fail);return;}
   if(a==='num')ch={numberVerified:!d.numberVerified};
-  if(a==='pol')ch={policeVerified:!d.policeVerified};
   if(a==='approve')ch={status:'approved'};
   if(a==='pending')ch={status:'pending'};
   if(a==='hide')ch={status:'hidden'};
