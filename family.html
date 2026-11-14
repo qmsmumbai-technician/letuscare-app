@@ -137,8 +137,11 @@ document.querySelectorAll('button.cat').forEach(function(b){b.addEventListener('
   }
   var t;function later(){clearTimeout(t);t=setTimeout(fit,60);}
   window.addEventListener('resize',later);document.addEventListener('langchange',later);
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
-  window.addEventListener('load',fit);fit();
+  if(document.fonts){if(document.fonts.ready)document.fonts.ready.then(later);if(document.fonts.addEventListener)document.fonts.addEventListener('loadingdone',later);}
+  window.addEventListener('load',later);window.addEventListener('pageshow',later);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)later();});
+  /* the first time, fonts and the app window settle a moment after the page shows, so check again a few times */
+  [0,250,600,1200,2500,4000].forEach(function(ms){setTimeout(fit,ms);});
 })();
 </script>
 </body>
