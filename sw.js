@@ -1,5 +1,5 @@
 // Let Us Care service worker – network first, cache as fallback (so updates show immediately)
-const CACHE = 'luc-v21';
+const CACHE = 'luc-v22';
 const CORE = ['./', 'index.html', 'family.html', 'toddler.html', 'elder.html', 'patient.html', 'mother.html', 'special.html', 'physio.html', 'partner.html', 'manifest.json', 'i18n.js',
   'logo.webp', 'toddler.webp', 'elder.webp', 'patient.webp', 'mother.webp', 'special.webp', 'physio.webp', 'adt-logo.webp', 'icon-192.png', 'icon-512.png'];
 

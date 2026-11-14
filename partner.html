@@ -87,13 +87,29 @@ input:focus,textarea:focus{border-color:var(--orange)}
 .promise{margin:0;padding:0 0 0 2px;list-style:none;display:flex;flex-direction:column;gap:10px}
 .promise li{display:flex;gap:10px;font-size:15.5px;line-height:1.4}
 .promise li::before{content:"✓";flex-shrink:0;width:24px;height:24px;border-radius:50%;background:#E3F4E9;color:var(--green);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+
+.avail{display:flex;align-items:center;gap:12px;border-radius:20px;padding:14px;border:2px solid var(--line);background:#F6F7F9;cursor:pointer;width:100%;font-family:inherit;text-align:left}
+.avail .sw{width:58px;height:32px;border-radius:99px;background:#C5CAD3;position:relative;flex-shrink:0;transition:background .2s}
+.avail .sw::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:left .2s}
+.avail b{display:block;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-size:19px;line-height:1.15;color:var(--muted)}
+.avail span.t{font-size:14px;color:var(--muted);line-height:1.3}
+.avail.on{border-color:#7FCB9C;background:#EEF8F1}
+.avail.on .sw{background:var(--green)}.avail.on .sw::after{left:29px}
+.avail.on b{color:var(--green)}
+.pf{display:flex;flex-direction:column;gap:6px;font-size:14.5px;line-height:1.4}
+.pf div{display:flex;gap:8px}.pf div i{font-style:normal;color:var(--muted);min-width:92px;flex-shrink:0}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.act{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:16px;border:1.5px solid var(--orange);background:#fff;color:var(--orange-dk);font-family:inherit;font-weight:600;font-size:15.5px;text-decoration:none;text-align:center;padding:6px 10px;cursor:pointer}
+.act.g{border-color:#1FA855;color:#14803F}
+.b-ver{background:#DCEBFF;color:#0B3F8F}
+.svcs{display:flex;gap:6px;flex-wrap:wrap}.svcs img{width:44px;height:44px;border-radius:10px}
 </style>
 </head>
 <body>
 <main class="wrap">
 <div class="top">
 <a class="back" href="index.html" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
-<div><h1>Join as a care partner</h1><p>Free registration · you keep 100%</p></div>
+<div><h1 id="pgTitle">Join as a care partner</h1><p id="pgSub">Free registration · you keep 100%</p></div>
 </div>
 
 
@@ -184,16 +200,34 @@ input:focus,textarea:focus{border-color:var(--orange)}
 </div>
 </form>
 <!-- STATUS AFTER REGISTRATION -->
-<section id="statusView" hidden>
+<section id="statusView" hidden style="flex-direction:column;gap:14px">
 <div class="card">
 <div class="status"><img class="av" id="stPhoto" alt=""><div><b id="stName"></b><span class="badge" id="stBadge"></span></div></div>
+<div class="svcs" id="stSvcs"></div>
+</div>
+
+<button type="button" class="avail" id="avail" aria-pressed="true"><span class="sw" aria-hidden="true"></span><span><b id="avTitle">Available for work</b><span class="t" id="avTxt">Families can see you and call you.</span></span></button>
+<p class="err" id="avErr" role="alert" style="margin:0;min-height:0"></p>
+
+<div class="acts">
+<button type="button" class="act" id="editBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit my profile</button>
+<a class="act g" id="shareBtn" href="#" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="#1FA855" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>Share my profile</a>
+</div>
+
+<div class="card">
+<b style="font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-size:18px">My profile</b>
+<div class="pf" id="stProfile"></div>
+</div>
+
+<div class="card" id="verCard">
+<b style="font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-size:18px">Verification</b>
 <ul class="steps">
 <li><span class="d done">✓</span><span>Registration received</span></li>
 <li><span class="d" id="d2">2</span><span><b>Verify your number:</b> tap the green button and send the WhatsApp message as it is.</span></li>
 <li><span class="d" id="d3">3</span><span><b>Send documents</b> in the same WhatsApp chat: Aadhaar card and police verification certificate (or its application receipt).</span></li>
 <li><span class="d" id="d4">4</span><span><b>Approval:</b> once checked, families near you can see you and call you.</span></li>
 </ul>
-<a class="wa" id="waBtn" href="#" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.6-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>Verify on WhatsApp</a>
+<a class="wa" id="waBtn" href="#" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg><span>Send on WhatsApp</span></a>
 </div>
 <p class="note" style="text-align:center">You can close the app. Your status updates here automatically.</p>
 <button type="button" class="link" id="again">Register a different number</button>
@@ -243,7 +277,7 @@ function showStep(n){
   $('stepNo').textContent=LUC.T('Step')+' '+n+' / '+LAST;
   $('bar').style.width=Math.round(n*100/LAST)+'%';
   $('prev').hidden=n===1;
-  $('next').textContent=LUC.T(n===LAST?'Register':'Next');
+  $('next').textContent=LUC.T(n===LAST?(EDIT?'Save changes':'Register'):'Next');
   $('err').textContent='';window.scrollTo({top:0,behavior:'smooth'});
 }
 function v(id){return $(id).value.trim();}
@@ -344,18 +378,71 @@ function waLink(name,phone){
   var t='Let Us Care - care partner verification\nName: '+name+'\nMobile: '+phone+'\nI will send my Aadhaar and police verification certificate in this chat.';
   return 'https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(t);
 }
+var ME=null,EDIT=false;
+var SVC_IMG={toddler:'toddler.webp',elder:'elder.webp',patient:'patient.webp',mother:'mother.webp',special:'special.webp',physio:'physio.webp'};
+var SVC_NAME={toddler:'Toddler care',elder:'Elder care',patient:'Patient care',mother:'Mother and newborn care',special:'Special needs care',physio:'Physiotherapy at home'};
+var UNIT={hour:'Per hour',day:'Per day',month:'Per month',visit:'Per visit'};
+var PER={'24x7':'24 x 7 (live-in)',day:'Day basis',hours:'Time slot or hours'};
+function T(x){return LUC.T(x);}
+function esc(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function shareText(d){
+  var L=['*'+d.name+'* – '+T('Care partner on Let Us Care'),
+    T('Services:')+' '+(d.services||[]).map(function(x){return T(SVC_NAME[x]);}).join(', ')];
+  if((d.skills||[]).length)L.push(T('Skills:')+' '+d.skills.map(T).join(', '));
+  L.push(T('Experience:')+' '+d.experience+' '+T('years'));
+  if((d.periods||[]).length)L.push(T('Time:')+' '+d.periods.map(function(x){return T(PER[x]);}).join(', '));
+  if(d.rate)L.push(T('Rate:')+' '+d.rate+' '+(d.rateUnit?T(UNIT[d.rateUnit]).toLowerCase():''));
+  L.push(T('Languages:')+' '+(d.languages||[]).map(T).join(', '));
+  L.push(T('Area:')+' '+d.area);
+  L.push(T('Call or WhatsApp:')+' '+d.phone);
+  L.push('_Let Us Care – '+T('free, no commission')+'_');
+  return L.join('\n');
+}
+function setAvail(on){var b=$('avail');b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false');
+  $('avTitle').textContent=T(on?'Available for work':'Not available');
+  $('avTxt').textContent=T(on?'Families can see you and call you.':'Families will not see you until you switch this on.');}
 function showStatus(d){
-  $('loading').hidden=true;$('form').hidden=true;$('statusView').hidden=false;
+  ME=d;$('pgTitle').textContent=T('My care partner page');$('pgSub').textContent=T('Free service · families pay you directly');$('loading').hidden=true;$('form').hidden=true;$('statusView').hidden=false;$('statusView').style.display='flex';
   $('stPhoto').src=d.photo||'icon-192.png';$('stName').textContent=d.name;
-  var ok=d.status==='approved';
-  $('stBadge').className='badge '+(ok?'b-ok':'b-pend');
-  $('stBadge').textContent=LUC.T(ok?'Approved · families can see you':'Under review');
+  var ok=d.status==='approved',ver=ok&&d.numberVerified&&d.policeVerified;
+  $('stBadge').className='badge '+(ver?'b-ver':ok?'b-ok':'b-pend');
+  $('stBadge').textContent=T(ver?'Verified':ok?'Approved · families can see you':'Under review');
+  $('stSvcs').innerHTML=(d.services||[]).map(function(x){return '<img src="'+SVC_IMG[x]+'" alt="'+esc(T(SVC_NAME[x]))+'" title="'+esc(T(SVC_NAME[x]))+'">';}).join('');
+  setAvail(d.available!==false);
+  var rows=[['Services',(d.services||[]).map(function(x){return T(SVC_NAME[x]);}).join(', ')],
+    ['Skills',(d.skills||[]).map(T).join(', ')],['Experience',d.experience+' '+T('years')],
+    ['Time',(d.periods||[]).map(function(x){return T(PER[x]);}).join(', ')],
+    ['Rate',d.rate?(d.rate+' '+(d.rateUnit?T(UNIT[d.rateUnit]).toLowerCase():'')):''],
+    ['Languages',(d.languages||[]).map(T).join(', ')],['Area',d.area],['Mobile','+91 '+d.phone]];
+  $('stProfile').innerHTML=rows.filter(function(r){return r[1];}).map(function(r){return '<div><i>'+esc(T(r[0]))+'</i><span>'+esc(r[1])+'</span></div>';}).join('');
   if(d.numberVerified){$('d2').className='d done';$('d2').textContent='✓';}
   if(d.policeVerified){$('d3').className='d done';$('d3').textContent='✓';}
   if(ok){$('d4').className='d done';$('d4').textContent='✓';}
   $('waBtn').href=waLink(d.name,d.phone);
-  $('waBtn').hidden=!!d.numberVerified&&ok;
+  $('verCard').hidden=!!ver;
+  $('shareBtn').href='https://wa.me/?text='+encodeURIComponent(shareText(d));
 }
+$('avail').addEventListener('click',function(){
+  if(!ME)return;var on=!$('avail').classList.contains('on');setAvail(on);$('avErr').textContent='';
+  signIn().then(function(){return FB.F.updateDoc(FB.F.doc(FB.db,'partners',ME.phone),{available:on});})
+  .then(function(){ME.available=on;})
+  .catch(function(){setAvail(!on);$('avErr').textContent=T('Could not save. Please check your internet and try again.');});
+});
+/* edit: open the same steps, filled in */
+function fillForm(d){
+  state.photo=d.photo||'';if(state.photo)$('phBox').innerHTML='<img alt="" src="'+state.photo+'">';
+  $('name').value=d.name||'';$('phone').value=d.phone||'';$('phone').readOnly=true;$('age').value=d.age||'';
+  $('exp').value=d.experience!=null?d.experience:'';$('rate').value=d.rate||'';$('about').value=d.about||'';
+  $('area').value=d.area||'';state.lat=d.lat;state.lng=d.lng;if(d.lat!=null){$('gps').classList.add('ok');$('gpsTxt').textContent=T('Location saved');}
+  $('ref1').value=d.ref1||'';$('ref2').value=d.ref2||'';$('emer').value=d.emergency||'';
+  var map={gender:[d.gender],periods:d.periods,languages:d.languages,skills:d.skills,qual:d.qual,days:d.days,night:d.night?[d.night]:[],travel:d.travelKm?[String(d.travelKm)]:[],household:d.household,rateUnit:d.rateUnit?[d.rateUnit]:[],police:d.police?[d.police]:[]};
+  Object.keys(map).forEach(function(k){state[k]=(map[k]||[]).slice();
+    document.querySelectorAll('[data-group="'+k+'"] .chip').forEach(function(c){var on=state[k].indexOf(c.dataset.v)>-1;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on?'true':'false');});});
+  state.services=(d.services||[]).slice();
+  document.querySelectorAll('.sv').forEach(function(c){var on=state.services.indexOf(c.dataset.v)>-1;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on?'true':'false');});
+  $('agree').checked=true;
+}
+$('editBtn').addEventListener('click',function(){EDIT=true;$('pgTitle').textContent=T('Edit my profile');fillForm(ME);$('statusView').hidden=true;$('statusView').style.display='';$('form').hidden=false;showStep(1);});
 function checkExisting(){
   var phone=null;try{phone=localStorage.getItem('luc_partner_phone');}catch(e){}
   if(!phone){showForm();return;}
@@ -379,6 +466,11 @@ function submit(){
       area:v('area'),lat:state.lat,lng:state.lng,police:(state.police[0]||'no'),ref1:v('ref1'),ref2:v('ref2'),emergency:v('emer'),
       photo:state.photo,ownerUid:user.uid,status:'pending',available:true,numberVerified:false,policeVerified:false,
       createdAt:FB.F.serverTimestamp()};
+    if(EDIT){
+      ['phone','ownerUid','status','numberVerified','policeVerified','createdAt'].forEach(function(k){delete data[k];});
+      data.available=ME.available!==false;
+      return FB.F.updateDoc(FB.F.doc(FB.db,'partners',phone),data).then(function(){var m={};Object.keys(ME).forEach(function(k){m[k]=ME[k];});Object.keys(data).forEach(function(k){m[k]=data[k];});EDIT=false;return m;});
+    }
     return FB.F.setDoc(FB.F.doc(FB.db,'partners',phone),data).then(function(){return data;});
   }).then(function(data){
     try{localStorage.setItem('luc_partner_phone',phone);}catch(e){}
