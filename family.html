@@ -56,6 +56,16 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani'
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:no-preference){.sel .tick{animation:pop .3s ease-out}.up{animation:rise .5s ease-out both}.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}}
 .soon{margin:0;border-radius:14px;background:#EEF3FC;color:#1E3A6E;padding:12px 14px;font-size:15px;text-align:center}
+
+/* compact: all 5 cards on one screen */
+.wrap{gap:10px;padding-top:10px;min-height:100dvh}
+.top h1{font-size:22px}.top p{font-size:13.5px}.back{width:40px;height:40px;border-radius:12px}
+.cats{gap:8px}
+.cat{padding:6px 10px 6px 6px;gap:10px;border-radius:18px;border-width:2px}
+.cat img{width:clamp(56px,10.5dvh,84px);height:clamp(56px,10.5dvh,84px);border-radius:12px}
+.cat .n{font-size:18px}
+.cat .d{font-size:13px;line-height:1.25;margin-top:1px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.chev{width:20px;height:20px}
 </style>
 </head>
 <body>
@@ -65,7 +75,7 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani'
 <div><h1>I need care</h1><p>Tap who needs care</p></div>
 </div>
 
-<section class="up d1">
+<section>
 
 <div class="cats">
 <a class="cat c-t" href="toddler.html" data-svc="toddler" data-label="Toddler care">
