@@ -66,6 +66,16 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani'
 .cat .n{font-size:18px}
 .cat .d{font-size:13px;line-height:1.25;margin-top:1px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .chev{width:20px;height:20px}
+
+/* fill the screen: cards share the height */
+.wrap{height:100dvh;min-height:0;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+.wrap>section{flex:1;display:flex;min-height:0}
+.cats{flex:1;min-height:0}
+.cat{flex:1;min-height:0;min-width:0;padding:6px 12px 6px 6px}.cat>span{flex:1;min-width:0}.cats{width:100%}
+.cat img{width:auto;height:min(100%,120px);aspect-ratio:1/1;max-height:100%}
+.cat .n{font-size:clamp(18px,2.9dvh,23px)}
+.cat .d{font-size:clamp(13px,2.1dvh,15.5px)}
+@media (max-height:600px){.wrap{height:auto}.wrap>section{display:block}.cat{flex:none}.cat img{height:62px;width:62px}}
 </style>
 </head>
 <body>
