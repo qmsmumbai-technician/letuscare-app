@@ -80,7 +80,7 @@ input:focus,textarea:focus{border-color:var(--t)}
 <!-- ================= FORM ================= -->
 <section id="formView" style="display:flex;flex-direction:column;gap:14px">
 <div class="top">
-<a class="back" href="family.html" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<a class="back" href="carers.html?svc=mother" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
 <img src="mother.webp" alt="" width="52" height="52">
 <div><h1>Post pregnancy massage</h1><p>Fill only what you want. Every field is optional.</p><p style="color:var(--t);font-weight:600">Write in the carer's language if you can.</p></div>
 </div>
@@ -257,7 +257,7 @@ $('photo').addEventListener('change',function(e){
 });
 $('phDel').addEventListener('click',function(){delete data.photo;save();$('phBox').innerHTML=camIcon();$('phDel').hidden=true;});
 }
-$('skip').addEventListener('click',function(){$('skipMsg').hidden=false;});
+$('skip').addEventListener('click',function(){location.href='carers.html?svc=mother';});
 
 function t12(v){if(!v)return'';var p=v.split(':');return new Date(2000,0,1,+p[0],+p[1]).toLocaleTimeString(LUC.locale(SL)+'-u-nu-latn',{hour:'numeric',minute:'2-digit'});}
 function dt(v){if(!v)return'';var d=new Date(v+'T00:00:00');return d.toLocaleDateString(LUC.locale(SL)+'-u-nu-latn',{weekday:'long',day:'numeric',month:'long'});}

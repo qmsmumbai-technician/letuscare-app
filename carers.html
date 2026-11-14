@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Find carers – Let Us Care</title>
+<meta name="theme-color" content="#003B9B">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Baloo+Bhai+2:wght@600;700;800&family=Mukta+Vaani:wght@400;500;600;700&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--t:#003B9B;--t-soft:#EEF3FC;--t-line:#C9DBF7;--ink:#1D2433;--muted:#5B6475;--line:#E2E6EE;--green:#1C8A4A}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+body{margin:0;background:#F7F8FA;color:var(--ink);font-family:'Mukta','Mukta Vaani',system-ui,sans-serif}
+.wrap{max-width:480px;margin:0 auto;padding:14px 14px calc(30px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px}
+.top{display:flex;align-items:center;gap:10px}
+.back{width:44px;height:44px;border-radius:13px;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;color:var(--t);text-decoration:none;flex-shrink:0}
+.top img{width:54px;height:54px;border-radius:12px;flex-shrink:0}
+.top h1{margin:0;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:800;font-size:22px;line-height:1.1;color:var(--t)}
+.top p{margin:0;font-size:14px;color:var(--muted)}
+.flt{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.flt::-webkit-scrollbar{display:none}
+.flt button{flex-shrink:0;min-height:38px;padding:0 13px;border-radius:99px;border:1.5px solid var(--line);background:#fff;font-family:inherit;font-size:14.5px;color:var(--ink);cursor:pointer}
+.flt button.on{border-color:var(--t);background:var(--t-soft);color:var(--t);font-weight:700}
+.tip{margin:0;font-size:13.5px;color:#7A4A00;background:#FFF8E1;border:1px solid #F3D98E;border-radius:12px;padding:8px 10px;line-height:1.35}
+.cr{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.hd{display:flex;gap:10px;align-items:center}
+.av{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;flex-shrink:0;object-fit:cover;background:#C8DAF5}
+.nm{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.nm b{font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-size:19px;line-height:1.1;overflow-wrap:anywhere}
+.vb{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;padding:1px 8px;border-radius:99px}
+.vb.ok{background:#E3F4E9;color:#14693A}.vb.no{background:#F1F2F5;color:#6B7280}
+.sn{font-size:12.5px;color:var(--muted)}
+.km{align-self:flex-start;font-weight:800;color:var(--t);font-size:15px;white-space:nowrap}
+.facts{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:14.5px;color:#374151}
+.sk{display:flex;flex-wrap:wrap;gap:5px}.sk i{font-style:normal;font-size:12.5px;background:var(--t-soft);color:var(--t);border-radius:99px;padding:2px 9px}
+.bt{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bt a{display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;border-radius:13px;font-weight:700;font-size:16px;text-decoration:none;cursor:pointer}
+.call{background:var(--t);color:#fff}.wa{background:#1FA855;color:#fff}
+.sheet{display:flex;align-items:center;gap:10px;border-radius:16px;background:var(--t-soft);border:1.5px solid var(--t-line);padding:12px;font-size:14px;line-height:1.35}
+.sheet b{display:block;font-size:15.5px}
+.sheet a{margin-left:auto;flex-shrink:0;background:var(--t);color:#fff;border-radius:12px;padding:10px 12px;font-weight:700;font-size:14.5px;text-decoration:none;text-align:center}
+.msg{margin:0;text-align:center;color:var(--muted);font-size:15px;line-height:1.45;padding:18px 8px;background:#fff;border:1.5px dashed var(--line);border-radius:18px}
+.msg b{display:block;color:var(--ink);font-size:17px;margin-bottom:4px}
+.lim{margin:0;border-radius:14px;background:#FDECEC;color:#8E1B14;border:1px solid #F5C2BE;padding:10px 12px;font-size:14.5px;line-height:1.4}
+.locb{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:13px;border:1.5px solid var(--t);background:#fff;color:var(--t);font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;width:100%}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="top">
+<a class="back" href="family.html" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<img id="svcImg" src="icon-192.png" alt="" width="54" height="54">
+<div><h1 id="svcName">Find carers</h1><p id="count">Loading…</p></div>
+</div>
+
+<div class="flt" id="flt">
+<button type="button" data-f="ver">✓ Verified only</button>
+<button type="button" data-f="female">Female</button>
+<button type="button" data-f="male">Male</button>
+<button type="button" data-f="Hindi">Hindi</button>
+<button type="button" data-f="Marathi">Marathi</button>
+<button type="button" data-f="Gujarati">Gujarati</button>
+<button type="button" data-f="24x7">24 x 7</button>
+</div>
+
+<button type="button" class="locb" id="locBtn" hidden><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg><span>Show nearest carers first</span></button>
+
+<p class="tip">🛡 Safety tip: check the carer's original ID card at the first meeting.</p>
+<p class="lim" id="limit" hidden>You have contacted 10 carers today. To protect carers' numbers, you can contact more tomorrow.</p>
+
+<div id="list" style="display:flex;flex-direction:column;gap:12px"></div>
+
+<div class="sheet"><div><b>Decided on a carer?</b><span>Make a care sheet with timings, food, medicine and emergency numbers, and send it to them.</span></div><a id="sheetBtn" href="family.html">Make care sheet</a></div>
+</main>
+
+<script src="i18n.js"></script>
+<script>
+var SVC={toddler:['Toddler care','toddler.webp','toddler.html','#D35400','#FFF3EA','#F6CDAE'],
+ elder:['Elder care','elder.webp','elder.html','#0B4FB3','#EEF4FD','#C9DBF7'],
+ patient:['Patient care','patient.webp','patient.html','#1B7F3B','#EAF6EE','#BFE3CB'],
+ mother:['Mother and newborn care','mother.webp','mother.html','#C2185B','#FDEEF4','#F6C3D6'],
+ special:['Special needs care','special.webp','special.html','#6A1B9A','#F4EDFA','#DCC6EE'],
+ physio:['Physiotherapy at home','physio.webp','physio.html','#B7791F','#FFF8E1','#F3D98E']};
+var UNIT={hour:'per hour',day:'per day',month:'per month',visit:'per visit'};
+var DAILY_LIMIT=10;
+function $(id){return document.getElementById(id);}
+function T(x){return LUC.T(x);}
+function esc(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+var key=(new URLSearchParams(location.search).get('svc')||'').toLowerCase();if(!SVC[key])key='elder';
+var S=SVC[key],ALL=[],HERE=null,F={};
+var r=document.documentElement.style;r.setProperty('--t',S[3]);r.setProperty('--t-soft',S[4]);r.setProperty('--t-line',S[5]);
+$('svcImg').src=S[1];$('sheetBtn').href=S[2];
+
+function km(a,b,c,d){var R=6371,x=(c-a)*Math.PI/180,y=(d-b)*Math.PI/180,h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(h));}
+function seen(d){var t=d.lastSeen&&d.lastSeen.toMillis?d.lastSeen.toMillis():0;if(!t)return '';var days=Math.floor((Date.now()-t)/86400000);
+  if(days<1)return T('Online today');if(days<2)return T('Last seen yesterday');if(days<30)return T('Last seen')+' '+days+' '+T('days ago');return T('Last seen over a month ago');}
+/* daily contact limit, remembered on this phone only */
+function today(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function contacts(){try{var c=JSON.parse(localStorage.getItem('luc_contacts')||'{}');if(c.d!==today())c={d:today(),ids:[]};return c;}catch(e){return {d:today(),ids:[]};}}
+function canContact(id){var c=contacts();if(c.ids.indexOf(id)>-1)return true;if(c.ids.length>=DAILY_LIMIT){$('limit').hidden=false;$('limit').scrollIntoView({behavior:'smooth',block:'center'});return false;}
+  c.ids.push(id);try{localStorage.setItem('luc_contacts',JSON.stringify(c));}catch(e){}return true;}
+
+function render(){
+  $('svcName').textContent=T(S[0]);
+  var list=ALL.filter(function(d){
+    if(d.available===false)return false;
+    if(F.ver&&!(d.numberVerified&&d.policeVerified))return false;
+    if(F.female&&d.gender!=='female')return false;
+    if(F.male&&d.gender!=='male')return false;
+    var langs=['Hindi','Marathi','Gujarati'].filter(function(l){return F[l];});
+    if(langs.length&&!langs.some(function(l){return (d.languages||[]).indexOf(l)>-1;}))return false;
+    if(F['24x7']&&(d.periods||[]).indexOf('24x7')<0)return false;
+    if(HERE&&d.km!=null&&d.travelKm&&d.travelKm<20&&d.km>d.travelKm+1)return false;
+    return true;
+  });
+  list.sort(function(a,b){if(a.km!=null&&b.km!=null)return a.km-b.km;var x=a.numberVerified&&a.policeVerified?0:1,y=b.numberVerified&&b.policeVerified?0:1;return x-y;});
+  list=list.slice(0,40);
+  $('count').textContent=list.length?(list.length+' '+T(list.length===1?'carer':'carers')+(HERE?' · '+T('nearest first'):'')):T('No carers found');
+  if(!list.length){$('list').innerHTML='<p class="msg"><b>'+esc(T('No carers here yet'))+'</b>'+esc(T('Carers are registering now. Please check again in a few days, or remove a filter.'))+'</p>';return;}
+  var cols=['#E9A47A','#7FA6E3','#E58FB2','#7DC49A','#B79AE0','#E3B65C'];
+  $('list').innerHTML=list.map(function(d,i){
+    var ver=d.numberVerified&&d.policeVerified;
+    var av=d.photo?'<img class="av" src="'+d.photo+'" alt="">':'<div class="av" style="background:'+cols[i%cols.length]+'">'+esc((d.name||'?').charAt(0).toUpperCase())+'</div>';
+    var facts=[];
+    if(d.experience!=null)facts.push('🧰 '+d.experience+' '+T('years experience'));
+    if((d.languages||[]).length)facts.push('🗣 '+d.languages.map(T).join(', '));
+    if(d.rate)facts.push('💰 '+esc(d.rate)+(d.rateUnit?' '+T(UNIT[d.rateUnit]):''));
+    var sk=(d.skills||[]).slice(0,4);
+    return '<article class="cr"><div class="hd">'+av+'<div class="nm"><b>'+esc(d.name)+'</b>'+
+      (ver?'<span class="vb ok">✓ '+esc(T('Verified'))+'</span>':'<span class="vb no">'+esc(T('Not verified yet'))+'</span>')+
+      '<span class="sn">'+esc(seen(d))+'</span></div>'+(d.km!=null?'<span class="km">'+(d.km<1?d.km.toFixed(1):Math.round(d.km*10)/10)+' km</span>':'')+'</div>'+
+      (facts.length?'<div class="facts">'+facts.map(function(f){return '<span>'+f+'</span>';}).join('')+'</div>':'')+
+      (sk.length?'<div class="sk">'+sk.map(function(s){return '<i>'+esc(T(s))+'</i>';}).join('')+'</div>':'')+
+      '<div class="bt"><a class="call" data-id="'+d.id+'" data-act="call">📞 '+esc(T('Call'))+'</a><a class="wa" data-id="'+d.id+'" data-act="wa">'+esc(T('WhatsApp'))+'</a></div></article>';
+  }).join('');
+}
+$('list').addEventListener('click',function(e){
+  var a=e.target.closest('a[data-act]');if(!a)return;e.preventDefault();
+  var d=ALL.filter(function(x){return x.id===a.dataset.id;})[0];if(!d||!canContact(d.id))return;
+  if(a.dataset.act==='call'){location.href='tel:+91'+d.phone;return;}
+  var msg=T('Hello')+' '+d.name+', '+T('I found you on the Let Us Care app.')+' '+T('I need')+' '+T(S[0]).toLowerCase()+'. '+T('Are you available? Please call me.');
+  window.open('https://wa.me/91'+d.phone+'?text='+encodeURIComponent(msg),'_blank');
+});
+$('flt').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var f=b.dataset.f;F[f]=!F[f];b.classList.toggle('on',F[f]);
+  if(f==='female'&&F.female){F.male=false;document.querySelector('[data-f=male]').classList.remove('on');}
+  if(f==='male'&&F.male){F.female=false;document.querySelector('[data-f=female]').classList.remove('on');}
+  render();});
+
+function addKm(){ALL.forEach(function(d){d.km=(HERE&&d.lat!=null)?km(HERE[0],HERE[1],d.lat,d.lng):null;});}
+function locate(){
+  if(!navigator.geolocation){$('locBtn').hidden=true;return;}
+  navigator.geolocation.getCurrentPosition(function(p){HERE=[p.coords.latitude,p.coords.longitude];$('locBtn').hidden=true;addKm();render();},
+    function(){$('locBtn').hidden=false;},{enableHighAccuracy:false,timeout:15000,maximumAge:300000});
+}
+$('locBtn').addEventListener('click',locate);
+
+function load(){
+  var V='10.12.2',B='https://www.gstatic.com/firebasejs/'+V+'/';
+  Promise.all([import(B+'firebase-app.js'),import(B+'firebase-firestore.js'),import('./firebase-config.js')]).then(function(m){
+    var app=m[0].initializeApp(m[2].firebaseConfig),F2=m[1],db=F2.getFirestore(app);
+    return F2.getDocs(F2.query(F2.collection(db,'partners'),F2.where('status','==','approved')));
+  }).then(function(snap){
+    ALL=[];snap.forEach(function(doc){var d=doc.data();d.id=doc.id;if((d.services||[]).indexOf(key)>-1)ALL.push(d);});
+    addKm();render();
+  }).catch(function(){$('count').textContent='';$('list').innerHTML='<p class="msg"><b>'+esc(T('Could not load carers'))+'</b>'+esc(T('Please check your internet and try again.'))+'</p>';});
+}
+document.addEventListener('langchange',render);
+if(contacts().ids.length>=DAILY_LIMIT)$('limit').hidden=false;
+load();locate();
+</script>
+</body>
+</html>

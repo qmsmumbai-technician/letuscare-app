@@ -74,6 +74,7 @@ input:focus,textarea:focus{border-color:var(--orange)}
 .step h2{margin:0;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:800;font-size:22px;line-height:1.15;color:var(--ink)}
 .step h2 small{display:block;font-family:'Mukta','Mukta Vaani',sans-serif;font-weight:400;font-size:14px;color:var(--muted);margin-top:2px}
 .svc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.svc3{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.svc3 .sv{font-size:13.5px;padding:6px 6px 8px;gap:4px}.svc3 .sv img{max-width:84px}.svc3 .sv .tk{width:22px;height:22px;top:4px;right:4px}
 .sv{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 8px 10px;border-radius:18px;border:2.5px solid var(--line);background:#fff;font-family:inherit;color:var(--ink);font-weight:600;font-size:15px;line-height:1.15;text-align:center;cursor:pointer}
 .sv img{width:100%;max-width:120px;aspect-ratio:1/1;height:auto;border-radius:12px}
 .sv.on{border-color:var(--orange);background:var(--soft)}
@@ -114,6 +115,24 @@ input:focus,textarea:focus{border-color:var(--orange)}
 
 
 <p class="loading" id="loading">Loading…</p>
+
+<!-- SIMPLE REGISTRATION -->
+<section id="regView" hidden style="flex-direction:column;gap:16px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span class="note" style="font-size:15px">Takes 30 seconds · free</span><button type="button" class="lis" id="rListen"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg><span id="rLisTxt">Listen</span></button></div>
+<div class="sec" id="r-name"><label class="lbl" for="rName">Your name</label><input type="text" id="rName" autocomplete="name" maxlength="60" placeholder="Sunita Kamble"></div>
+<div class="sec" id="r-phone"><label class="lbl" for="rPhone">Mobile number <small>(WhatsApp number)</small></label><div class="tel"><b>+91</b><input type="tel" id="rPhone" inputmode="numeric" maxlength="10" placeholder="98XXXXXXXX"></div></div>
+<div class="sec" id="r-phone2"><label class="lbl" for="rPhone2">Type mobile number again</label><div class="tel" id="rTel2"><b>+91</b><input type="tel" id="rPhone2" inputmode="numeric" maxlength="10" placeholder="98XXXXXXXX"><span id="rSame" hidden style="color:var(--green);font-weight:700;padding-right:14px;white-space:nowrap">✓ Same</span></div></div>
+<div class="sec" id="r-gender"><span class="lbl">You are</span><div class="chips" data-group="gender" data-single="1"><button type="button" class="chip" data-v="female">Female</button><button type="button" class="chip" data-v="male">Male</button></div></div>
+<div class="sec" id="r-services"><span class="lbl">What care do you give? <small>(tap all)</small></span><div class="svc svc3"><button type="button" class="sv rsv" data-v="toddler"><img src="toddler.webp" alt="" width="360" height="364"><span class="tk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Toddler care</span></button><button type="button" class="sv rsv" data-v="elder"><img src="elder.webp" alt="" width="360" height="364"><span class="tk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Elder care</span></button><button type="button" class="sv rsv" data-v="patient"><img src="patient.webp" alt="" width="360" height="364"><span class="tk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Patient care</span></button><button type="button" class="sv rsv" data-v="mother"><img src="mother.webp" alt="" width="360" height="364"><span class="tk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Mother and newborn care</span></button><button type="button" class="sv rsv" data-v="special"><img src="special.webp" alt="" width="360" height="364"><span class="tk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Special needs care</span></button><button type="button" class="sv rsv" data-v="physio"><img src="physio.webp" alt="" width="360" height="364"><span class="tk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Physiotherapy at home</span></button></div></div>
+<div class="sec" id="r-area"><button type="button" class="gps" id="rGps"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg><span id="rGpsTxt">Use my current location</span></button>
+<span class="note">Families only see how far away you are, never your address.</span></div>
+<div class="sec"><div class="photo"><div class="ph" id="rPhBox" style="width:72px;height:72px"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+<label class="pbtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photo<input type="file" id="rPhoto" accept="image/*" hidden></label><span class="note">(optional)</span></div></div>
+<label class="agree" id="r-agree"><input type="checkbox" id="rAgree"><span>Families can see my name, photo, services and number after approval.</span></label>
+<p class="err" id="rErr" role="alert"></p>
+<button type="button" class="go" id="rSubmit">Register</button>
+<p class="note" style="text-align:center;margin:0">You can add skills, rate and more later from your page.</p>
+</section>
 
 <form id="form" hidden novalidate>
 <div class="wrap" style="padding:0">
@@ -201,6 +220,15 @@ input:focus,textarea:focus{border-color:var(--orange)}
 </form>
 <!-- STATUS AFTER REGISTRATION -->
 <section id="statusView" hidden style="flex-direction:column;gap:14px">
+<div class="card" id="verifyBox" hidden style="align-items:center;text-align:center;border-color:#7FCB9C;background:#F3FBF6">
+<b style="font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-size:21px;line-height:1.2">Almost done! Verify your WhatsApp</b>
+<span class="note" style="font-size:15px">Tap the green button and press Send in WhatsApp. Do not change the message. Our team checks the number and marks you verified.</span>
+<a class="wa" id="waBtn2" href="#" target="_blank" rel="noopener" style="width:100%"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg><span>Verify on WhatsApp</span></a>
+</div>
+<div class="card" id="stillBox" hidden style="border-color:#F3D98E;background:#FFF8E1">
+<b style="font-size:17px">Are you still available for work?</b>
+<div class="acts"><button type="button" class="act g" id="stillYes">Yes, available</button><button type="button" class="act" id="stillNo">No, I am busy</button></div>
+</div>
 <div class="card">
 <div class="status"><img class="av" id="stPhoto" alt=""><div><b id="stName"></b><span class="badge" id="stBadge"></span></div></div>
 <div class="svcs" id="stSvcs"></div>
@@ -210,7 +238,7 @@ input:focus,textarea:focus{border-color:var(--orange)}
 <p class="err" id="avErr" role="alert" style="margin:0;min-height:0"></p>
 
 <div class="acts">
-<button type="button" class="act" id="editBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Edit my profile</button>
+<button type="button" class="act" id="editBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Complete my profile</button>
 <a class="act g" id="shareBtn" href="#" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="#1FA855" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>Share my profile</a>
 </div>
 
@@ -276,39 +304,29 @@ function showStep(n){
   if(n===3)document.querySelectorAll('.grp').forEach(function(g){g.hidden=state.services.indexOf(g.dataset.for)<0;});
   $('stepNo').textContent=LUC.T('Step')+' '+n+' / '+LAST;
   $('bar').style.width=Math.round(n*100/LAST)+'%';
-  $('prev').hidden=n===1;
-  $('next').textContent=LUC.T(n===LAST?(EDIT?'Save changes':'Register'):'Next');
+  $('prev').hidden=n===1&&!EDIT;$('prev').textContent=LUC.T(n===1?'Cancel':'Back');
+  $('next').textContent=LUC.T(n===LAST?'Save changes':'Next');
   $('err').textContent='';window.scrollTo({top:0,behavior:'smooth'});
 }
 function v(id){return $(id).value.trim();}
 function check(n){
   if(n===1){
-    if(!state.photo)return showErr('Please add your photo.','s-photo'),false;
     if(v('name').length<2)return showErr('Please enter your full name.','s-name'),false;
-    if(!/^[6-9]\d{9}$/.test($('phone').value.replace(/\D/g,'').slice(-10)))return showErr('Please enter a valid 10-digit mobile number.','s-phone'),false;
     if(!state.gender.length)return showErr('Please choose your gender.','s-gender'),false;
-    var ag=parseInt(v('age'),10);if(isNaN(ag)||ag<18||ag>75)return showErr('Please enter your age (18 to 75).','s-age'),false;
+    if(v('age')){var ag=parseInt(v('age'),10);if(isNaN(ag)||ag<18||ag>75)return showErr('Please enter your age (18 to 75).','s-age'),false;}
   }
   if(n===2&&!state.services.length)return showErr('Please choose at least one service.','s-services'),false;
-  if(n===3){var e=parseInt(v('exp'),10);if(isNaN(e)||e<0||e>50)return showErr('Please enter your experience in years (0 if new).','s-exp'),false;}
-  if(n===4&&!state.periods.length)return showErr('Please choose when you can work.','s-periods'),false;
-  if(n===5){
-    if(!v('rate')||!state.rateUnit.length)return showErr('Please enter your rate and choose per hour, day, month or visit.','s-rate'),false;
-    if(!state.languages.length)return showErr('Please choose the languages you speak.','s-lang'),false;
-  }
-  if(n===6){
-    if(v('area').length<2)return showErr('Please enter your area.','s-area'),false;
-    if(state.lat===null)return showErr('Please tap "Use my current location".','s-area'),false;
-  }
-  if(n===7&&!$('agree').checked)return showErr('Please tick the agreement box.','s-agree'),false;
+  if(n===3&&v('exp')){var e=parseInt(v('exp'),10);if(isNaN(e)||e<0||e>50)return showErr('Please enter your experience in years (0 if new).','s-exp'),false;}
+  if(n===5&&v('rate')&&!state.rateUnit.length)return showErr('Please enter your rate and choose per hour, day, month or visit.','s-rate'),false;
+  if(n===6&&state.lat===null)return showErr('Please tap "Use my current location".','s-area'),false;
   return true;
 }
 $('next').addEventListener('click',function(){if(!check(step))return;if(step<LAST)showStep(step+1);else submit();});
-$('prev').addEventListener('click',function(){if(step>1)showStep(step-1);});
+$('prev').addEventListener('click',function(){if(step>1)showStep(step-1);else if(EDIT){EDIT=false;stopSpeak();$('form').hidden=true;showStatus(ME);window.scrollTo({top:0});}});
 
 /* listen: reads the current step aloud */
 var speaking=false;try{speechSynthesis.getVoices();}catch(e){}
-function setLis(){$('lisTxt').textContent=LUC.T(speaking?'Stop':'Listen');}
+function setLis(){$('lisTxt').textContent=LUC.T(speaking?'Stop':'Listen');if($('rLisTxt'))$('rLisTxt').textContent=LUC.T(speaking?'Stop':'Listen');}
 function stopSpeak(){try{speechSynthesis.cancel();}catch(e){}speaking=false;setLis();}
 $('listen').addEventListener('click',function(){
   if(!('speechSynthesis' in window))return;
@@ -324,6 +342,18 @@ $('listen').addEventListener('click',function(){
 document.addEventListener('langchange',function(){showStep(step);});
 
 /* photo: shrink to 240px JPEG so it fits in the database */
+function readPhoto(f,box,errFn){
+  var img=new Image(),url=URL.createObjectURL(f);
+  img.onload=function(){
+    var s=240,c=document.createElement('canvas');c.width=s;c.height=s;
+    var m=Math.min(img.width,img.height);
+    c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,s,s);
+    state.photo=c.toDataURL('image/jpeg',0.72);$(box).innerHTML='<img alt="" src="'+state.photo+'">';URL.revokeObjectURL(url);
+  };
+  img.onerror=function(){errFn('That photo could not be opened. Please try another one.');};
+  img.src=url;
+}
+$('rPhoto').addEventListener('change',function(e){var f=e.target.files&&e.target.files[0];if(f)readPhoto(f,'rPhBox',function(m){$('rErr').textContent=LUC.T(m);});});
 $('photo').addEventListener('change',function(e){
   var f=e.target.files&&e.target.files[0];if(!f)return;
   var img=new Image(),url=URL.createObjectURL(f);
@@ -340,6 +370,16 @@ $('photo').addEventListener('change',function(e){
 });
 
 /* GPS */
+function getGps(btn,txt,errFn){
+  if(!navigator.geolocation){errFn('Location is not available on this phone.');return;}
+  $(txt).textContent=LUC.T('Finding your location…');
+  navigator.geolocation.getCurrentPosition(function(p){
+    state.lat=+p.coords.latitude.toFixed(5);state.lng=+p.coords.longitude.toFixed(5);
+    $(btn).classList.add('ok');$(txt).textContent=LUC.T('Location saved');errFn('');
+  },function(){$(txt).textContent=LUC.T('Use my current location');errFn('Please allow location access, then tap the button again.');},
+  {enableHighAccuracy:true,timeout:15000,maximumAge:60000});
+}
+$('rGps').addEventListener('click',function(){getGps('rGps','rGpsTxt',function(m){$('rErr').textContent=m?LUC.T(m):'';});});
 $('gps').addEventListener('click',function(){
   if(!navigator.geolocation){showErr('Location is not available on this phone.','s-area');return;}
   $('gpsTxt').textContent=LUC.T('Finding your location…');
@@ -373,7 +413,47 @@ function signIn(){
 }
 
 /* ---------- views ---------- */
-function showForm(){$('loading').hidden=true;$('statusView').hidden=true;$('form').hidden=false;showStep(1);}
+function showReg(){$('loading').hidden=true;$('statusView').hidden=true;$('statusView').style.display='';$('form').hidden=true;$('regView').hidden=false;$('regView').style.display='flex';}
+function showForm(){showReg();}
+/* simple registration */
+function regPhones(){return [$('rPhone').value.replace(/\D/g,'').slice(-10),$('rPhone2').value.replace(/\D/g,'').slice(-10)];}
+['rPhone','rPhone2'].forEach(function(id){$(id).addEventListener('input',function(){var p=regPhones(),same=p[0].length===10&&p[0]===p[1];$('rSame').hidden=!same;$('rTel2').style.borderColor=same?'var(--green)':(p[1].length===10?'var(--red)':'');$('rErr').textContent='';});});
+function rErr(m,id){$('rErr').textContent=LUC.T(m);if(id&&$(id))$(id).scrollIntoView({behavior:'smooth',block:'center'});return false;}
+$('rSubmit').addEventListener('click',function(){
+  var name=$('rName').value.trim().replace(/\s+/g,' '),p=regPhones();
+  if(name.length<2)return rErr('Please enter your full name.','r-name');
+  if(!/^[6-9]\d{9}$/.test(p[0]))return rErr('Please enter a valid 10-digit mobile number.','r-phone');
+  if(p[0]!==p[1])return rErr('The two mobile numbers are not the same. Please check.','r-phone2');
+  if(!state.gender.length)return rErr('Please choose your gender.','r-gender');
+  if(!state.services.length)return rErr('Please choose at least one service.','r-services');
+  if(state.lat===null)return rErr('Please tap "Use my current location".','r-area');
+  if(!$('rAgree').checked)return rErr('Please tick the agreement box.','r-agree');
+  var btn=$('rSubmit');btn.setAttribute('aria-busy','true');btn.textContent=LUC.T('Saving…');$('rErr').textContent='';
+  signIn().then(function(user){
+    var data={name:name,phone:p[0],gender:state.gender[0],services:state.services.slice(),lat:state.lat,lng:state.lng,available:true,
+      ownerUid:user.uid,status:'pending',numberVerified:false,policeVerified:false,createdAt:FB.F.serverTimestamp(),lastSeen:FB.F.serverTimestamp()};
+    if(state.photo)data.photo=state.photo;
+    return FB.F.setDoc(FB.F.doc(FB.db,'partners',p[0]),data).then(function(){return data;});
+  }).then(function(data){
+    try{localStorage.setItem('luc_partner_phone',p[0]);}catch(e){}
+    $('regView').hidden=true;$('regView').style.display='';data.lastSeen=null;showStatus(data);window.scrollTo({top:0,behavior:'smooth'});
+  }).catch(function(err){
+    btn.removeAttribute('aria-busy');btn.textContent=LUC.T('Register');
+    var code=(err&&err.code)||'';
+    if(code.indexOf('permission-denied')>-1)rErr('This mobile number is already registered. If it is yours, message us on WhatsApp.');
+    else if(code.indexOf('admin-restricted')>-1||code.indexOf('operation-not-allowed')>-1)rErr('Registration is not switched on yet. Please try again later.');
+    else rErr('Could not save. Please check your internet and try again.');
+  });
+});
+/* listen on the registration screen */
+$('rListen').addEventListener('click',function(){
+  if(!('speechSynthesis' in window))return;
+  if(speaking){stopSpeak();return;}
+  var lines=[];document.querySelectorAll('#regView .lbl,#regView .sv span:last-child,#regView .chip,#regView .agree span,#regView .gps span').forEach(function(el){var t=el.textContent.trim();if(t)lines.push(t);});
+  var loc=LUC.locale(),vs=speechSynthesis.getVoices(),pre=loc.slice(0,2),vo=vs.filter(function(x){return x.lang.replace('_','-').toLowerCase().indexOf(pre)===0;})[0];
+  speaking=true;setLis();
+  lines.forEach(function(t,i){var u=new SpeechSynthesisUtterance(t);u.lang=loc;if(vo)u.voice=vo;u.rate=0.9;if(i===lines.length-1){u.onend=function(){speaking=false;setLis();};u.onerror=u.onend;}speechSynthesis.speak(u);});
+});
 function waLink(name,phone){
   var t='Let Us Care - care partner verification\nName: '+name+'\nMobile: '+phone+'\nI will send my Aadhaar and police verification certificate in this chat.';
   return 'https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(t);
@@ -389,7 +469,7 @@ function shareText(d){
   var L=['*'+d.name+'* – '+T('Care partner on Let Us Care'),
     T('Services:')+' '+(d.services||[]).map(function(x){return T(SVC_NAME[x]);}).join(', ')];
   if((d.skills||[]).length)L.push(T('Skills:')+' '+d.skills.map(T).join(', '));
-  L.push(T('Experience:')+' '+d.experience+' '+T('years'));
+  if(d.experience!=null)L.push(T('Experience:')+' '+d.experience+' '+T('years'));
   if((d.periods||[]).length)L.push(T('Time:')+' '+d.periods.map(function(x){return T(PER[x]);}).join(', '));
   if(d.rate)L.push(T('Rate:')+' '+d.rate+' '+(d.rateUnit?T(UNIT[d.rateUnit]).toLowerCase():''));
   L.push(T('Languages:')+' '+(d.languages||[]).map(T).join(', '));
@@ -410,7 +490,7 @@ function showStatus(d){
   $('stSvcs').innerHTML=(d.services||[]).map(function(x){return '<img src="'+SVC_IMG[x]+'" alt="'+esc(T(SVC_NAME[x]))+'" title="'+esc(T(SVC_NAME[x]))+'">';}).join('');
   setAvail(d.available!==false);
   var rows=[['Services',(d.services||[]).map(function(x){return T(SVC_NAME[x]);}).join(', ')],
-    ['Skills',(d.skills||[]).map(T).join(', ')],['Experience',d.experience+' '+T('years')],
+    ['Skills',(d.skills||[]).map(T).join(', ')],['Experience',d.experience!=null?d.experience+' '+T('years'):''],
     ['Time',(d.periods||[]).map(function(x){return T(PER[x]);}).join(', ')],
     ['Rate',d.rate?(d.rate+' '+(d.rateUnit?T(UNIT[d.rateUnit]).toLowerCase():'')):''],
     ['Languages',(d.languages||[]).map(T).join(', ')],['Area',d.area],['Mobile','+91 '+d.phone]];
@@ -418,10 +498,16 @@ function showStatus(d){
   if(d.numberVerified){$('d2').className='d done';$('d2').textContent='✓';}
   if(d.policeVerified){$('d3').className='d done';$('d3').textContent='✓';}
   if(ok){$('d4').className='d done';$('d4').textContent='✓';}
-  $('waBtn').href=waLink(d.name,d.phone);
-  $('verCard').hidden=!!ver;
+  $('waBtn').href=waLink(d.name,d.phone);$('waBtn2').href=waLink(d.name,d.phone);$('verifyBox').hidden=!!d.numberVerified;
+  var ls=d.lastSeen&&d.lastSeen.toMillis?d.lastSeen.toMillis():0;$('stillBox').hidden=!(ls&&Date.now()-ls>30*86400000&&d.available!==false);
+  $('verCard').hidden=!!ver;if(!d.numberVerified)$('waBtn').hidden=true;else $('waBtn').hidden=false;
   $('shareBtn').href='https://wa.me/?text='+encodeURIComponent(shareText(d));
 }
+function saveAvail(on){setAvail(on);$('avErr').textContent='';$('stillBox').hidden=true;
+  return signIn().then(function(){return FB.F.updateDoc(FB.F.doc(FB.db,'partners',ME.phone),{available:on,lastSeen:FB.F.serverTimestamp()});})
+  .then(function(){ME.available=on;}).catch(function(){setAvail(!on);$('avErr').textContent=T('Could not save. Please check your internet and try again.');});}
+$('stillYes').addEventListener('click',function(){if(ME)saveAvail(true);});
+$('stillNo').addEventListener('click',function(){if(ME)saveAvail(false);});
 $('avail').addEventListener('click',function(){
   if(!ME)return;var on=!$('avail').classList.contains('on');setAvail(on);$('avErr').textContent='';
   signIn().then(function(){return FB.F.updateDoc(FB.F.doc(FB.db,'partners',ME.phone),{available:on});})
@@ -442,46 +528,35 @@ function fillForm(d){
   document.querySelectorAll('.sv').forEach(function(c){var on=state.services.indexOf(c.dataset.v)>-1;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on?'true':'false');});
   $('agree').checked=true;
 }
-$('editBtn').addEventListener('click',function(){EDIT=true;$('pgTitle').textContent=T('Edit my profile');fillForm(ME);$('statusView').hidden=true;$('statusView').style.display='';$('form').hidden=false;showStep(1);});
+$('editBtn').addEventListener('click',function(){EDIT=true;$('pgTitle').textContent=T('Complete my profile');fillForm(ME);$('statusView').hidden=true;$('statusView').style.display='';$('form').hidden=false;showStep(1);});
 function checkExisting(){
   var phone=null;try{phone=localStorage.getItem('luc_partner_phone');}catch(e){}
   if(!phone){showForm();return;}
   signIn().then(function(){
     return FB.F.getDoc(FB.F.doc(FB.db,'partners',phone));
   }).then(function(snap){
-    if(snap.exists()){showStatus(snap.data());}else{try{localStorage.removeItem('luc_partner_phone');}catch(e){}showForm();}
+    if(snap.exists()){showStatus(snap.data());FB.F.updateDoc(FB.F.doc(FB.db,'partners',phone),{lastSeen:FB.F.serverTimestamp()}).catch(function(){});}else{try{localStorage.removeItem('luc_partner_phone');}catch(e){}showForm();}
   }).catch(function(){showForm();});
 }
 $('again').addEventListener('click',function(){try{localStorage.removeItem('luc_partner_phone');}catch(e){}location.reload();});
 
-/* ---------- submit ---------- */
+/* ---------- save "complete my profile" ---------- */
 function submit(){
-  var name=v('name').replace(/\s+/g,' '),phone=$('phone').value.replace(/\D/g,'').slice(-10);
+  if(!ME)return;
   var btn=$('next');btn.setAttribute('aria-busy','true');btn.textContent=LUC.T('Saving…');$('err').textContent='';
-  signIn().then(function(user){
-    var data={name:name,phone:phone,gender:state.gender[0],age:parseInt(v('age'),10),services:state.services,
-      skills:state.skills,qual:state.qual,experience:parseInt(v('exp'),10),
-      periods:state.periods,days:state.days,night:(state.night[0]||''),travelKm:parseInt(state.travel[0]||'0',10),household:state.household,
-      rate:v('rate'),rateUnit:state.rateUnit[0],languages:state.languages,about:v('about'),
-      area:v('area'),lat:state.lat,lng:state.lng,police:(state.police[0]||'no'),ref1:v('ref1'),ref2:v('ref2'),emergency:v('emer'),
-      photo:state.photo,ownerUid:user.uid,status:'pending',available:true,numberVerified:false,policeVerified:false,
-      createdAt:FB.F.serverTimestamp()};
-    if(EDIT){
-      ['phone','ownerUid','status','numberVerified','policeVerified','createdAt'].forEach(function(k){delete data[k];});
-      data.available=ME.available!==false;
-      return FB.F.updateDoc(FB.F.doc(FB.db,'partners',phone),data).then(function(){var m={};Object.keys(ME).forEach(function(k){m[k]=ME[k];});Object.keys(data).forEach(function(k){m[k]=data[k];});EDIT=false;return m;});
-    }
-    return FB.F.setDoc(FB.F.doc(FB.db,'partners',phone),data).then(function(){return data;});
-  }).then(function(data){
-    try{localStorage.setItem('luc_partner_phone',phone);}catch(e){}
-    showStatus(data);window.scrollTo({top:0,behavior:'smooth'});
-  }).catch(function(err){
-    btn.removeAttribute('aria-busy');btn.textContent=LUC.T('Register');
-    var code=(err&&err.code)||'';
-    if(code.indexOf('permission-denied')>-1)showErr('This mobile number is already registered. If it is yours, message us on WhatsApp.');
-    else if(code.indexOf('admin-restricted')>-1||code.indexOf('operation-not-allowed')>-1)showErr('Registration is not switched on yet. Please try again later.');
-    else showErr('Could not save. Please check your internet and try again.');
-  });
+  var data={name:v('name').replace(/\s+/g,' '),gender:state.gender[0],services:state.services.slice(),
+    skills:state.skills.slice(),qual:state.qual.slice(),periods:state.periods.slice(),days:state.days.slice(),night:(state.night[0]||''),
+    travelKm:parseInt(state.travel[0]||'0',10),household:state.household.slice(),rate:v('rate'),languages:state.languages.slice(),
+    about:v('about'),area:v('area'),lat:state.lat,lng:state.lng,police:(state.police[0]||'no'),ref1:v('ref1'),ref2:v('ref2'),emergency:v('emer'),
+    available:ME.available!==false};
+  var ag=parseInt(v('age'),10);if(!isNaN(ag))data.age=ag;
+  var ex=parseInt(v('exp'),10);if(!isNaN(ex))data.experience=ex;
+  if(state.rateUnit[0])data.rateUnit=state.rateUnit[0];
+  if(state.photo)data.photo=state.photo;
+  signIn().then(function(){return FB.F.updateDoc(FB.F.doc(FB.db,'partners',ME.phone),data);})
+  .then(function(){var m={};Object.keys(ME).forEach(function(k){m[k]=ME[k];});Object.keys(data).forEach(function(k){m[k]=data[k];});EDIT=false;
+    btn.removeAttribute('aria-busy');$('form').hidden=true;showStatus(m);window.scrollTo({top:0,behavior:'smooth'});})
+  .catch(function(){btn.removeAttribute('aria-busy');btn.textContent=LUC.T('Save changes');showErr('Could not save. Please check your internet and try again.');});
 }
 checkExisting();
 </script>
