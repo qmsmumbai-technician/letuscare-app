@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Physiotherapy at home – Let Us Care</title>
+<meta name="theme-color" content="#003B9B">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Baloo+Bhai+2:wght@600;700;800&family=Mukta+Vaani:wght@400;500;600;700&family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#003B9B;--t:#B7791F;--t-dk:#8A5A12;--t-soft:#FFF8E1;--t-line:#F3D98E;--ink:#1D2433;--muted:#5B6475;--line:#E2E6EE;--red:#B3261E}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani',system-ui,sans-serif}
+.wrap{max-width:480px;margin:0 auto;padding:16px 18px calc(30px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px}
+.top{display:flex;align-items:center;gap:12px}
+.back{width:46px;height:46px;border-radius:14px;border:1px solid var(--t-line);background:var(--t-soft);display:flex;align-items:center;justify-content:center;color:var(--t);flex-shrink:0;text-decoration:none;cursor:pointer}
+.top img{width:52px;height:52px;border-radius:12px;flex-shrink:0}
+.top h1{margin:0;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:800;font-size:24px;color:var(--t);line-height:1.1}
+.top p{margin:0;font-size:14px;color:var(--muted);line-height:1.3}
+.card{border:1.5px solid var(--line);border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.card.must{border-color:#F3B7B3;background:#FFF8F7}
+.hd{display:flex;align-items:center;gap:10px}
+.ic{width:40px;height:40px;border-radius:12px;background:var(--t-soft);color:var(--t);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.must .ic{background:#FDE3E1;color:var(--red)}
+.hd h2{margin:0;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:700;font-size:18.5px;line-height:1.1}
+.hd small{display:block;font-size:13px;color:var(--muted);font-weight:400;font-family:'Mukta','Mukta Vaani',sans-serif}
+label.l,.l{display:block;font-size:14px;font-weight:600;margin-bottom:4px}
+input,textarea{width:100%;border-radius:12px;border:1.5px solid var(--line);background:#fff;padding:0 12px;height:46px;font-family:inherit;font-size:16px;color:var(--ink);outline:none}
+textarea{height:80px;padding:9px 12px;resize:none;line-height:1.35}
+input:focus,textarea:focus{border-color:var(--t)}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:42px;padding:0 13px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-family:inherit;font-size:14.5px;color:var(--ink);cursor:pointer}
+.chip.on{border-color:var(--t);background:var(--t-soft);color:var(--t-dk);font-weight:600}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.days .chip{padding:0;min-height:42px;border-radius:12px}
+.note{font-size:13px;color:var(--muted);line-height:1.4;margin:0}
+.ph{display:flex;align-items:center;gap:12px}
+.ph .av{width:56px;height:56px;border-radius:50%;background:var(--t-soft);border:2px dashed var(--t);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--t)}
+.ph .av img{width:100%;height:100%;object-fit:cover}
+.priv{display:flex;gap:10px;align-items:flex-start;background:#EEF3FC;border-radius:16px;padding:12px 14px;font-size:14px;color:#1E3A6E;line-height:1.4}
+.go{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:18px;padding:15px;background:var(--t);color:#fff;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:700;font-size:19px;box-shadow:0 5px 0 var(--t-dk);cursor:pointer;text-decoration:none}
+.go:active{transform:translateY(3px);box-shadow:0 2px 0 var(--t-dk)}
+.go.ghost{background:#fff;color:var(--t);border:2px solid var(--t);box-shadow:none}
+.msg{border-radius:14px;background:#EEF3FC;color:#1E3A6E;padding:12px 14px;font-size:14.5px;line-height:1.4;text-align:center}
+/* care sheet */
+.sheet{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.sh-head{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:3px solid var(--t);padding-bottom:8px}
+.sh-head img{height:54px;width:auto}
+.sh-head .r{text-align:right}
+.sh-head .r b{display:block;font-size:17px;color:var(--t);line-height:1.2}
+.sh-head .r span{font-size:12px;color:var(--muted)}
+.child{display:flex;gap:12px;align-items:center;margin:12px 0 4px;background:var(--t-soft);border-radius:14px;padding:10px 12px}
+.child .av{width:52px;height:52px;border-radius:50%;background:var(--t-line);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--t);font-size:20px;overflow:hidden;flex-shrink:0}
+.child .av img{width:100%;height:100%;object-fit:cover}
+.child b{font-size:19px;display:block;line-height:1.2}
+.child span{font-size:13.5px;color:var(--muted)}
+.row{display:grid;grid-template-columns:104px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.4;white-space:pre-line}
+.row .k{font-weight:700;color:var(--blue);font-size:13.5px;white-space:normal}
+.row.alert{background:#FFF3F2;border-left:4px solid var(--red);padding-left:8px;margin:4px 0}
+.row.alert .k{color:var(--red)}
+.sh-foot{margin-top:10px;display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--muted)}
+.btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:6px;min-height:50px;border-radius:14px;font-family:inherit;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer;border:0;padding:0 8px;text-align:center}
+.wa{background:#1FA855;color:#fff}.out{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+@media print{
+  body *{visibility:hidden}
+  #sheet,#sheet *{visibility:visible}
+  #sheet{position:absolute;left:0;top:0;width:100%;border:0}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<!-- ================= FORM ================= -->
+<section id="formView" style="display:flex;flex-direction:column;gap:14px">
+<div class="top">
+<a class="back" href="family.html" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<img src="physio.webp" alt="" width="52" height="52">
+<div><h1>Physiotherapy at home</h1><p>Fill only what you want. Every field is optional.</p><p style="color:var(--t);font-weight:600">Write in the carer's language if you can.</p></div>
+</div>
+
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span><h2>About the person<small>Name, age, language and photo</small></h2></div>
+<div class="g2"><div><label class="l" for="pName">Name</label><input id="pName" data-k="pName" maxlength="40" placeholder="Suresh Kulkarni"></div><div><label class="l" for="pAge">Age</label><input id="pAge" data-k="pAge" maxlength="20" placeholder="65 years"></div></div>
+<div class="chips" data-g="gender" data-single="1"><button type="button" class="chip" data-v="Female">Female</button><button type="button" class="chip" data-v="Male">Male</button></div>
+<div><span class="l">Language they speak</span><div class="chips" data-g="pLangs"><button type="button" class="chip" data-v="Hindi">Hindi</button><button type="button" class="chip" data-v="Marathi">Marathi</button><button type="button" class="chip" data-v="Gujarati">Gujarati</button><button type="button" class="chip" data-v="English">English</button><button type="button" class="chip" data-v="Urdu">Urdu</button></div></div>
+<div class="ph"><span class="av" id="phBox"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+<label class="chip" style="display:inline-flex;align-items:center">Add photo<input type="file" id="photo" accept="image/*" hidden></label>
+<button type="button" class="chip" id="phDel" hidden>Remove</button></div>
+<p class="note">The photo stays on your phone and appears only on the care sheet.</p>
+</section>
+
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg></span><h2>Reason for physiotherapy<small>Tick all that apply</small></h2></div>
+<div class="chips" data-g="reason"><button type="button" class="chip" data-v="Stroke or paralysis">Stroke or paralysis</button><button type="button" class="chip" data-v="Fracture">Fracture</button><button type="button" class="chip" data-v="Knee replacement">Knee replacement</button><button type="button" class="chip" data-v="Hip replacement">Hip replacement</button><button type="button" class="chip" data-v="Back or neck pain">Back or neck pain</button><button type="button" class="chip" data-v="Frozen shoulder">Frozen shoulder</button><button type="button" class="chip" data-v="Sports injury">Sports injury</button><button type="button" class="chip" data-v="Old age weakness or balance">Old age weakness or balance</button><button type="button" class="chip" data-v="After a long hospital stay">After a long hospital stay</button><button type="button" class="chip" data-v="Child development (e.g. cerebral palsy)">Child development (e.g. cerebral palsy)</button></div>
+<textarea data-k="reasonNote" maxlength="600" aria-label="More about the reason" placeholder="Right knee replacement on 2 November. Walking with a walker."></textarea>
+</section>
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4a2.5 2.5 0 0 0-2 4l11 11a2.5 2.5 0 1 0 4-2L9 6a2.5 2.5 0 0 0-2-2z"/></svg></span><h2>Body part to work on<small>Tick all that apply</small></h2></div>
+<div class="chips" data-g="part"><button type="button" class="chip" data-v="Neck">Neck</button><button type="button" class="chip" data-v="Shoulder">Shoulder</button><button type="button" class="chip" data-v="Back">Back</button><button type="button" class="chip" data-v="Hip">Hip</button><button type="button" class="chip" data-v="Knee">Knee</button><button type="button" class="chip" data-v="Ankle or foot">Ankle or foot</button><button type="button" class="chip" data-v="Hand or wrist">Hand or wrist</button><button type="button" class="chip" data-v="Whole body">Whole body</button></div>
+<div class="chips" data-g="side" data-single="1"><button type="button" class="chip" data-v="Left">Left</button><button type="button" class="chip" data-v="Right">Right</button><button type="button" class="chip" data-v="Both sides">Both sides</button></div>
+</section>
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4" r="2"/><path d="M11 21l2-6-2-3 1-4 3 3h3M9 12l-2 4"/></svg></span><h2>How they move now<small>Walking and pain today</small></h2></div>
+<div class="chips" data-g="mobility" data-single="1"><button type="button" class="chip" data-v="Walks alone">Walks alone</button><button type="button" class="chip" data-v="Walks with support">Walks with support</button><button type="button" class="chip" data-v="Uses walker or stick">Uses walker or stick</button><button type="button" class="chip" data-v="Wheelchair">Wheelchair</button><button type="button" class="chip" data-v="Fully bedridden">Fully bedridden</button></div>
+<div><span class="l">Pain level (0 = no pain, 10 = worst)</span><div class="chips" data-g="pain" data-single="1"><button type="button" class="chip" data-v="0">0</button><button type="button" class="chip" data-v="1">1</button><button type="button" class="chip" data-v="2">2</button><button type="button" class="chip" data-v="3">3</button><button type="button" class="chip" data-v="4">4</button><button type="button" class="chip" data-v="5">5</button><button type="button" class="chip" data-v="6">6</button><button type="button" class="chip" data-v="7">7</button><button type="button" class="chip" data-v="8">8</button><button type="button" class="chip" data-v="9">9</button><button type="button" class="chip" data-v="10">10</button></div></div>
+</section>
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v4H9zM5 5h4M15 5h4v16H5V5"/><path d="M9 12h6M9 16h4"/></svg></span><h2>Doctor's advice<small>What the doctor said</small></h2></div>
+<div><label class="l" for="surgDate">Surgery or injury date</label><input type="date" id="surgDate" data-k="surgDate"></div>
+<div><label class="l" for="restrict">What not to do</label><textarea id="restrict" data-k="restrict" maxlength="600" placeholder="Do not bend the knee beyond 90 degrees. No sitting cross-legged."></textarea></div>
+<div><span class="l" style="color:var(--red)">Doctor has allowed physiotherapy?</span><div class="chips" data-g="docOk" data-single="1"><button type="button" class="chip" data-v="Yes">Yes</button><button type="button" class="chip" data-v="Not asked yet">Not asked yet</button></div></div>
+</section>
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><h2>Visits<small>How often and how long</small></h2></div>
+<div><span class="l">Visits per week</span><div class="chips" data-g="perWeek" data-single="1"><button type="button" class="chip" data-v="Daily">Daily</button><button type="button" class="chip" data-v="3 times a week">3 times a week</button><button type="button" class="chip" data-v="2 times a week">2 times a week</button></div></div>
+<div><span class="l">Session length</span><div class="chips" data-g="sessLen" data-single="1"><button type="button" class="chip" data-v="30 minutes">30 minutes</button><button type="button" class="chip" data-v="45 minutes">45 minutes</button><button type="button" class="chip" data-v="60 minutes">60 minutes</button></div></div>
+<div><span class="l">Preferred time</span><div class="chips" data-g="visit"><button type="button" class="chip" data-v="Morning">Morning</button><button type="button" class="chip" data-v="Afternoon">Afternoon</button><button type="button" class="chip" data-v="Evening">Evening</button></div></div>
+<div class="g2"><div><label class="l" for="startDate">Start date</label><input type="date" id="startDate" data-k="startDate"></div><div><label class="l" for="weeks">For about how many weeks?</label><input type="number" id="weeks" data-k="weeks" inputmode="numeric" min="1" max="104" placeholder="6"></div></div>
+</section>
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span><h2>Physiotherapist you prefer<small>Optional</small></h2></div>
+<div><span class="l">Qualification</span><div class="chips" data-g="qual" data-single="1"><button type="button" class="chip" data-v="BPT or MPT degree needed">BPT or MPT degree needed</button><button type="button" class="chip" data-v="Experience is enough">Experience is enough</button></div></div>
+<div class="chips" data-g="carerGender" data-single="1"><button type="button" class="chip" data-v="Female physiotherapist">Female</button><button type="button" class="chip" data-v="Male physiotherapist">Male</button><button type="button" class="chip" data-v="Any physiotherapist">Any</button></div>
+<div><span class="l">Should speak</span><div class="chips" data-g="langs"><button type="button" class="chip" data-v="Hindi">Hindi</button><button type="button" class="chip" data-v="Marathi">Marathi</button><button type="button" class="chip" data-v="Gujarati">Gujarati</button><button type="button" class="chip" data-v="English">English</button></div></div>
+</section>
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="15" r="5"/><path d="M9 4v6h6l2 5"/><circle cx="9" cy="4" r="1.5"/></svg></span><h2>Equipment at home<small>So the physiotherapist knows what to bring</small></h2></div>
+<div class="chips" data-g="equip"><button type="button" class="chip" data-v="Walker">Walker</button><button type="button" class="chip" data-v="Walking stick">Walking stick</button><button type="button" class="chip" data-v="Exercise band">Exercise band</button><button type="button" class="chip" data-v="Weights">Weights</button><button type="button" class="chip" data-v="Hot or cold pack">Hot or cold pack</button><button type="button" class="chip" data-v="Exercise mat">Exercise mat</button><button type="button" class="chip" data-v="TENS machine">TENS machine</button><button type="button" class="chip" data-v="Physio should bring their own">Physio should bring their own</button></div>
+</section>
+<section class="card must">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span><h2>Health and safety<small>Recommended</small></h2></div>
+<div class="chips" data-g="health"><button type="button" class="chip" data-v="High BP">High BP</button><button type="button" class="chip" data-v="Diabetes">Diabetes</button><button type="button" class="chip" data-v="Heart problem">Heart problem</button><button type="button" class="chip" data-v="Weak bones (osteoporosis)">Weak bones (osteoporosis)</button><button type="button" class="chip" data-v="Risk of falls">Risk of falls</button></div>
+<div><label class="l" for="medicine">Medicine (name, dose, time)</label><textarea id="medicine" data-k="medicine" maxlength="600" placeholder="Insulin 10 units before breakfast. Painkiller only if needed."></textarea></div>
+<div><label class="l" for="allergies">Allergies <span style="color:var(--red)">(food, medicine, anything)</span></label><input id="allergies" data-k="allergies" maxlength="200" placeholder="Sulpha drugs"></div>
+</section>
+<section class="card must">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg></span><h2>Danger signs: stop and call immediately<small>Do not wait if you see these</small></h2></div>
+<div class="chips" data-g="danger"><button type="button" class="chip" data-v="Severe pain">Severe pain</button><button type="button" class="chip" data-v="New swelling">New swelling</button><button type="button" class="chip" data-v="Chest pain or breathlessness">Chest pain or breathlessness</button><button type="button" class="chip" data-v="Dizziness or fainting">Dizziness or fainting</button><button type="button" class="chip" data-v="Wound bleeding or opening">Wound bleeding or opening</button><button type="button" class="chip" data-v="Calf pain or swelling">Calf pain or swelling</button></div>
+</section>
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V4.5a1.5 1.5 0 0 1 3 0V10M13 10V5.5a1.5 1.5 0 0 1 3 0V12M16 9.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L4 14a1.5 1.5 0 0 1 2.5-1.7L7 13"/></svg></span><h2>Exercises between visits<small>The physiotherapist can fill this on the first visit</small></h2></div>
+<div><label class="l" for="homeEx">Daily exercises the family should help with</label><textarea id="homeEx" data-k="homeEx" maxlength="600" placeholder="Ankle pumps 20 times, 3 times a day. Walk to the balcony and back twice."></textarea></div>
+</section>
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span><h2>Progress notes<small>Write improvement week by week</small></h2></div>
+<div><label class="l" for="progress">Progress</label><textarea id="progress" data-k="progress" maxlength="600" placeholder="Week 1: walked 10 steps with walker. Week 2: 25 steps."></textarea></div>
+</section>
+<section class="card must">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><h2>Emergency contacts<small>Recommended</small></h2></div>
+<div><label class="l" for="c1">Contact 1 (name and number)</label><input id="c1" data-k="c1" maxlength="60" placeholder="Son – 98XXXXXXXX"></div>
+<div><label class="l" for="c2">Contact 2 (name and number)</label><input id="c2" data-k="c2" maxlength="60" placeholder="Daughter – 97XXXXXXXX"></div>
+<div class="g2"><div><label class="l" for="doctor">Treating doctor</label><input id="doctor" data-k="doctor" maxlength="60" placeholder="Dr Mehta – 99XXXXXXXX"></div><div><label class="l" for="hospital">Nearest hospital</label><input id="hospital" data-k="hospital" maxlength="60" placeholder="City Hospital"></div></div>
+<p class="note" style="font-weight:600;color:var(--red)">Ambulance: 108</p>
+</section>
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg></span><h2>Anything else<small>Goals, worries, anything else</small></h2></div>
+<textarea data-k="other" maxlength="600" aria-label="Anything else" placeholder="Goal: walk to the temple on his own by Diwali."></textarea>
+</section>
+
+<section class="card">
+<div class="hd"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="#1FA855" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></span><h2>Send care sheet to<small>A printable sheet with everything you filled</small></h2></div>
+<div><label class="l" for="sendTo">WhatsApp number</label><input type="tel" id="sendTo" data-k="sendTo" inputmode="numeric" maxlength="14" placeholder="98XXXXXXXX"></div>
+<p class="note">Skipped fields are left out of the sheet. You can also send it to the carer or print it.</p>
+</section>
+
+<div class="priv"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;margin-top:1px"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Everything you type stays saved on this phone only. Share it only with the carer you choose.</span></div>
+<button type="button" class="go" id="make">Create care sheet</button>
+<button type="button" class="go ghost" id="skip">Skip and find carers</button>
+<p class="msg" id="skipMsg" hidden>Carers are registering now. Very soon you'll see verified carers near your home here.</p>
+</section>
+
+<!-- ================= CARE SHEET ================= -->
+<section id="sheetView" hidden style="flex-direction:column;gap:14px">
+<div class="top">
+<button type="button" class="back" id="edit" aria-label="Back to form"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+<div><h1>Care sheet</h1><p>Send it, share it as a picture, or print it</p></div>
+</div>
+<div><span class="l">Sheet language</span><div class="chips" id="sheetLang" data-noi18n><button type="button" class="chip" data-sl="en">English</button><button type="button" class="chip" data-sl="hi">हिंदी</button><button type="button" class="chip" data-sl="mr">मराठी</button><button type="button" class="chip" data-sl="gu">ગુજરાતી</button></div></div>
+<div class="sheet" id="sheet" data-noi18n>
+<div class="sh-head"><img src="logo.webp" alt="Let Us Care" width="113" height="54"><div class="r"><b id="shTitle">Physiotherapy sheet</b><span id="shDate"></span></div></div>
+<div class="child" id="shChild"><div class="av" id="shAv"></div><div><b id="shName"></b><span id="shSub"></span></div></div>
+<div id="shRows"></div>
+<div class="sh-foot"><span>Let Us Care · Caring your loved ones</span><span id="shFree">Free service by Abode Digital Technology</span></div>
+</div>
+<div class="btns">
+<a class="btn wa" id="waBtn" href="#" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>Send on WhatsApp</a>
+<button type="button" class="btn out" id="imgBtn">Share as picture</button>
+</div>
+<button type="button" class="btn out" id="listenBtn" style="width:100%"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg><span id="listenTxt">Listen</span></button>
+<p class="note" id="vnNote" style="text-align:center;color:var(--red);margin:-6px 0 0"></p>
+<button type="button" class="btn out" id="printBtn" style="width:100%">Print or save as PDF</button>
+<p class="note" id="shNote" style="text-align:center"></p>
+<p class="note" style="text-align:center">Tip: also send a short WhatsApp voice note to the carer.</p>
+<button type="button" class="go ghost" id="edit2">Edit details</button>
+</section>
+</main>
+
+<script src="i18n.js"></script>
+<script>
+(function(){
+var KEY='luc_physio_v1';
+var data={};
+var SL=LUC.lang();
+function tt(s){return LUC.T(s,SL);}
+function $(id){return document.getElementById(id);}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}}
+try{data=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){data={};}
+
+document.querySelectorAll('[data-k]').forEach(function(el){
+  var k=el.dataset.k; if(data[k])el.value=data[k];
+  el.addEventListener('input',function(){data[k]=el.value;save();});
+});
+document.querySelectorAll('[data-g]').forEach(function(g){
+  var k=g.dataset.g,single=!!g.dataset.single;
+  if(!Array.isArray(data[k]))data[k]=[];
+  g.querySelectorAll('.chip').forEach(function(c){
+    var on=data[k].indexOf(c.dataset.v)>-1;
+    c.classList.toggle('on',on);c.setAttribute('aria-pressed',on?'true':'false');
+    c.addEventListener('click',function(){
+      var now=!c.classList.contains('on');
+      if(single){g.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-pressed','false');});data[k]=[];}
+      c.classList.toggle('on',now);c.setAttribute('aria-pressed',now?'true':'false');
+      if(now)data[k].push(c.dataset.v);else data[k]=data[k].filter(function(v){return v!==c.dataset.v;});
+      save();if(k==='period')timeVis();
+    });
+  });
+});
+function timeVis(){var t=$('timeRow');if(t)t.hidden=(data.period||[])[0]==='24 x 7';}
+timeVis();
+
+function camIcon(){return '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';}
+function showPhoto(){if(data.photo){$('phBox').innerHTML='<img alt="Photo" src="'+data.photo+'">';$('phDel').hidden=false;}}
+showPhoto();
+$('photo').addEventListener('change',function(e){
+  var f=e.target.files&&e.target.files[0];if(!f)return;
+  var img=new Image(),url=URL.createObjectURL(f);
+  img.onload=function(){var s=200,c=document.createElement('canvas');c.width=s;c.height=s;var m=Math.min(img.width,img.height);
+    c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,s,s);
+    data.photo=c.toDataURL('image/jpeg',0.75);save();showPhoto();URL.revokeObjectURL(url);};
+  img.src=url;
+});
+$('phDel').addEventListener('click',function(){delete data.photo;save();$('phBox').innerHTML=camIcon();$('phDel').hidden=true;});
+$('skip').addEventListener('click',function(){$('skipMsg').hidden=false;});
+
+function t12(v){if(!v)return'';var p=v.split(':');return new Date(2000,0,1,+p[0],+p[1]).toLocaleTimeString(LUC.locale(SL)+'-u-nu-latn',{hour:'numeric',minute:'2-digit'});}
+function dt(v){if(!v)return'';var d=new Date(v+'T00:00:00');return d.toLocaleDateString(LUC.locale(SL)+'-u-nu-latn',{weekday:'long',day:'numeric',month:'long'});}
+function val(k){return(data[k]||'').toString().trim();}
+function list(k){return(data[k]||[]).map(tt).join(', ');}
+function join(a){return a.filter(Boolean).join('\n');}
+function rows(){
+  var r=[];
+  var time=[list('perWeek'),list('sessLen'),list('visit')];
+  if(val('startDate'))time.push(tt('Starting:')+' '+dt(val('startDate')));
+  if(val('weeks'))time.push(tt('Duration (weeks):')+' '+val('weeks'));
+  if(join(time))r.push([tt('Visits'),join(time)]);
+  var rs=[list('reason'),val('reasonNote')];
+  if(join(rs))r.push([tt('Reason'),join(rs)]);
+  var pt=[list('part'),list('side')];
+  if(join(pt))r.push([tt('Body part'),pt.filter(Boolean).join(' · ')]);
+  var mv=[list('mobility'),list('pain')?(tt('Pain level:')+' '+list('pain')+'/10'):''];
+  if(join(mv))r.push([tt('How they move now'),join(mv)]);
+  var ok=(data.docOk||[])[0];
+  var ad=[val('surgDate')?(tt('Surgery or injury date:')+' '+dt(val('surgDate'))):'',list('docOk')?(tt('Doctor allowed physiotherapy:')+' '+list('docOk')):'',val('restrict')?(tt('Do not:')+' '+val('restrict')):''];
+  if(join(ad))r.push([tt("Doctor's advice"),join(ad),(ok==='Not asked yet'||val('restrict'))?1:0]);
+  if(val('allergies'))r.push([tt('Allergies'),val('allergies'),1]);
+  if(val('medicine'))r.push([tt('Medicine'),val('medicine'),1]);
+  if(list('health'))r.push([tt('Health and safety'),list('health'),1]);
+  var dg=[list('danger')];
+  if(join(dg))r.push([tt('Danger signs'),tt('Stop exercise and call family and doctor immediately if:')+'\n'+join(dg),1]);
+  if(list('equip'))r.push([tt('Equipment'),list('equip')]);
+  if(val('homeEx'))r.push([tt('Exercises between visits'),val('homeEx')]);
+  if(val('progress'))r.push([tt('Progress notes'),val('progress')]);
+  var c=[list('qual'),list('carerGender'),list('langs')?(tt('Should speak:')+' '+list('langs')):''];
+  if(join(c))r.push([tt('Physiotherapist'),join(c)]);
+  if(val('other'))r.push([tt('Notes'),val('other')]);
+  var e=[val('c1'),val('c2'),val('doctor')?(tt('Doctor:')+' '+val('doctor')):'',val('hospital')?(tt('Hospital:')+' '+val('hospital')):'',tt('Ambulance: 108')];
+  r.push([tt('Emergency'),join(e),1]);
+  return r;
+}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function buildSheet(){
+  var name=val('pName')||tt('Your loved one');
+  $('shName').textContent=name;
+  $('shSub').textContent=[list('gender'),val('pAge'),list('pLangs')].filter(Boolean).join(' · ');
+  $('shAv').innerHTML=data.photo?'<img alt="" src="'+data.photo+'">':esc(name.charAt(0).toUpperCase());
+  $('shTitle').textContent=tt('Physiotherapy sheet');$('shFree').textContent=tt('Free service by Abode Digital Technology');
+  $('shDate').textContent=tt('Created')+' '+new Date().toLocaleDateString(LUC.locale(SL)+'-u-nu-latn',{day:'numeric',month:'short',year:'numeric'});
+  var r=rows();
+  $('shRows').innerHTML=r.length?r.map(function(x){return'<div class="row'+(x[2]?' alert':'')+'"><span class="k">'+esc(x[0])+'</span><span>'+esc(x[1])+'</span></div>';}).join('')
+    :'<p class="note" style="padding:10px 0">'+esc(tt('No details filled yet. Tap "Edit details" to add some.'))+'</p>';
+  var txt='*Let Us Care – '+tt('Physiotherapy sheet')+'*\n*'+name+'*'+($('shSub').textContent?' ('+$('shSub').textContent+')':'')+'\n';
+  r.forEach(function(x){txt+='\n*'+x[0]+':*\n'+x[1]+'\n';});
+  txt+='\n_'+tt('Sent from Let Us Care')+'_';
+  var num=val('sendTo').replace(/\D/g,'');if(num.length===10)num='91'+num;
+  $('waBtn').href='https://wa.me/'+(num.length>=12?num:'')+'?text='+encodeURIComponent(txt);
+  $('shNote').textContent=LUC.T(num.length>=12?'WhatsApp will open with the sheet ready. Tap send.':'WhatsApp will open; choose who to send it to.');
+}
+function showSheet(){SL=data.sheetLang||LUC.lang();markSL();$('vnNote').textContent='';buildSheet();$('formView').style.display='none';$('sheetView').hidden=false;$('sheetView').style.display='flex';window.scrollTo(0,0);}
+function showForm(){stopSpeak();$('sheetView').hidden=true;$('sheetView').style.display='';$('formView').style.display='flex';window.scrollTo(0,0);}
+$('make').addEventListener('click',showSheet);
+$('edit').addEventListener('click',showForm);$('edit2').addEventListener('click',showForm);
+$('printBtn').addEventListener('click',function(){window.print();});
+/* share as picture */
+function loadH2C(){return new Promise(function(res,rej){if(window.html2canvas)return res();var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+$('imgBtn').addEventListener('click',function(){
+  var b=$('imgBtn'),old=b.textContent;b.textContent=LUC.T('Preparing…');
+  loadH2C().then(function(){return html2canvas($('sheet'),{scale:2,backgroundColor:'#ffffff'});})
+  .then(function(cv){return new Promise(function(r){cv.toBlob(r,'image/png');});})
+  .then(function(blob){
+    var file=new File([blob],'care-sheet.png',{type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){return navigator.share({files:[file],title:'Physiotherapy sheet'});}
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='care-sheet.png';document.body.appendChild(a);a.click();a.remove();
+  }).catch(function(){}).then(function(){b.textContent=old;});
+});
+
+
+function markSL(){document.querySelectorAll('#sheetLang .chip').forEach(function(c){var on=c.dataset.sl===SL;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on?'true':'false');});}
+document.querySelectorAll('#sheetLang .chip').forEach(function(c){c.addEventListener('click',function(){SL=c.dataset.sl;data.sheetLang=SL;save();markSL();stopSpeak();buildSheet();});});
+document.addEventListener('langchange',function(){if(!$('sheetView').hidden)buildSheet();setListen();});
+/* listen: phone reads the sheet aloud */
+var speaking=false;
+try{speechSynthesis.getVoices();}catch(e){}
+function stopSpeak(){try{speechSynthesis.cancel();}catch(e){}speaking=false;setListen();}
+function setListen(){$('listenTxt').textContent=LUC.T(speaking?'Stop':'Listen');}
+function speechLines(){var a=[$('shName').textContent,$('shSub').textContent];rows().forEach(function(x){a.push(x[0]+'. '+x[1].replace(/\n/g,'. '));});return a.filter(Boolean);}
+$('listenBtn').addEventListener('click',function(){
+  var NOV='This phone has no voice for this language. Install it in Settings → Text-to-speech.';
+  if(!('speechSynthesis' in window)){$('vnNote').textContent=LUC.T(NOV);return;}
+  if(speaking){stopSpeak();return;}
+  var loc=LUC.locale(SL),vs=speechSynthesis.getVoices(),pre=loc.slice(0,2);
+  var v=vs.filter(function(x){return x.lang.replace('_','-').toLowerCase().indexOf(pre)===0;})[0];
+  $('vnNote').textContent=(vs.length&&!v)?LUC.T(NOV):'';
+  var lines=speechLines();speaking=true;setListen();
+  lines.forEach(function(t,i){var u=new SpeechSynthesisUtterance(t);u.lang=loc;if(v)u.voice=v;u.rate=0.9;
+    if(i===lines.length-1){u.onend=function(){speaking=false;setListen();};u.onerror=u.onend;}
+    speechSynthesis.speak(u);});
+});
+})();
+</script>
+</body>
+</html>
