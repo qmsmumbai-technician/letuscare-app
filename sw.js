@@ -1,6 +1,6 @@
 // Let Us Care service worker – network first, cache as fallback (so updates show immediately)
-const CACHE = 'luc-v13';
-const CORE = ['./', 'index.html', 'family.html', 'toddler.html', 'elder.html', 'patient.html', 'partner.html', 'manifest.json', 'i18n.js',
+const CACHE = 'luc-v14';
+const CORE = ['./', 'index.html', 'family.html', 'toddler.html', 'elder.html', 'patient.html', 'mother.html', 'partner.html', 'manifest.json', 'i18n.js',
   'logo.webp', 'toddler.webp', 'elder.webp', 'patient.webp', 'mother.webp', 'adt-logo.webp', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
