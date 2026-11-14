@@ -9,24 +9,24 @@
 <link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Baloo+Bhai+2:wght@600;700;800&family=Mukta+Vaani:wght@400;500;600;700&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--blue:#003B9B;--blue-dk:#022A6E;--orange:#F57502;--orange-dk:#C95A00;--ink:#1D2433;--muted:#5B6475;--line:#E2E6EE;--soft:#F4F7FC;--green:#1C8A4A}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-ui,sans-serif}
+body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani',system-ui,sans-serif}
 .wrap{max-width:480px;margin:0 auto;padding:16px 18px calc(28px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:20px}
 .top{display:flex;align-items:center;gap:12px}
 .back{width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--blue);text-decoration:none;flex-shrink:0}
-.top h1{margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:24px;color:var(--blue);line-height:1.1}
+.top h1{margin:0;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:800;font-size:24px;color:var(--blue);line-height:1.1}
 .top p{margin:0;font-size:14px;color:var(--muted)}
 .step{display:flex;align-items:center;gap:10px;margin:0 0 10px}
 .num{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.step h2{margin:0;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:20px;line-height:1.1}
+.step h2{margin:0;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:700;font-size:20px;line-height:1.1}
 .cats{display:flex;flex-direction:column;gap:12px}
 .cat{text-decoration:none;display:flex;align-items:center;gap:14px;width:100%;padding:10px 14px 10px 10px;border-radius:22px;border:2.5px solid var(--line);background:#fff;text-align:left;font-family:inherit;color:inherit;cursor:pointer;position:relative;transition:border-color .2s,background .2s,transform .1s}
 .cat:active{transform:scale(.985)}
 .cat img{width:96px;height:96px;object-fit:cover;object-position:center 62%;border-radius:16px;flex-shrink:0}
-.chev{flex-shrink:0;margin-left:auto}.cat .n{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:21px;line-height:1.1;display:block}
+.chev{flex-shrink:0;margin-left:auto}.cat .n{font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:800;font-size:21px;line-height:1.1;display:block}
 .cat .d{font-size:14.5px;color:var(--muted);line-height:1.3;display:block;margin-top:2px}
 .tick{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:var(--green);display:none;align-items:center;justify-content:center}
 .sel{border-color:var(--blue);background:#EEF3FC}
@@ -41,15 +41,15 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-ui,san
 .periods{display:flex;flex-direction:column;gap:10px}
 .per{display:flex;align-items:center;gap:14px;width:100%;padding:12px 14px;border-radius:18px;border:2.5px solid var(--line);background:#fff;font-family:inherit;color:inherit;text-align:left;cursor:pointer;position:relative}
 .per .ic{width:46px;height:46px;border-radius:14px;background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--blue);flex-shrink:0}
-.per .n{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:19px;line-height:1.1;display:block}
+.per .n{font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:700;font-size:19px;line-height:1.1;display:block}
 .per .d{font-size:14px;color:var(--muted);display:block}
 .per.sel{border-color:var(--blue);background:#EEF3FC}
 .per.sel .ic{background:var(--blue);color:#fff}
-.go{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:18px;padding:16px;background:var(--blue);color:#fff;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:19px;box-shadow:0 5px 0 var(--blue-dk);cursor:pointer}
+.go{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:18px;padding:16px;background:var(--blue);color:#fff;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:700;font-size:19px;box-shadow:0 5px 0 var(--blue-dk);cursor:pointer}
 .go:active{transform:translateY(3px);box-shadow:0 2px 0 var(--blue-dk)}
 .err{color:#C0261F;font-size:14.5px;text-align:center;margin:-8px 0 0;min-height:1em}
 .done{display:none;border-radius:22px;background:#EEF8F1;border:1.5px solid #BFE3CB;padding:18px;text-align:center}
-.done h3{margin:0 0 4px;font-family:'Baloo 2',sans-serif;font-size:20px;color:var(--green)}
+.done h3{margin:0 0 4px;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-size:20px;color:var(--green)}
 .done p{margin:0;font-size:15px;line-height:1.45;color:var(--ink)}
 .done b{color:var(--blue)}
 @keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
@@ -93,8 +93,9 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-ui,san
 
 <p class="soon" id="soon" role="status" hidden></p>
 </main>
+<script src="i18n.js"></script>
 <script>
-document.querySelectorAll('button.cat').forEach(function(b){b.addEventListener('click',function(){var s=document.getElementById('soon');s.textContent=b.dataset.label+' details page is coming very soon.';s.hidden=false;s.scrollIntoView({behavior:'smooth',block:'center'});});});
+document.querySelectorAll('button.cat').forEach(function(b){b.addEventListener('click',function(){var s=document.getElementById('soon');s.textContent=LUC.T(b.dataset.label)+' – '+LUC.T('This page is coming very soon.');s.hidden=false;s.scrollIntoView({behavior:'smooth',block:'center'});});});
 </script>
 
 </body>

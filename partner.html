@@ -9,19 +9,19 @@
 <link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Baloo+Bhai+2:wght@600;700;800&family=Mukta+Vaani:wght@400;500;600;700&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--blue:#003B9B;--orange:#F57502;--orange-dk:#C95A00;--ink:#1D2433;--muted:#5B6475;--line:#E2E6EE;--soft:#FFF5EC;--soft-line:#FBE3CC;--green:#1C8A4A;--red:#C0261F}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
-body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta',system-ui,sans-serif}
+body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani',system-ui,sans-serif}
 .wrap{max-width:480px;margin:0 auto;padding:16px 18px calc(30px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:18px}
 .top{display:flex;align-items:center;gap:12px}
 .back{width:46px;height:46px;border-radius:14px;border:1px solid var(--soft-line);background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--orange-dk);text-decoration:none;flex-shrink:0}
-.top h1{margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:24px;color:var(--orange-dk);line-height:1.1}
+.top h1{margin:0;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:800;font-size:24px;color:var(--orange-dk);line-height:1.1}
 .top p{margin:0;font-size:14px;color:var(--muted)}
 .hero{display:flex;gap:12px;align-items:center;background:var(--soft);border:1px solid var(--soft-line);border-radius:20px;padding:12px 14px}
-.hero b{display:block;font-family:'Baloo 2',sans-serif;font-size:17px;line-height:1.2;color:var(--ink)}
+.hero b{display:block;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-size:17px;line-height:1.2;color:var(--ink)}
 .hero span{display:block;font-size:14px;color:var(--muted);line-height:1.3}
 .sec{display:flex;flex-direction:column;gap:8px}
 .lbl{font-weight:600;font-size:15px;color:var(--ink)}
@@ -47,14 +47,14 @@ input:focus,textarea:focus{border-color:var(--orange)}
 .note{font-size:13.5px;color:var(--muted);line-height:1.4}
 .agree{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45;color:var(--ink)}
 .agree input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--orange);flex-shrink:0}
-.go{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:18px;padding:16px;background:var(--orange);color:#fff;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:19px;box-shadow:0 5px 0 var(--orange-dk);cursor:pointer}
+.go{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:18px;padding:16px;background:var(--orange);color:#fff;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:700;font-size:19px;box-shadow:0 5px 0 var(--orange-dk);cursor:pointer}
 .go:active{transform:translateY(3px);box-shadow:0 2px 0 var(--orange-dk)}
 .go[aria-busy=true]{opacity:.7}
 .err{color:var(--red);font-size:14.5px;text-align:center;min-height:1em;margin:-6px 0 0}
 .card{border-radius:22px;border:1.5px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:12px}
 .status{display:flex;gap:12px;align-items:center}
 .status .av{width:64px;height:64px;border-radius:50%;object-fit:cover;background:var(--soft);flex-shrink:0}
-.status b{display:block;font-family:'Baloo 2',sans-serif;font-size:20px;line-height:1.15}
+.status b{display:block;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-size:20px;line-height:1.15}
 .badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px}
 .b-pend{background:#FFF1DC;color:#7A4A00}.b-ok{background:#E3F4E9;color:#14693A}
 .steps{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
@@ -165,6 +165,7 @@ input:focus,textarea:focus{border-color:var(--orange)}
 </section>
 </main>
 
+<script src="i18n.js"></script>
 <script>
 /* ---------- settings ---------- */
 var WHATSAPP_NUMBER = '919860046593'; // Let Us Care verification WhatsApp (with 91)
@@ -172,7 +173,7 @@ var WHATSAPP_NUMBER = '919860046593'; // Let Us Care verification WhatsApp (with
 /* ---------- small helpers ---------- */
 function $(id){return document.getElementById(id);}
 var state={gender:[],services:[],periods:[],languages:[],photo:'',lat:null,lng:null};
-function showErr(msg,secId){$('err').textContent=msg;if(secId&&$(secId)){$(secId).scrollIntoView({behavior:'smooth',block:'center'});}}
+function showErr(msg,secId){$('err').textContent=LUC.T(msg);if(secId&&$(secId)){$(secId).scrollIntoView({behavior:'smooth',block:'center'});}}
 
 /* chips */
 document.querySelectorAll('.chips').forEach(function(g){
@@ -208,12 +209,12 @@ $('photo').addEventListener('change',function(e){
 /* GPS */
 $('gps').addEventListener('click',function(){
   if(!navigator.geolocation){showErr('Location is not available on this phone.','s-area');return;}
-  $('gpsTxt').textContent='Finding your location…';
+  $('gpsTxt').textContent=LUC.T('Finding your location…');
   navigator.geolocation.getCurrentPosition(function(p){
     state.lat=+p.coords.latitude.toFixed(5);state.lng=+p.coords.longitude.toFixed(5);
-    $('gps').classList.add('ok');$('gpsTxt').textContent='Location saved';$('err').textContent='';
+    $('gps').classList.add('ok');$('gpsTxt').textContent=LUC.T('Location saved');$('err').textContent='';
   },function(){
-    $('gpsTxt').textContent='Use my current location';
+    $('gpsTxt').textContent=LUC.T('Use my current location');
     showErr('Please allow location access, then tap the button again.','s-area');
   },{enableHighAccuracy:true,timeout:15000,maximumAge:60000});
 });
@@ -249,7 +250,7 @@ function showStatus(d){
   $('stPhoto').src=d.photo||'icon-192.png';$('stName').textContent=d.name;
   var ok=d.status==='approved';
   $('stBadge').className='badge '+(ok?'b-ok':'b-pend');
-  $('stBadge').textContent=ok?'Approved · families can see you':'Under review';
+  $('stBadge').textContent=LUC.T(ok?'Approved · families can see you':'Under review');
   if(d.numberVerified){$('d2').className='d done';$('d2').textContent='✓';}
   if(d.policeVerified){$('d3').className='d done';$('d3').textContent='✓';}
   if(ok){$('d4').className='d done';$('d4').textContent='✓';}
@@ -287,7 +288,7 @@ $('form').addEventListener('submit',function(e){
   if(state.lat===null)return showErr('Please tap "Use my current location".','s-area');
   if(!$('agree').checked)return showErr('Please tick the agreement box.','s-agree');
 
-  var btn=$('submit');btn.setAttribute('aria-busy','true');btn.textContent='Saving…';$('err').textContent='';
+  var btn=$('submit');btn.setAttribute('aria-busy','true');btn.textContent=LUC.T('Saving…');$('err').textContent='';
   signIn().then(function(user){
     var data={name:name,phone:phone,gender:state.gender[0],services:state.services,periods:state.periods,
       experience:exp,languages:state.languages,rate:rate,about:about,area:area,lat:state.lat,lng:state.lng,
@@ -298,7 +299,7 @@ $('form').addEventListener('submit',function(e){
     try{localStorage.setItem('luc_partner_phone',phone);}catch(e){}
     showStatus(data);window.scrollTo({top:0,behavior:'smooth'});
   }).catch(function(err){
-    btn.removeAttribute('aria-busy');btn.textContent='Register as care partner';
+    btn.removeAttribute('aria-busy');btn.textContent=LUC.T('Register as care partner');
     var code=(err&&err.code)||'';
     if(code.indexOf('permission-denied')>-1)showErr('This mobile number is already registered. If it is yours, message us on WhatsApp.');
     else if(code.indexOf('admin-restricted')>-1||code.indexOf('operation-not-allowed')>-1)showErr('Registration is not switched on yet. Please try again later.');
