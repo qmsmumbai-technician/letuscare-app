@@ -64,6 +64,29 @@ input:focus,textarea:focus{border-color:var(--orange)}
 .wa{display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:16px;background:#1FA855;color:#fff;text-decoration:none;font-weight:600;font-size:16px}
 .link{background:none;border:0;color:var(--blue);font-family:inherit;font-size:14.5px;text-decoration:underline;cursor:pointer;padding:6px}
 .loading{text-align:center;color:var(--muted);padding:30px 0}
+
+.prog{display:flex;flex-direction:column;gap:6px}
+.prog .bar{height:8px;border-radius:99px;background:#F1E4D6;overflow:hidden}
+.prog .bar i{display:block;height:100%;background:var(--orange);border-radius:99px;transition:width .3s}
+.prog .row{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted)}
+.lis{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;border:1.5px solid var(--blue);background:#fff;color:var(--blue);font-family:inherit;font-weight:600;font-size:14px;cursor:pointer}
+.step{display:flex;flex-direction:column;gap:16px}
+.step h2{margin:0;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:800;font-size:22px;line-height:1.15;color:var(--ink)}
+.step h2 small{display:block;font-family:'Mukta','Mukta Vaani',sans-serif;font-weight:400;font-size:14px;color:var(--muted);margin-top:2px}
+.svc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sv{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 8px 10px;border-radius:18px;border:2.5px solid var(--line);background:#fff;font-family:inherit;color:var(--ink);font-weight:600;font-size:15px;line-height:1.15;text-align:center;cursor:pointer}
+.sv img{width:100%;max-width:120px;aspect-ratio:1/1;height:auto;border-radius:12px}
+.sv.on{border-color:var(--orange);background:var(--soft)}
+.sv .tk{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:50%;background:var(--green);display:none;align-items:center;justify-content:center}
+.sv.on .tk{display:flex}
+.grp{border:1.5px solid var(--line);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.grp b{font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-size:17px}
+.nav{display:flex;gap:10px}
+.nav .go{flex:2}
+.nav .bk{flex:1;border:1.5px solid var(--line);border-radius:18px;background:#fff;font-family:inherit;font-weight:600;font-size:17px;color:var(--ink);cursor:pointer}
+.promise{margin:0;padding:0 0 0 2px;list-style:none;display:flex;flex-direction:column;gap:10px}
+.promise li{display:flex;gap:10px;font-size:15.5px;line-height:1.4}
+.promise li::before{content:"✓";flex-shrink:0;width:24px;height:24px;border-radius:50%;background:#E3F4E9;color:var(--green);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
 </style>
 </head>
 <body>
@@ -73,81 +96,93 @@ input:focus,textarea:focus{border-color:var(--orange)}
 <div><h1>Join as a care partner</h1><p>Free registration · you keep 100%</p></div>
 </div>
 
+
 <p class="loading" id="loading">Loading…</p>
 
-<!-- REGISTRATION FORM -->
 <form id="form" hidden novalidate>
 <div class="wrap" style="padding:0">
-<div class="hero"><img src="icon-192.png" alt="" width="64" height="64" style="width:64px;height:64px;border-radius:14px;background:#fff;border:1px solid #FBE3CC;flex-shrink:0"><div><b>Help families near your home</b><span>After verification, families can call or WhatsApp you directly. No fee, no commission.</span></div></div>
+<div class="prog"><div class="row"><span id="stepNo">Step 1 of 7</span><button type="button" class="lis" id="listen"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg><span id="lisTxt">Listen</span></button></div><div class="bar"><i id="bar" style="width:14%"></i></div></div>
 
+<!-- STEP 1 -->
+<section class="step" data-step="1">
+<h2>About you<small>Families will see your photo and name</small></h2>
 <div class="sec" id="s-photo">
-<span class="lbl">Your photo <small>(clear face, families will see it)</small></span>
 <div class="photo">
 <div class="ph" id="phBox"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
 <label class="pbtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photo<input type="file" id="photo" accept="image/*" hidden></label>
+</div><span class="note">Clear face photo, no sunglasses.</span>
 </div>
-</div>
-
 <div class="sec" id="s-name"><label class="lbl" for="name">Full name</label><input type="text" id="name" autocomplete="name" maxlength="60" placeholder="Sunita Kamble"></div>
-
 <div class="sec" id="s-phone"><label class="lbl" for="phone">Mobile number <small>(WhatsApp number)</small></label>
 <div class="tel"><b>+91</b><input type="tel" id="phone" inputmode="numeric" maxlength="10" placeholder="98XXXXXXXX"></div></div>
+<div class="sec" id="s-gender"><span class="lbl">Gender</span><div class="chips" data-group="gender" data-single="1"><button type="button" class="chip" data-v="female">Female</button><button type="button" class="chip" data-v="male">Male</button></div></div>
+<div class="sec" id="s-age" style="max-width:50%"><label class="lbl" for="age">Age</label><input type="number" id="age" inputmode="numeric" min="18" max="75" placeholder="35"></div>
+</section>
 
-<div class="sec" id="s-gender"><span class="lbl">Gender</span>
-<div class="chips" data-group="gender" data-single="1">
-<button type="button" class="chip" data-v="female">Female</button>
-<button type="button" class="chip" data-v="male">Male</button>
-<button type="button" class="chip" data-v="other">Other</button>
-</div></div>
+<!-- STEP 2 -->
+<section class="step" data-step="2" hidden>
+<h2>What care do you give?<small>Tap all that apply</small></h2>
+<div class="svc" id="s-services"><button type="button" class="sv" data-v="toddler"><img src="toddler.webp" alt="" width="360" height="364"><span class="tk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Toddler care</span></button><button type="button" class="sv" data-v="elder"><img src="elder.webp" alt="" width="360" height="364"><span class="tk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Elder care</span></button><button type="button" class="sv" data-v="patient"><img src="patient.webp" alt="" width="360" height="364"><span class="tk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Patient care</span></button><button type="button" class="sv" data-v="mother"><img src="mother.webp" alt="" width="360" height="364"><span class="tk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Mother and newborn care</span></button><button type="button" class="sv" data-v="special"><img src="special.webp" alt="" width="360" height="364"><span class="tk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Special needs care</span></button><button type="button" class="sv" data-v="physio"><img src="physio.webp" alt="" width="360" height="364"><span class="tk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span><span>Physiotherapy at home</span></button></div>
+</section>
 
-<div class="sec" id="s-services"><span class="lbl">Services you give <small>(choose all that apply)</small></span>
-<div class="chips" data-group="services">
-<button type="button" class="chip" data-v="toddler">Toddler care</button>
-<button type="button" class="chip" data-v="elder">Elder care</button>
-<button type="button" class="chip" data-v="patient">Patient care</button>
-<button type="button" class="chip" data-v="mother">Post pregnancy massage</button><button type="button" class="chip" data-v="special">Special needs care</button><button type="button" class="chip" data-v="physio">Physiotherapy at home</button>
-<button type="button" class="chip" data-v="tiffin">Tiffin service</button>
-<button type="button" class="chip" data-v="cook">Cook at home</button>
-<button type="button" class="chip" data-v="cleaning">Cleaning</button>
-</div></div>
-
-<div class="sec" id="s-periods"><span class="lbl">When can you work?</span>
-<div class="chips" data-group="periods">
-<button type="button" class="chip" data-v="24x7">24 x 7 (live-in)</button>
-<button type="button" class="chip" data-v="day">Day basis</button>
-<button type="button" class="chip" data-v="hours">Time slot or hours</button>
-</div></div>
-
-<div class="grid2">
+<!-- STEP 3 -->
+<section class="step" data-step="3" hidden>
+<h2>Your skills<small>Tap what you can do well</small></h2>
+<div id="s-skills" style="display:flex;flex-direction:column;gap:10px"><div class="grp" data-for="toddler" hidden><b>Toddler care</b><div class="chips" data-group="skills"><button type="button" class="chip" data-v="Newborn care">Newborn care</button><button type="button" class="chip" data-v="Feeding the baby">Feeding the baby</button><button type="button" class="chip" data-v="Bathing the baby">Bathing the baby</button><button type="button" class="chip" data-v="Playing and study help">Playing and study help</button><button type="button" class="chip" data-v="Cooking for children">Cooking for children</button></div></div><div class="grp" data-for="elder" hidden><b>Elder care</b><div class="chips" data-group="skills"><button type="button" class="chip" data-v="Lifting and moving">Lifting and moving</button><button type="button" class="chip" data-v="Diaper change">Diaper change</button><button type="button" class="chip" data-v="Bed bath">Bed bath</button><button type="button" class="chip" data-v="Feeding">Feeding</button><button type="button" class="chip" data-v="BP and sugar check">BP and sugar check</button><button type="button" class="chip" data-v="Memory loss (dementia) care">Memory loss (dementia) care</button><button type="button" class="chip" data-v="Walking support">Walking support</button></div></div><div class="grp" data-for="patient" hidden><b>Patient care</b><div class="chips" data-group="skills"><button type="button" class="chip" data-v="Injections">Injections</button><button type="button" class="chip" data-v="IV drip">IV drip</button><button type="button" class="chip" data-v="Wound dressing">Wound dressing</button><button type="button" class="chip" data-v="Catheter care">Catheter care</button><button type="button" class="chip" data-v="Feeding tube (Ryle's tube)">Feeding tube (Ryle's tube)</button><button type="button" class="chip" data-v="Oxygen support">Oxygen support</button><button type="button" class="chip" data-v="Bedsore care">Bedsore care</button></div></div><div class="grp" data-for="mother" hidden><b>Mother and newborn care</b><div class="chips" data-group="skills"><button type="button" class="chip" data-v="Japa maid (live-in)">Japa maid (live-in)</button><button type="button" class="chip" data-v="Mother massage">Mother massage</button><button type="button" class="chip" data-v="Baby massage">Baby massage</button><button type="button" class="chip" data-v="Baby bath">Baby bath</button><button type="button" class="chip" data-v="Cooking new-mother food">Cooking new-mother food</button></div></div><div class="grp" data-for="special" hidden><b>Special needs care</b><div class="chips" data-group="skills"><button type="button" class="chip" data-v="Wheelchair transfers">Wheelchair transfers</button><button type="button" class="chip" data-v="Autism">Autism</button><button type="button" class="chip" data-v="Sign language">Sign language</button><button type="button" class="chip" data-v="Handling fits (seizures)">Handling fits (seizures)</button><button type="button" class="chip" data-v="Toilet training">Toilet training</button></div></div><div class="grp" data-for="physio" hidden><b>Physiotherapy at home</b><div class="chips" data-group="skills"><button type="button" class="chip" data-v="Stroke rehab">Stroke rehab</button><button type="button" class="chip" data-v="Knee and hip after surgery">Knee and hip after surgery</button><button type="button" class="chip" data-v="Back and neck pain">Back and neck pain</button><button type="button" class="chip" data-v="Child physiotherapy">Child physiotherapy</button><button type="button" class="chip" data-v="Sports injury">Sports injury</button></div></div></div>
+<div class="sec"><span class="lbl">Certificate</span><div class="chips" data-group="qual"><button type="button" class="chip" data-v="GNM or ANM nursing">GNM or ANM nursing</button><button type="button" class="chip" data-v="BPT or MPT physiotherapy">BPT or MPT physiotherapy</button><button type="button" class="chip" data-v="Caregiver course">Caregiver course</button><button type="button" class="chip" data-v="No certificate, experience only">No certificate, experience only</button></div></div>
 <div class="sec" id="s-exp"><label class="lbl" for="exp">Experience <small>(years)</small></label><input type="number" id="exp" inputmode="numeric" min="0" max="50" placeholder="5"></div>
-<div class="sec" id="s-rate"><label class="lbl" for="rate">Your rate</label><input type="text" id="rate" maxlength="60" placeholder="₹250 per hour"></div>
-</div>
+</section>
 
-<div class="sec" id="s-lang"><span class="lbl">Languages you speak</span>
-<div class="chips" data-group="languages">
-<button type="button" class="chip" data-v="Hindi">Hindi</button>
-<button type="button" class="chip" data-v="Marathi">Marathi</button>
-<button type="button" class="chip" data-v="English">English</button>
-<button type="button" class="chip" data-v="Gujarati">Gujarati</button>
-<button type="button" class="chip" data-v="Urdu">Urdu</button>
-</div></div>
+<!-- STEP 4 -->
+<section class="step" data-step="4" hidden>
+<h2>When can you work?<small>Families will match with your time</small></h2>
+<div class="sec" id="s-periods"><div class="chips" data-group="periods"><button type="button" class="chip" data-v="24x7">24 x 7 (live-in)</button><button type="button" class="chip" data-v="day">Day basis</button><button type="button" class="chip" data-v="hours">Time slot or hours</button></div></div>
+<div class="sec"><span class="lbl">Days</span><div class="chips" data-group="days"><button type="button" class="chip" data-v="Mon">Mon</button><button type="button" class="chip" data-v="Tue">Tue</button><button type="button" class="chip" data-v="Wed">Wed</button><button type="button" class="chip" data-v="Thu">Thu</button><button type="button" class="chip" data-v="Fri">Fri</button><button type="button" class="chip" data-v="Sat">Sat</button><button type="button" class="chip" data-v="Sun">Sun</button></div></div>
+<div class="sec"><span class="lbl">Can you stay at night?</span><div class="chips" data-group="night" data-single="1"><button type="button" class="chip" data-v="Yes">Yes</button><button type="button" class="chip" data-v="No">No</button></div></div>
+<div class="sec"><span class="lbl">How far can you travel?</span><div class="chips" data-group="travel" data-single="1"><button type="button" class="chip" data-v="2">Up to 2 km</button><button type="button" class="chip" data-v="5">Up to 5 km</button><button type="button" class="chip" data-v="10">Up to 10 km</button><button type="button" class="chip" data-v="20">More than 10 km</button></div></div>
+<div class="sec"><span class="lbl">Household work you will also do</span><div class="chips" data-group="household"><button type="button" class="chip" data-v="Cooking veg food">Cooking veg food</button><button type="button" class="chip" data-v="Cooking non-veg food">Cooking non-veg food</button><button type="button" class="chip" data-v="Washing utensils">Washing utensils</button><button type="button" class="chip" data-v="Cleaning">Cleaning</button><button type="button" class="chip" data-v="Washing clothes">Washing clothes</button><button type="button" class="chip" data-v="None">None</button></div></div>
+</section>
 
+<!-- STEP 5 -->
+<section class="step" data-step="5" hidden>
+<h2>Rate and languages<small>Families pay you directly</small></h2>
+<div class="sec" id="s-rate"><label class="lbl" for="rate">Your rate</label>
+<div style="display:flex;flex-direction:column;gap:8px"><input type="text" id="rate" inputmode="numeric" maxlength="12" placeholder="₹ 600"><div class="chips" style="gap:6px" data-group="rateUnit" data-single="1"><button type="button" class="chip" data-v="hour">Per hour</button><button type="button" class="chip" data-v="day">Per day</button><button type="button" class="chip" data-v="month">Per month</button><button type="button" class="chip" data-v="visit">Per visit</button></div></div></div>
+<div class="sec" id="s-lang"><span class="lbl">Languages you speak</span><div class="chips" data-group="languages"><button type="button" class="chip" data-v="Hindi">Hindi</button><button type="button" class="chip" data-v="Marathi">Marathi</button><button type="button" class="chip" data-v="Gujarati">Gujarati</button><button type="button" class="chip" data-v="English">English</button><button type="button" class="chip" data-v="Urdu">Urdu</button></div></div>
 <div class="sec"><label class="lbl" for="about">About you <small>(optional)</small></label>
 <textarea id="about" maxlength="300" placeholder="Worked 3 years with a bedridden elder. Can give medicines on time, cook simple food."></textarea></div>
+</section>
 
+<!-- STEP 6 -->
+<section class="step" data-step="6" hidden>
+<h2>Area and safety<small>This builds trust with families</small></h2>
 <div class="sec" id="s-area"><label class="lbl" for="area">Your area</label>
 <input type="text" id="area" maxlength="80" placeholder="Nallasopara West, near station">
 <button type="button" class="gps" id="gps"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg><span id="gpsTxt">Use my current location</span></button>
-<span class="note">Your exact location is never shown. Families only see how far away you are.</span>
-</div>
+<span class="note">Your exact location is never shown. Families only see how far away you are.</span></div>
+<div class="sec"><span class="lbl">Police verification certificate</span><div class="chips" data-group="police" data-single="1"><button type="button" class="chip" data-v="yes">I have it</button><button type="button" class="chip" data-v="applied">Applied</button><button type="button" class="chip" data-v="no">Not yet</button></div></div>
+<div class="sec"><label class="lbl" for="ref1">Reference 1 <small>(a family you worked for: name and number)</small></label><input type="text" id="ref1" maxlength="60" placeholder="Mrs Shah – 98XXXXXXXX"></div>
+<div class="sec"><label class="lbl" for="ref2">Reference 2 <small>(optional)</small></label><input type="text" id="ref2" maxlength="60" placeholder="Mr Patil – 97XXXXXXXX"></div>
+<div class="sec"><label class="lbl" for="emer">Your emergency contact</label><input type="text" id="emer" maxlength="60" placeholder="Husband – 99XXXXXXXX"></div>
+</section>
 
-<label class="agree" id="s-agree"><input type="checkbox" id="agree"><span>I agree to share my Aadhaar and police verification certificate with Let Us Care, and that families can see my name, photo, services and number after approval.</span></label>
+<!-- STEP 7 -->
+<section class="step" data-step="7" hidden>
+<h2>Your promise<small>Please read or tap Listen</small></h2>
+<ul class="promise">
+<li>I will follow the family's care sheet.</li>
+<li>I will not give any medicine unless the family tells me.</li>
+<li>If I see a danger sign, I will call the family immediately, and 108 if needed.</li>
+<li>I will respect the family, their home and their privacy.</li>
+<li>I will show my original ID card at the first visit.</li>
+</ul>
+<label class="agree" id="s-agree"><input type="checkbox" id="agree"><span>I agree. After approval, families can see my name, photo, services and number. I will send my Aadhaar and police certificate on WhatsApp for verification.</span></label>
+</section>
 
 <p class="err" id="err" role="alert"></p>
-<button type="submit" class="go" id="submit">Register as care partner</button>
+<div class="nav"><button type="button" class="bk" id="prev" hidden>Back</button><button type="button" class="go" id="next">Next</button></div>
 </div>
 </form>
-
 <!-- STATUS AFTER REGISTRATION -->
 <section id="statusView" hidden>
 <div class="card">
@@ -172,7 +207,7 @@ var WHATSAPP_NUMBER = '919860046593'; // Let Us Care verification WhatsApp (with
 
 /* ---------- small helpers ---------- */
 function $(id){return document.getElementById(id);}
-var state={gender:[],services:[],periods:[],languages:[],photo:'',lat:null,lng:null};
+var state={gender:[],services:[],periods:[],languages:[],skills:[],qual:[],days:[],night:[],travel:[],household:[],rateUnit:[],police:[],photo:'',lat:null,lng:null};
 function showErr(msg,secId){$('err').textContent=LUC.T(msg);if(secId&&$(secId)){$(secId).scrollIntoView({behavior:'smooth',block:'center'});}}
 
 /* chips */
@@ -181,14 +216,78 @@ document.querySelectorAll('.chips').forEach(function(g){
   g.querySelectorAll('.chip').forEach(function(c){
     c.setAttribute('aria-pressed','false');
     c.addEventListener('click',function(){
-      if(single){g.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-pressed','false');});state[key]=[];}
+      if(single){g.querySelectorAll('.chip').forEach(function(x){if(x!==c){x.classList.remove('on');x.setAttribute('aria-pressed','false');}});state[key]=state[key].filter(function(v){return v===c.dataset.v;});}
       var on=!c.classList.contains('on');
       c.classList.toggle('on',on);c.setAttribute('aria-pressed',on?'true':'false');
-      if(on){state[key].push(c.dataset.v);}else{state[key]=state[key].filter(function(v){return v!==c.dataset.v;});}
+      if(on){if(state[key].indexOf(c.dataset.v)<0)state[key].push(c.dataset.v);}else{state[key]=state[key].filter(function(v){return v!==c.dataset.v;});}
       $('err').textContent='';
     });
   });
 });
+/* service picture cards */
+document.querySelectorAll('.sv').forEach(function(c){
+  c.setAttribute('aria-pressed','false');
+  c.addEventListener('click',function(){
+    var on=!c.classList.contains('on');c.classList.toggle('on',on);c.setAttribute('aria-pressed',on?'true':'false');
+    if(on)state.services.push(c.dataset.v);else state.services=state.services.filter(function(v){return v!==c.dataset.v;});
+    $('err').textContent='';
+  });
+});
+
+/* steps */
+var step=1,LAST=7;
+function showStep(n){
+  step=n;stopSpeak();
+  document.querySelectorAll('.step').forEach(function(s){s.hidden=+s.dataset.step!==n;});
+  if(n===3)document.querySelectorAll('.grp').forEach(function(g){g.hidden=state.services.indexOf(g.dataset.for)<0;});
+  $('stepNo').textContent=LUC.T('Step')+' '+n+' / '+LAST;
+  $('bar').style.width=Math.round(n*100/LAST)+'%';
+  $('prev').hidden=n===1;
+  $('next').textContent=LUC.T(n===LAST?'Register':'Next');
+  $('err').textContent='';window.scrollTo({top:0,behavior:'smooth'});
+}
+function v(id){return $(id).value.trim();}
+function check(n){
+  if(n===1){
+    if(!state.photo)return showErr('Please add your photo.','s-photo'),false;
+    if(v('name').length<2)return showErr('Please enter your full name.','s-name'),false;
+    if(!/^[6-9]\d{9}$/.test($('phone').value.replace(/\D/g,'').slice(-10)))return showErr('Please enter a valid 10-digit mobile number.','s-phone'),false;
+    if(!state.gender.length)return showErr('Please choose your gender.','s-gender'),false;
+    var ag=parseInt(v('age'),10);if(isNaN(ag)||ag<18||ag>75)return showErr('Please enter your age (18 to 75).','s-age'),false;
+  }
+  if(n===2&&!state.services.length)return showErr('Please choose at least one service.','s-services'),false;
+  if(n===3){var e=parseInt(v('exp'),10);if(isNaN(e)||e<0||e>50)return showErr('Please enter your experience in years (0 if new).','s-exp'),false;}
+  if(n===4&&!state.periods.length)return showErr('Please choose when you can work.','s-periods'),false;
+  if(n===5){
+    if(!v('rate')||!state.rateUnit.length)return showErr('Please enter your rate and choose per hour, day, month or visit.','s-rate'),false;
+    if(!state.languages.length)return showErr('Please choose the languages you speak.','s-lang'),false;
+  }
+  if(n===6){
+    if(v('area').length<2)return showErr('Please enter your area.','s-area'),false;
+    if(state.lat===null)return showErr('Please tap "Use my current location".','s-area'),false;
+  }
+  if(n===7&&!$('agree').checked)return showErr('Please tick the agreement box.','s-agree'),false;
+  return true;
+}
+$('next').addEventListener('click',function(){if(!check(step))return;if(step<LAST)showStep(step+1);else submit();});
+$('prev').addEventListener('click',function(){if(step>1)showStep(step-1);});
+
+/* listen: reads the current step aloud */
+var speaking=false;try{speechSynthesis.getVoices();}catch(e){}
+function setLis(){$('lisTxt').textContent=LUC.T(speaking?'Stop':'Listen');}
+function stopSpeak(){try{speechSynthesis.cancel();}catch(e){}speaking=false;setLis();}
+$('listen').addEventListener('click',function(){
+  if(!('speechSynthesis' in window))return;
+  if(speaking){stopSpeak();return;}
+  var sec=document.querySelector('.step:not([hidden])'),lines=[];
+  sec.querySelectorAll('h2,.lbl,.promise li,.agree span,.sv span:last-child,.grp:not([hidden]) b,.chip').forEach(function(el){var t=el.textContent.trim();if(t)lines.push(t);});
+  var loc=LUC.locale(),vs=speechSynthesis.getVoices(),pre=loc.slice(0,2);
+  var vo=vs.filter(function(x){return x.lang.replace('_','-').toLowerCase().indexOf(pre)===0;})[0];
+  speaking=true;setLis();
+  lines.forEach(function(t,i){var u=new SpeechSynthesisUtterance(t);u.lang=loc;if(vo)u.voice=vo;u.rate=0.9;
+    if(i===lines.length-1){u.onend=function(){speaking=false;setLis();};u.onerror=u.onend;}speechSynthesis.speak(u);});
+});
+document.addEventListener('langchange',function(){showStep(step);});
 
 /* photo: shrink to 240px JPEG so it fits in the database */
 $('photo').addEventListener('change',function(e){
@@ -240,7 +339,7 @@ function signIn(){
 }
 
 /* ---------- views ---------- */
-function showForm(){$('loading').hidden=true;$('statusView').hidden=true;$('form').hidden=false;}
+function showForm(){$('loading').hidden=true;$('statusView').hidden=true;$('form').hidden=false;showStep(1);}
 function waLink(name,phone){
   var t='Let Us Care - care partner verification\nName: '+name+'\nMobile: '+phone+'\nI will send my Aadhaar and police verification certificate in this chat.';
   return 'https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(t);
@@ -269,44 +368,29 @@ function checkExisting(){
 $('again').addEventListener('click',function(){try{localStorage.removeItem('luc_partner_phone');}catch(e){}location.reload();});
 
 /* ---------- submit ---------- */
-$('form').addEventListener('submit',function(e){
-  e.preventDefault();
-  var name=$('name').value.trim().replace(/\s+/g,' ');
-  var phone=$('phone').value.replace(/\D/g,'').slice(-10);
-  var exp=parseInt($('exp').value,10);
-  var rate=$('rate').value.trim(),area=$('area').value.trim(),about=$('about').value.trim();
-  if(!state.photo)return showErr('Please add your photo.','s-photo');
-  if(name.length<2)return showErr('Please enter your full name.','s-name');
-  if(!/^[6-9]\d{9}$/.test(phone))return showErr('Please enter a valid 10-digit mobile number.','s-phone');
-  if(!state.gender.length)return showErr('Please choose your gender.','s-gender');
-  if(!state.services.length)return showErr('Please choose at least one service.','s-services');
-  if(!state.periods.length)return showErr('Please choose when you can work.','s-periods');
-  if(isNaN(exp)||exp<0||exp>50)return showErr('Please enter your experience in years (0 if new).','s-exp');
-  if(!rate)return showErr('Please enter your rate, for example ₹250 per hour.','s-rate');
-  if(!state.languages.length)return showErr('Please choose the languages you speak.','s-lang');
-  if(area.length<2)return showErr('Please enter your area.','s-area');
-  if(state.lat===null)return showErr('Please tap "Use my current location".','s-area');
-  if(!$('agree').checked)return showErr('Please tick the agreement box.','s-agree');
-
-  var btn=$('submit');btn.setAttribute('aria-busy','true');btn.textContent=LUC.T('Saving…');$('err').textContent='';
+function submit(){
+  var name=v('name').replace(/\s+/g,' '),phone=$('phone').value.replace(/\D/g,'').slice(-10);
+  var btn=$('next');btn.setAttribute('aria-busy','true');btn.textContent=LUC.T('Saving…');$('err').textContent='';
   signIn().then(function(user){
-    var data={name:name,phone:phone,gender:state.gender[0],services:state.services,periods:state.periods,
-      experience:exp,languages:state.languages,rate:rate,about:about,area:area,lat:state.lat,lng:state.lng,
-      photo:state.photo,ownerUid:user.uid,status:'pending',numberVerified:false,policeVerified:false,
+    var data={name:name,phone:phone,gender:state.gender[0],age:parseInt(v('age'),10),services:state.services,
+      skills:state.skills,qual:state.qual,experience:parseInt(v('exp'),10),
+      periods:state.periods,days:state.days,night:(state.night[0]||''),travelKm:parseInt(state.travel[0]||'0',10),household:state.household,
+      rate:v('rate'),rateUnit:state.rateUnit[0],languages:state.languages,about:v('about'),
+      area:v('area'),lat:state.lat,lng:state.lng,police:(state.police[0]||'no'),ref1:v('ref1'),ref2:v('ref2'),emergency:v('emer'),
+      photo:state.photo,ownerUid:user.uid,status:'pending',available:true,numberVerified:false,policeVerified:false,
       createdAt:FB.F.serverTimestamp()};
     return FB.F.setDoc(FB.F.doc(FB.db,'partners',phone),data).then(function(){return data;});
   }).then(function(data){
     try{localStorage.setItem('luc_partner_phone',phone);}catch(e){}
     showStatus(data);window.scrollTo({top:0,behavior:'smooth'});
   }).catch(function(err){
-    btn.removeAttribute('aria-busy');btn.textContent=LUC.T('Register as care partner');
+    btn.removeAttribute('aria-busy');btn.textContent=LUC.T('Register');
     var code=(err&&err.code)||'';
     if(code.indexOf('permission-denied')>-1)showErr('This mobile number is already registered. If it is yours, message us on WhatsApp.');
     else if(code.indexOf('admin-restricted')>-1||code.indexOf('operation-not-allowed')>-1)showErr('Registration is not switched on yet. Please try again later.');
     else showErr('Could not save. Please check your internet and try again.');
   });
-});
-
+}
 checkExisting();
 </script>
 </body>
