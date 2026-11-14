@@ -58,24 +58,25 @@ body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani'
 .soon{margin:0;border-radius:14px;background:#EEF3FC;color:#1E3A6E;padding:12px 14px;font-size:15px;text-align:center}
 
 /* compact: all 5 cards on one screen */
-.wrap{gap:10px;padding-top:10px;min-height:100dvh}
+.wrap{gap:10px;padding-top:10px;min-height:calc(100*var(--u,1dvh))}
 .top h1{font-size:22px}.top p{font-size:13.5px}.back{width:40px;height:40px;border-radius:12px}
 .cats{gap:7px}
 .cat{padding:6px 10px 6px 6px;gap:10px;border-radius:18px;border-width:2px}
-.cat img{width:clamp(52px,9dvh,76px);height:clamp(52px,9dvh,76px);border-radius:12px}
+.cat img{width:clamp(52px,calc(9*var(--u,1dvh)),76px);height:clamp(52px,calc(9*var(--u,1dvh)),76px);border-radius:12px}
 .cat .n{font-size:18px}
 .cat .d{font-size:13px;line-height:1.25;margin-top:1px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .chev{width:20px;height:20px}
 
 /* fill the screen: cards share the height, never cut */
-.wrap{min-height:100dvh;height:auto;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+.wrap{min-height:calc(100*var(--u,1dvh));height:auto;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
 .wrap>section{flex:1 0 auto;display:flex}
 .cats{flex:1 0 auto;width:100%}
 .cat{flex:1 0 auto;min-width:0;padding:6px 10px 6px 6px}.cat>span{flex:1;min-width:0}
-.cat img{width:calc(clamp(64px,10.5dvh,96px)*var(--k,1));height:calc(clamp(64px,10.5dvh,96px)*var(--k,1))}
-.cat .n{font-size:calc(clamp(17px,2.55dvh,21px)*var(--k,1));line-height:1.12}
-.cat .d{font-size:calc(clamp(13px,1.95dvh,15px)*var(--k,1));line-height:1.25}
+.cat img{width:calc(clamp(64px,calc(10.5*var(--u,1dvh)),96px)*var(--k,1));height:calc(clamp(64px,calc(10.5*var(--u,1dvh)),96px)*var(--k,1))}
+.cat .n{font-size:calc(clamp(17px,calc(2.55*var(--u,1dvh)),21px)*var(--k,1));line-height:1.12}
+.cat .d{font-size:calc(clamp(13px,calc(1.95*var(--u,1dvh)),15px)*var(--k,1));line-height:1.25}
 </style>
+<script>(function(){var r=document.documentElement;function s(){r.style.setProperty('--u',(window.innerHeight/100)+'px');}s();addEventListener('resize',s);addEventListener('pageshow',s);addEventListener('orientationchange',function(){setTimeout(s,300);});document.addEventListener('visibilitychange',s);})();</script>
 </head>
 <body>
 <main class="wrap">
@@ -133,6 +134,7 @@ document.querySelectorAll('button.cat').forEach(function(b){b.addEventListener('
   var root=document.documentElement;
   function fit(){
     var k=1;root.style.setProperty('--k','1');
+    root.style.setProperty('--u',(window.innerHeight/100)+'px');
     while(k>0.78&&root.scrollHeight>window.innerHeight+1){k=Math.round((k-0.03)*100)/100;root.style.setProperty('--k',String(k));}
   }
   var t;function later(){clearTimeout(t);t=setTimeout(fit,60);}

@@ -16,8 +16,8 @@
 :root{--blue:#003B9B;--blue-dk:#022A6E;--orange:#F57502;--orange-dk:#C95A00;--red:#E3262E;--ink:#1D2433;--muted:#5B6475;--line:#E7EAF0;--soft:#F4F7FC}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta Vaani',system-ui,sans-serif}
-.wrap{max-width:480px;margin:0 auto;padding:10px 16px calc(10px + env(safe-area-inset-bottom));min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
-.logo{display:block;width:auto;max-width:100%;height:15vh;height:15dvh;max-height:150px;min-height:84px;object-fit:contain;margin:0 auto}
+.wrap{max-width:480px;margin:0 auto;padding:10px 16px calc(10px + env(safe-area-inset-bottom));min-height:100vh;min-height:calc(100*var(--u,1dvh));display:flex;flex-direction:column;justify-content:space-between;gap:10px}
+.logo{display:block;width:auto;max-width:100%;height:15vh;height:calc(15*var(--u,1dvh));max-height:150px;min-height:84px;object-fit:contain;margin:0 auto}
 .intro{text-align:center;margin:0;font-size:13.5px;color:var(--muted);line-height:1.35}
 .intro b{color:var(--blue);font-weight:600}
 .tiles{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;align-items:end;max-width:400px;width:100%;margin:0 auto}
@@ -38,7 +38,7 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta V
 .chip svg{flex-shrink:0}
 .promise{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted)}
 .promise span{display:inline-flex;align-items:center;gap:5px}
-.dev{text-align:center}.devt{margin:0 0 4px;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.2px}.vcard{display:block;width:100%;height:auto;max-height:24dvh;object-fit:contain;margin:0 auto;padding:4px 10px 4px 4px;background:#F7F7F5;border-radius:12px;border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.dev{text-align:center}.devt{margin:0 0 4px;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.2px}.vcard{display:block;width:100%;height:auto;max-height:calc(24*var(--u,1dvh));object-fit:contain;margin:0 auto;padding:4px 10px 4px 4px;background:#F7F7F5;border-radius:12px;border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .vc{display:flex;align-items:center;gap:9px;width:100%;padding:9px 11px;background:linear-gradient(135deg,#FAFAF8,#ECECEA);border:1px solid var(--line);border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:left}
 .vc-logo{width:58px;height:auto;flex-shrink:0}
 .vc-co{display:flex;flex-direction:column;line-height:1.05;flex-shrink:0}
@@ -64,6 +64,7 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta V
 .beat{animation:beat 1.6s ease-in-out infinite;transform-origin:center}
 }
 </style>
+<script>(function(){var r=document.documentElement;function s(){r.style.setProperty('--u',(window.innerHeight/100)+'px');}s();addEventListener('resize',s);addEventListener('pageshow',s);addEventListener('orientationchange',function(){setTimeout(s,300);});document.addEventListener('visibilitychange',s);})();</script>
 </head>
 <body>
 <main class="wrap">
