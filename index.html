@@ -20,7 +20,7 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta V
 .logo{display:block;width:auto;max-width:100%;height:15vh;height:15dvh;max-height:150px;min-height:84px;object-fit:contain;margin:0 auto}
 .intro{text-align:center;margin:0;font-size:13.5px;color:var(--muted);line-height:1.35}
 .intro b{color:var(--blue);font-weight:600}
-.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;align-items:end;max-width:360px;width:100%;margin:0 auto}
+.tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;align-items:end;max-width:400px;width:100%;margin:0 auto}
 .tile{display:block;width:100%;height:auto;border-radius:12px}
 .btn{display:flex;align-items:center;gap:12px;text-decoration:none;border-radius:18px;padding:8px 14px;min-height:62px;color:#fff;position:relative;overflow:hidden}
 .btn .ic{width:44px;height:44px;border-radius:13px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -59,7 +59,7 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta V
 @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.08)}}
 @media (prefers-reduced-motion:no-preference){
 .up{animation:rise .55s ease-out both}.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}.d5{animation-delay:.4s}
-.tile{animation:bob 3.6s ease-in-out infinite}.tile:nth-child(2){animation-delay:.5s}.tile:nth-child(3){animation-delay:1s}.tile:nth-child(4){animation-delay:1.5s}
+.tile{animation:bob 3.6s ease-in-out infinite}.tile:nth-child(2){animation-delay:.5s}.tile:nth-child(3){animation-delay:1s}.tile:nth-child(4){animation-delay:1.5s}.tile:nth-child(5){animation-delay:2s}
 .shine{animation:shine 3.4s ease-in-out infinite}.give .shine{animation-delay:1.7s}
 .beat{animation:beat 1.6s ease-in-out infinite;transform-origin:center}
 }
@@ -68,19 +68,20 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta V
 <body>
 <main class="wrap">
 <img class="logo up" src="logo.webp" width="720" height="344" alt="Let Us Care – Caring your loved ones">
-<p class="intro up d1" data-i18n-html="INTRO">Trusted, verified carers at home for <b>children</b>, <b>elders</b>, <b>patients</b> and <b>new mothers</b>.</p>
+<p class="intro up d1" data-i18n-html="INTRO">Trusted, verified carers at home for <b>children</b>, <b>elders</b>, <b>patients</b>, <b>new mothers</b> and <b>people with special needs</b>.</p>
 
 <div class="tiles up d2" aria-hidden="true">
 <img class="tile" src="toddler.webp" alt="" width="360" height="364">
 <img class="tile" src="elder.webp" alt="" width="360" height="364">
 <img class="tile" src="patient.webp" alt="" width="360" height="349">
 <img class="tile" src="mother.webp" alt="" width="360" height="364">
+<img class="tile" src="special.webp" alt="" width="360" height="364">
 </div>
 
 <a class="btn need up d3" href="family.html">
 <span class="shine"></span>
 <span class="ic"><svg class="beat" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.6A4 4 0 0 1 12 8a4 4 0 0 1 7 2.4C19 15.6 12 20 12 20z"/></svg></span>
-<span class="tx"><span class="t1">I need care</span><span class="t2">For my child, parent, a patient or a new mother</span></span>
+<span class="tx"><span class="t1">I need care</span><span class="t2">For a child, parent, patient, new mother or special needs</span></span>
 <svg class="ar" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
 </a>
 
