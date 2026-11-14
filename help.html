@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Understand App – Let Us Care</title>
+<meta name="theme-color" content="#003B9B">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="app-icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Baloo+Bhai+2:wght@600;700;800&family=Mukta+Vaani:wght@400;500;600;700&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#003B9B;--orange:#F57502;--ink:#1D2433;--muted:#5B6475;--line:#E2E6EE}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+body{margin:0;font-family:'Mukta','Mukta Vaani',system-ui,sans-serif;color:var(--ink);background:#fff}
+.wrap{max-width:480px;margin:0 auto;padding:12px 16px calc(30px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px}
+.top{display:flex;align-items:center;gap:10px}
+.back{width:44px;height:44px;border-radius:13px;border:1px solid var(--line);background:#F4F7FC;display:flex;align-items:center;justify-content:center;color:var(--blue);text-decoration:none;flex-shrink:0}
+.top h1{margin:0;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:800;font-size:23px;color:var(--blue);line-height:1.1}
+.top p{margin:0;font-size:14px;color:var(--muted)}
+.lis{margin-left:auto;flex-shrink:0;display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1.5px solid var(--blue);background:#fff;color:var(--blue);font-family:inherit;font-weight:700;font-size:14.5px;cursor:pointer}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;border-radius:16px;border:2.5px solid var(--line);background:#fff;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:800;font-size:17px;line-height:1.15;text-align:center;color:var(--ink);cursor:pointer}
+.tab small{font-family:'Mukta','Mukta Vaani',sans-serif;font-weight:500;font-size:13px;color:var(--muted)}
+.tab[data-t=fam]{color:var(--blue)}.tab[data-t=car]{color:#C95A00}
+.tab[data-t=fam].on{border-color:var(--blue);background:#EEF3FC}
+.tab[data-t=car].on{border-color:var(--orange);background:#FFF5EC}
+.sec{display:flex;flex-direction:column;gap:10px}
+.st{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:12px}
+.st b{flex-shrink:0;width:36px;height:36px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px}
+#fam .st b{background:var(--blue)}#car .st b{background:var(--orange)}
+.st h3{margin:0;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:700;font-size:18px;line-height:1.2}
+.st p{margin:3px 0 0;font-size:15.5px;line-height:1.45;color:#374151}
+.gd{border-radius:16px;background:#FFF8E1;border:1px solid #F3D98E;padding:12px 14px}
+.gd h3{margin:0 0 4px;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-size:17px;color:#7A4A00}
+.gd ul{margin:0;padding-left:18px}.gd li{font-size:15px;line-height:1.45;margin:4px 0}
+.go{display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:16px;color:#fff;font-family:'Baloo 2','Baloo Bhai 2',sans-serif;font-weight:700;font-size:18px;text-decoration:none}
+#fam .go{background:var(--blue)}#car .go{background:var(--orange)}
+.vn{margin:0;font-size:13.5px;color:#7A4A00;text-align:center}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="top">
+<a class="back" href="index.html" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+<div><h1>Understand App</h1><p>How Let Us Care works</p></div>
+<button type="button" class="lis" id="listen"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg><span id="lisTxt">Listen</span></button>
+</div>
+<p class="vn" id="vn" hidden></p>
+
+<div class="tabs">
+<button type="button" class="tab on" data-t="fam">For families<small>I need care</small></button>
+<button type="button" class="tab" data-t="car">For carers<small>I want to give care</small></button>
+</div>
+
+<section class="sec" id="fam">
+<div class="st"><b>1</b><div><h3>Tap “I need care”</h3><p>On the first screen, tap the blue button.</p></div></div>
+<div class="st"><b>2</b><div><h3>Choose the care</h3><p>Toddler, Elder, Patient, Mother and newborn, Special needs or Physiotherapy.</p></div></div>
+<div class="st"><b>3</b><div><h3>See carers near you</h3><p>Nearest first. “✓ Number verified” means we checked their mobile number.</p></div></div>
+<div class="st"><b>4</b><div><h3>Call or WhatsApp</h3><p>Talk about the work, timings and pay. You can contact up to 10 carers a day.</p></div></div>
+<div class="st"><b>5</b><div><h3>Meet and check</h3><p>Before hiring, see the carer's original Aadhaar card and police verification certificate.</p></div></div>
+<div class="st"><b>6</b><div><h3>Make a care sheet</h3><p>Tap “Make care sheet”. Write food, medicine, timings and emergency numbers. Send it to the carer on WhatsApp, share it as a picture or print it.</p></div></div>
+<div class="gd"><h3>Good to know</h3><ul>
+<li>The app is free. No commission. You pay the carer directly.</li>
+<li>Your care sheet stays only on your phone.</li>
+<li>The carer can tap Listen to hear the care sheet in their language.</li>
+<li>Change the language any time at the top.</li>
+</ul></div>
+<a class="go" href="family.html">I need care</a>
+</section>
+
+<section class="sec" id="car" hidden>
+<div class="st"><b>1</b><div><h3>Tap “I want to give care”</h3><p>On the first screen, tap the orange button.</p></div></div>
+<div class="st"><b>2</b><div><h3>Fill the short form</h3><p>Your name, mobile number two times, female or male, the care you give. Tap “Use my current location”. Photo is optional. Tap Register.</p></div></div>
+<div class="st"><b>3</b><div><h3>Verify on WhatsApp</h3><p>Tap the green button and press Send. Do not change the message.</p></div></div>
+<div class="st"><b>4</b><div><h3>Wait for approval</h3><p>We check your number and approve you. Then families near you can see you and call you.</p></div></div>
+<div class="st"><b>5</b><div><h3>Complete your profile</h3><p>Add skills, certificate, rate and working time. More details bring more calls.</p></div></div>
+<div class="st"><b>6</b><div><h3>Busy or free?</h3><p>Busy with a family? Turn “Available for work” off. Free again? Turn it on.</p></div></div>
+<div class="st"><b>7</b><div><h3>Share your profile</h3><p>Tap “Share my profile” to send your details to families on WhatsApp.</p></div></div>
+<div class="gd"><h3>Your promise</h3><ul>
+<li>Follow the family's care sheet.</li>
+<li>Do not give any medicine unless the family tells you.</li>
+<li>If you see a danger sign, call the family at once, and 108 if needed.</li>
+<li>Carry your original ID card. The family pays you directly. The app takes nothing.</li>
+</ul></div>
+<a class="go" href="partner.html">I want to give care</a>
+</section>
+</main>
+
+<script src="i18n.js"></script>
+<script>
+function $(id){return document.getElementById(id);}
+var TAB='fam';
+function show(t){TAB=t;stop();
+  document.querySelectorAll('.tab').forEach(function(b){b.classList.toggle('on',b.dataset.t===t);});
+  $('fam').hidden=t!=='fam';$('car').hidden=t!=='car';
+  try{history.replaceState(null,'',t==='car'?'?tab=carer':location.pathname);}catch(e){}
+}
+document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t);});});
+if(/tab=carer/.test(location.search))show('car');
+
+/* Listen: reads the open tab aloud in the chosen language */
+var speaking=false;try{speechSynthesis.getVoices();}catch(e){}
+function setLis(){$('lisTxt').textContent=LUC.T(speaking?'Stop':'Listen');}
+function stop(){try{speechSynthesis.cancel();}catch(e){}speaking=false;if(window.LUC)setLis();}
+$('listen').addEventListener('click',function(){
+  if(!('speechSynthesis' in window)){$('vn').textContent=LUC.T('This phone cannot read aloud.');$('vn').hidden=false;return;}
+  if(speaking){stop();return;}
+  var lines=[];document.querySelectorAll('#'+TAB+' .st, #'+TAB+' .gd h3, #'+TAB+' .gd li').forEach(function(el){
+    var t=el.classList.contains('st')?(el.querySelector('b').textContent+'. '+el.querySelector('h3').textContent+'. '+el.querySelector('p').textContent):el.textContent;
+    t=t.replace(/[“”"]/g,'').trim();if(t)lines.push(t);});
+  var loc=LUC.locale(),vs=speechSynthesis.getVoices(),pre=loc.slice(0,2);
+  var vo=vs.filter(function(x){return x.lang.replace('_','-').toLowerCase().indexOf(pre)===0;})[0];
+  $('vn').hidden=true;if(!vo&&vs.length&&pre!=='en'){$('vn').textContent=LUC.T('Your phone may need the voice for this language. Settings → Text-to-speech → install voice data.');$('vn').hidden=false;}
+  speaking=true;setLis();
+  lines.forEach(function(t,i){var u=new SpeechSynthesisUtterance(t);u.lang=loc;if(vo)u.voice=vo;u.rate=0.9;
+    if(i===lines.length-1){u.onend=function(){speaking=false;setLis();};u.onerror=u.onend;}speechSynthesis.speak(u);});
+});
+document.addEventListener('langchange',stop);
+</script>
+</body>
+</html>

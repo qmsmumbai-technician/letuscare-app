@@ -63,11 +63,15 @@ html,body{margin:0;background:#fff;color:var(--ink);font-family:'Mukta','Mukta V
 .shine{animation:shine 3.4s ease-in-out infinite}.give .shine{animation-delay:1.7s}
 .beat{animation:beat 1.6s ease-in-out infinite;transform-origin:center}
 }
+.helpb{position:absolute;top:50px;right:8px;display:flex;flex-direction:column;align-items:center;gap:2px;width:70px;text-decoration:none;color:#003B9B;font-size:11.5px;font-weight:600;line-height:1.1;text-align:center;z-index:2}
+.helpb i{font-style:normal;width:42px;height:42px;border-radius:50%;background:#F57502;color:#fff;font-size:24px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #C95A00}
+main.wrap{position:relative}
 </style>
 <script>(function(){var r=document.documentElement;function s(){r.style.setProperty('--u',(window.innerHeight/100)+'px');}s();addEventListener('resize',s);addEventListener('pageshow',s);addEventListener('orientationchange',function(){setTimeout(s,300);});document.addEventListener('visibilitychange',s);})();</script>
 </head>
 <body>
 <main class="wrap">
+<a class="helpb" href="help.html"><i aria-hidden="true">?</i><span>Understand App</span></a>
 <img class="logo up" src="logo.webp" width="720" height="344" alt="Let Us Care – Caring your loved ones">
 <p class="intro up d1" data-i18n-html="INTRO">Trusted, verified carers at home for <b>children</b>, <b>elders</b>, <b>patients</b>, <b>new mothers</b> and <b>people with special needs</b>.</p>
 
