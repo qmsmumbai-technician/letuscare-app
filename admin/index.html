@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin – Let Us Care</title>
+<link rel="icon" href="../icon-192.png">
+<style>
+:root{--blue:#003B9B;--orange:#F57502;--ink:#1D2433;--muted:#5B6475;--line:#E2E6EE;--green:#1C8A4A;--red:#C0261F}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:#F4F6FA;color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.wrap{max-width:560px;margin:0 auto;padding:14px 12px 40px;display:flex;flex-direction:column;gap:12px}
+.top{display:flex;align-items:center;gap:10px}.top img{width:44px;height:44px;border-radius:10px}
+.top h1{margin:0;font-size:20px;color:var(--blue)}.top p{margin:0;font-size:13px;color:var(--muted)}
+.top .out{margin-left:auto}
+.box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px}
+input{width:100%;height:46px;border-radius:12px;border:1.5px solid var(--line);padding:0 12px;font-size:16px;font-family:inherit}
+.btn{height:44px;border-radius:12px;border:0;background:var(--blue);color:#fff;font-weight:700;font-size:15px;padding:0 14px;cursor:pointer;font-family:inherit}
+.btn.sm{height:36px;font-size:13.5px;padding:0 10px;border-radius:10px}
+.btn.o{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.btn.g{background:var(--green)}.btn.r{background:#fff;color:var(--red);border:1.5px solid var(--red)}.btn.w{background:#1FA855}
+.btn.on{background:var(--green);color:#fff;border-color:var(--green)}
+.err{color:var(--red);font-size:14px;margin:0;min-height:1em}
+.tabs{display:flex;gap:6px;overflow-x:auto}.tabs button{flex-shrink:0;height:38px;border-radius:99px;border:1.5px solid var(--line);background:#fff;padding:0 12px;font-size:14px;cursor:pointer;font-family:inherit}
+.tabs button.on{border-color:var(--blue);background:#EEF3FC;color:var(--blue);font-weight:700}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.rh{display:flex;gap:10px;align-items:center}.rh img,.rh .ph{width:54px;height:54px;border-radius:50%;object-fit:cover;background:#DDE6F5;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:22px;flex-shrink:0}
+.rh b{font-size:17px;display:block}.rh span{font-size:13.5px;color:var(--muted)}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:99px;padding:1px 8px;margin:0 4px 2px 0}
+.t-p{background:#FFF1DC;color:#7A4A00}.t-a{background:#E3F4E9;color:#14693A}.t-h{background:#F1F2F5;color:#555}.t-v{background:#DCEBFF;color:#0B3F8F}.t-n{background:#FDECEC;color:#8E1B14}
+.info{font-size:13.5px;line-height:1.45;color:#374151}
+.acts{display:flex;flex-wrap:wrap;gap:6px}
+.cnt{font-size:13.5px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="top"><img src="../icon-192.png" alt=""><div><h1>Let Us Care – Admin</h1><p id="who">Carers: approve, verify, hide</p></div><button class="btn sm o out" id="logout" hidden>Log out</button></div>
+
+<section class="box" id="loginBox" hidden>
+<b>Admin login</b>
+<input type="email" id="email" placeholder="Admin email" autocomplete="username">
+<input type="password" id="pass" placeholder="Password" autocomplete="current-password">
+<p class="err" id="lErr"></p>
+<button class="btn" id="login">Log in</button>
+</section>
+
+<section id="panel" hidden style="display:flex;flex-direction:column;gap:12px">
+<div class="tabs" id="tabs">
+<button data-t="pending" class="on">New (to check)</button>
+<button data-t="approved">Approved</button>
+<button data-t="unverified">Number not verified</button>
+<button data-t="hidden">Hidden</button>
+<button data-t="all">All</button>
+</div>
+<input type="search" id="q" placeholder="Search name or mobile number">
+<div class="tools"><button class="btn o" id="reload">↻ Refresh</button><button class="btn o" id="csv">⬇ Download backup</button></div>
+<p class="cnt" id="cnt"></p>
+<div id="list" style="display:flex;flex-direction:column;gap:10px"></div>
+</section>
+<p class="cnt" id="msg" style="text-align:center"></p>
+</main>
+
+<script>
+var ADMIN_EMAIL='abodedigitaltech@gmail.com';
+var SVC={toddler:'Toddler',elder:'Elder',patient:'Patient',mother:'Mother & newborn',special:'Special needs',physio:'Physio'};
+var PER={'24x7':'24x7',day:'Day',hours:'Hours'},UNIT={hour:'/hour',day:'/day',month:'/month',visit:'/visit'};
+var FB=null,ALL=[],TAB='pending',CONFIRM=null;
+function $(id){return document.getElementById(id);}
+function esc(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function dt(t){if(!t||!t.toMillis)return '–';var d=new Date(t.toMillis());return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'2-digit'});}
+function ago(t){if(!t||!t.toMillis)return '–';var n=Math.floor((Date.now()-t.toMillis())/86400000);return n<1?'today':n===1?'yesterday':n+' days ago';}
+
+var V='10.12.2',B='https://www.gstatic.com/firebasejs/'+V+'/';
+Promise.all([import(B+'firebase-app.js'),import(B+'firebase-auth.js'),import(B+'firebase-firestore.js'),import('../firebase-config.js')]).then(function(m){
+  var app=m[0].initializeApp(m[3].firebaseConfig);
+  FB={auth:m[1].getAuth(app),A:m[1],db:m[2].getFirestore(app),F:m[2]};
+  FB.A.onAuthStateChanged(FB.auth,function(u){
+    if(u&&u.email===ADMIN_EMAIL){$('loginBox').hidden=true;$('panel').hidden=false;$('logout').hidden=false;$('who').textContent=u.email;load();}
+    else{$('panel').hidden=true;$('logout').hidden=true;$('loginBox').hidden=false;if(u&&!u.isAnonymous&&u.email)$('lErr').textContent='This account is not the admin.';}
+  });
+}).catch(function(){$('msg').textContent='Could not load. Check your internet.';});
+
+$('login').addEventListener('click',function(){
+  $('lErr').textContent='';
+  FB.A.signInWithEmailAndPassword(FB.auth,$('email').value.trim(),$('pass').value).catch(function(){$('lErr').textContent='Wrong email or password.';});
+});
+$('logout').addEventListener('click',function(){FB.A.signOut(FB.auth);});
+
+function load(){
+  $('cnt').textContent='Loading…';
+  FB.F.getDocs(FB.F.collection(FB.db,'partners')).then(function(s){
+    ALL=[];s.forEach(function(d){var x=d.data();x.id=d.id;ALL.push(x);});
+    ALL.sort(function(a,b){return ((b.createdAt&&b.createdAt.toMillis&&b.createdAt.toMillis())||0)-((a.createdAt&&a.createdAt.toMillis&&a.createdAt.toMillis())||0);});
+    render();
+  }).catch(function(){$('cnt').textContent='Could not load carers. Check the Firebase rules.';});
+}
+function counts(){var c={pending:0,approved:0,hidden:0,unverified:0,all:ALL.length};ALL.forEach(function(d){c[d.status]=(c[d.status]||0)+1;if(!d.numberVerified&&d.status!=='hidden')c.unverified++;});return c;}
+function render(){
+  var c=counts();
+  document.querySelectorAll('#tabs button').forEach(function(b){var t=b.dataset.t;b.classList.toggle('on',t===TAB);b.textContent=b.textContent.replace(/ \(\d+\)$/,'')+' ('+(c[t]||0)+')';});
+  var q=$('q').value.trim().toLowerCase();
+  var list=ALL.filter(function(d){
+    if(TAB==='unverified'){if(d.numberVerified||d.status==='hidden')return false;}
+    else if(TAB!=='all'&&d.status!==TAB)return false;
+    return !q||(d.name||'').toLowerCase().indexOf(q)>-1||(d.phone||'').indexOf(q)>-1;
+  });
+  $('cnt').textContent=list.length+' carer'+(list.length===1?'':'s');
+  $('list').innerHTML=list.map(function(d){
+    var st={pending:['t-p','New'],approved:['t-a','Approved'],hidden:['t-h','Hidden']}[d.status]||['t-h',d.status];
+    var tags='<span class="tag '+st[0]+'">'+st[1]+'</span>'+(d.numberVerified?'<span class="tag t-v">✓ Number</span>':'<span class="tag t-n">Number not verified</span>')+
+      (d.policeVerified?'<span class="tag t-v">✓ Documents</span>':'')+(d.available===false?'<span class="tag t-h">Not available</span>':'');
+    var info=[(d.gender||'')+(d.age?', '+d.age+' yrs':''),(d.services||[]).map(function(s){return SVC[s]||s;}).join(', ')];
+    if(d.experience!=null)info.push(d.experience+' yrs experience');
+    if((d.qual||[]).length)info.push(d.qual.join(', '));
+    if(d.rate)info.push(d.rate+(UNIT[d.rateUnit]||''));
+    if((d.languages||[]).length)info.push(d.languages.join(', '));
+    if(d.area)info.push(d.area);
+    if(d.police&&d.police!=='no')info.push('Police certificate: '+d.police);
+    if(d.ref1)info.push('Ref: '+d.ref1+(d.ref2?' · '+d.ref2:''));
+    info.push('Registered '+dt(d.createdAt)+' · last seen '+ago(d.lastSeen));
+    var ph=d.photo?'<img src="'+d.photo+'" alt="">':'<div class="ph">'+esc((d.name||'?').charAt(0))+'</div>';
+    var ap=d.status==='approved'?'<button class="btn sm o" data-a="pending" data-id="'+d.id+'">Un-approve</button>':'<button class="btn sm g" data-a="approve" data-id="'+d.id+'">✓ Approve</button>';
+    var hd=d.status==='hidden'?'<button class="btn sm o" data-a="pending" data-id="'+d.id+'">Un-hide</button>':'<button class="btn sm o" data-a="hide" data-id="'+d.id+'">Hide</button>';
+    var del=CONFIRM===d.id?'<button class="btn sm r" data-a="delete2" data-id="'+d.id+'">Tap again to delete</button>':'<button class="btn sm r" data-a="delete" data-id="'+d.id+'">Delete</button>';
+    return '<div class="row"><div class="rh">'+ph+'<div><b>'+esc(d.name)+'</b><span>+91 '+esc(d.phone)+'</span></div></div><div>'+tags+'</div>'+
+      '<div class="info">'+info.filter(Boolean).map(esc).join('<br>')+'</div>'+
+      '<div class="acts"><a class="btn sm w" style="display:inline-flex;align-items:center;text-decoration:none" href="https://wa.me/91'+esc(d.phone)+'" target="_blank" rel="noopener">WhatsApp</a>'+
+      '<a class="btn sm o" style="display:inline-flex;align-items:center;text-decoration:none" href="tel:+91'+esc(d.phone)+'">Call</a>'+
+      '<button class="btn sm '+(d.numberVerified?'on':'o')+'" data-a="num" data-id="'+d.id+'">'+(d.numberVerified?'✓ Number verified':'Mark number verified')+'</button>'+
+      '<button class="btn sm '+(d.policeVerified?'on':'o')+'" data-a="pol" data-id="'+d.id+'">'+(d.policeVerified?'✓ Documents checked':'Mark documents checked')+'</button>'+
+      ap+hd+del+'</div></div>';
+  }).join('');
+}
+$('list').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-a]');if(!b)return;
+  var d=ALL.filter(function(x){return x.id===b.dataset.id;})[0];if(!d)return;
+  var a=b.dataset.a,ch=null;
+  if(a==='delete'){CONFIRM=d.id;render();return;}
+  if(a==='delete2'){b.disabled=true;FB.F.deleteDoc(FB.F.doc(FB.db,'partners',d.id)).then(function(){ALL=ALL.filter(function(x){return x.id!==d.id;});CONFIRM=null;render();}).catch(fail);return;}
+  if(a==='num')ch={numberVerified:!d.numberVerified};
+  if(a==='pol')ch={policeVerified:!d.policeVerified};
+  if(a==='approve')ch={status:'approved'};
+  if(a==='pending')ch={status:'pending'};
+  if(a==='hide')ch={status:'hidden'};
+  if(!ch)return;CONFIRM=null;b.disabled=true;
+  FB.F.updateDoc(FB.F.doc(FB.db,'partners',d.id),ch).then(function(){Object.keys(ch).forEach(function(k){d[k]=ch[k];});render();}).catch(fail);
+});
+function fail(){$('cnt').textContent='Could not save. Check your internet or the Firebase rules.';render();}
+$('tabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;TAB=b.dataset.t;CONFIRM=null;render();});
+$('q').addEventListener('input',render);
+$('reload').addEventListener('click',load);
+$('csv').addEventListener('click',function(){
+  var cols=['phone','name','gender','age','status','numberVerified','policeVerified','available','services','skills','qual','experience','periods','days','night','travelKm','household','rate','rateUnit','languages','area','lat','lng','police','ref1','ref2','emergency','about','createdAt','lastSeen'];
+  var q=function(v){if(v&&v.toMillis)v=new Date(v.toMillis()).toISOString();if(Array.isArray(v))v=v.join('; ');v=v==null?'':String(v);return '"'+v.replace(/"/g,'""')+'"';};
+  var csv='﻿'+cols.join(',')+'\n'+ALL.map(function(d){return cols.map(function(c){return q(d[c]);}).join(',');}).join('\n');
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='letuscare-carers-'+new Date().toISOString().slice(0,10)+'.csv';document.body.appendChild(a);a.click();a.remove();
+});
+</script>
+</body>
+</html>
