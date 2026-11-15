@@ -33,6 +33,15 @@ input{width:100%;height:46px;border-radius:12px;border:1.5px solid var(--line);p
 .info{font-size:13.5px;line-height:1.45;color:#374151}
 .acts{display:flex;flex-wrap:wrap;gap:6px}
 .cnt{font-size:13.5px;color:var(--muted);margin:0}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#E6EBF5;border-radius:14px;padding:4px}
+.sw button{height:42px;border:0;border-radius:11px;background:transparent;font-weight:700;font-size:15px;color:#3B4A66;cursor:pointer;font-family:inherit}
+.sw button.on{background:#fff;color:var(--blue);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13.5px;font-weight:600;color:#3B4A66}
+textarea{width:100%;min-height:64px;border-radius:12px;border:1.5px solid var(--line);padding:10px 12px;font-size:15px;font-family:inherit}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ck{display:flex;flex-wrap:wrap;gap:6px}.ck input{width:18px;height:18px;flex-shrink:0;margin:0}.ck label{white-space:nowrap;display:flex;align-items:center;gap:5px;border:1.5px solid var(--line);border-radius:99px;padding:6px 10px;font-size:13.5px;background:#fff}
+.adp{display:flex;align-items:center;gap:10px}.adp .pv{width:72px;height:72px;border-radius:12px;background:#F1F2F5;display:flex;align-items:center;justify-content:center;color:#888;font-size:12px;overflow:hidden;flex-shrink:0}.adp .pv img{width:100%;height:100%;object-fit:cover}
+.t-r{background:#E3F4E9;color:#14693A}.t-s{background:#DCEBFF;color:#0B3F8F}.t-x{background:#F1F2F5;color:#555}
 </style>
 </head>
 <body>
@@ -47,6 +56,26 @@ input{width:100%;height:46px;border-radius:12px;border:1.5px solid var(--line);p
 <button class="btn" id="login">Log in</button>
 </section>
 
+<div class="sw" id="sw" hidden><button class="on" data-v="carers">Carers</button><button data-v="ads">Supplier ads</button></div>
+<section id="adPanel" hidden style="display:flex;flex-direction:column;gap:12px">
+<div class="box" id="adForm">
+<b id="adFormTitle">Add supplier ad</b>
+<label class="f">Supplier / shop name<input id="aSup" maxlength="50" placeholder="Shree Surgicals, Vasai"></label>
+<label class="f">Ad text (products, offer)<textarea id="aText" maxlength="140" placeholder="Adult diapers, wheelchairs, urine bags, walking sticks. Home delivery."></textarea></label>
+<label class="f">Supplier mobile (Call and WhatsApp)<input id="aPhone" inputmode="numeric" maxlength="10" placeholder="98XXXXXXXX"></label>
+<div class="adp"><div class="pv" id="aPv">Photo</div><label class="btn sm o" style="display:inline-flex;align-items:center">Choose photo<input type="file" id="aPhoto" accept="image/*" hidden></label></div>
+<div class="f" style="font-size:13.5px;font-weight:600;color:#3B4A66">Show in these care types</div>
+<div class="ck" id="aSvc">
+<label><input type="checkbox" value="patient" checked>Patient</label><label><input type="checkbox" value="elder" checked>Elder</label>
+<label><input type="checkbox" value="special">Special needs</label><label><input type="checkbox" value="physio">Physio</label>
+<label><input type="checkbox" value="mother">Mother &amp; newborn</label><label><input type="checkbox" value="toddler">Toddler</label></div>
+<div class="g2"><label class="f">Start date<input type="date" id="aStart"></label><label class="f">End date<input type="date" id="aEnd"></label></div>
+<p class="err" id="aErr"></p>
+<div class="g2"><button class="btn o" id="aCancel" hidden>Cancel edit</button><button class="btn g" id="aSave">Save ad</button></div>
+</div>
+<p class="cnt" id="aCnt"></p>
+<div id="adList" style="display:flex;flex-direction:column;gap:10px"></div>
+</section>
 <section id="panel" hidden style="display:flex;flex-direction:column;gap:12px">
 <div class="tabs" id="tabs">
 <button data-t="pending" class="on">New (to check)</button>
@@ -54,6 +83,32 @@ input{width:100%;height:46px;border-radius:12px;border:1.5px solid var(--line);p
 <button data-t="unverified">Number not verified</button>
 <button data-t="hidden">Hidden</button>
 <button data-t="all">All</button>
+</div>
+<button class="btn g" id="addOpen">+ Add carer</button>
+<div class="box" id="cForm" hidden>
+<b>Add carer (you enter it for them)</b>
+<label class="f">Carer name<input id="cName" maxlength="60" placeholder="Sunita Kamble"></label>
+<label class="f">Mobile number (WhatsApp)<input id="cPhone" inputmode="numeric" maxlength="10" placeholder="98XXXXXXXX"></label>
+<div class="f" style="font-size:13.5px;font-weight:600;color:#3B4A66">Gender</div>
+<div class="ck" id="cGender"><label><input type="radio" name="cg" value="female" checked>Female</label><label><input type="radio" name="cg" value="male">Male</label></div>
+<div class="f" style="font-size:13.5px;font-weight:600;color:#3B4A66">Care they give</div>
+<div class="ck" id="cSvc"><label><input type="checkbox" value="toddler">Toddler</label><label><input type="checkbox" value="elder">Elder</label><label><input type="checkbox" value="patient">Patient</label>
+<label><input type="checkbox" value="mother">Mother &amp; newborn</label><label><input type="checkbox" value="special">Special needs</label><label><input type="checkbox" value="physio">Physio</label></div>
+<label class="f">Area<input id="cArea" maxlength="80" placeholder="Nallasopara West, near station"></label>
+<label class="f">Location (lat, lng) – from Google Maps, or tap the button<input id="cLoc" placeholder="19.4189, 72.8186"></label>
+<button class="btn sm o" id="cGps" type="button" style="align-self:flex-start">📍 Use my current location</button>
+<span class="cnt" style="margin:-4px 0 0">Tip: in Google Maps, press and hold on the carer's area, then copy the numbers shown at the top.</span>
+<div class="g2"><label class="f">Experience (years)<input id="cExp" type="number" min="0" max="50" placeholder="5"></label>
+<label class="f">Rate (optional)<input id="cRate" maxlength="30" placeholder="₹ 600 per day"></label></div>
+<div class="f" style="font-size:13.5px;font-weight:600;color:#3B4A66">Languages</div>
+<div class="ck" id="cLang"><label><input type="checkbox" value="Hindi">Hindi</label><label><input type="checkbox" value="Marathi">Marathi</label><label><input type="checkbox" value="Gujarati">Gujarati</label><label><input type="checkbox" value="English">English</label><label><input type="checkbox" value="Urdu">Urdu</label></div>
+<div class="ck"><label><input type="checkbox" id="cApprove" checked>Approve now (families can see)</label><label><input type="checkbox" id="cVer">Number verified</label></div>
+<p class="err" id="cErr"></p>
+<div class="g2"><button class="btn o" id="cCancel" type="button">Cancel</button><button class="btn g" id="cSave" type="button">Save carer</button></div>
+</div>
+<div class="box" id="cDone" hidden style="border-color:#7FCB9C;background:#F3FBF6">
+<b id="cDoneTxt"></b><span class="cnt" style="margin:0">Send the carer the app link, so they can add their own details later.</span>
+<div class="g2"><a class="btn w" id="cDoneWa" href="#" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;text-decoration:none">Send on WhatsApp</a><button class="btn o" type="button" onclick="this.parentNode.parentNode.hidden=true">Close</button></div>
 </div>
 <input type="search" id="q" placeholder="Search name or mobile number">
 <div class="tools"><button class="btn o" id="reload">↻ Refresh</button><button class="btn o" id="csv">⬇ Download backup</button></div>
@@ -78,8 +133,8 @@ Promise.all([import(B+'firebase-app.js'),import(B+'firebase-auth.js'),import(B+'
   var app=m[0].initializeApp(m[3].firebaseConfig);
   FB={auth:m[1].getAuth(app),A:m[1],db:m[2].getFirestore(app),F:m[2]};
   FB.A.onAuthStateChanged(FB.auth,function(u){
-    if(u&&u.email===ADMIN_EMAIL){$('loginBox').hidden=true;$('panel').hidden=false;$('logout').hidden=false;$('who').textContent=u.email;load();}
-    else{$('panel').hidden=true;$('logout').hidden=true;$('loginBox').hidden=false;if(u&&!u.isAnonymous&&u.email)$('lErr').textContent='This account is not the admin.';}
+    if(u&&u.email===ADMIN_EMAIL){$('loginBox').hidden=true;$('panel').hidden=false;$('sw').hidden=false;$('adPanel').hidden=true;$('logout').hidden=false;$('who').textContent=u.email;load();}
+    else{$('panel').hidden=true;$('sw').hidden=true;$('adPanel').hidden=true;$('logout').hidden=true;$('loginBox').hidden=false;if(u&&!u.isAnonymous&&u.email)$('lErr').textContent='This account is not the admin.';}
   });
 }).catch(function(){$('msg').textContent='Could not load. Check your internet.';});
 
@@ -110,7 +165,7 @@ function render(){
   $('cnt').textContent=list.length+' carer'+(list.length===1?'':'s');
   $('list').innerHTML=list.map(function(d){
     var st={pending:['t-p','New'],approved:['t-a','Approved'],hidden:['t-h','Hidden']}[d.status]||['t-h',d.status];
-    var tags='<span class="tag '+st[0]+'">'+st[1]+'</span>'+(d.numberVerified?'<span class="tag t-v">✓ Number</span>':'<span class="tag t-n">Number not verified</span>')+
+    var tags='<span class="tag '+st[0]+'">'+st[1]+'</span>'+(d.addedBy==='admin'?(d.ownerUid==='admin'?'<span class="tag t-s">Added by admin · not yet linked</span>':'<span class="tag t-r">Added by admin · linked by carer</span>'):'')+(d.numberVerified?'<span class="tag t-v">✓ Number</span>':'<span class="tag t-n">Number not verified</span>')+
       (d.police==='yes'?'<span class="tag t-h">Says has police certificate</span>':'')+(d.available===false?'<span class="tag t-h">Not available</span>':'');
     var info=[(d.gender||'')+(d.age?', '+d.age+' yrs':''),(d.services||[]).map(function(s){return SVC[s]||s;}).join(', ')];
     if(d.experience!=null)info.push(d.experience+' yrs experience');
@@ -130,7 +185,7 @@ function render(){
       '<div class="acts"><a class="btn sm w" style="display:inline-flex;align-items:center;text-decoration:none" href="https://wa.me/91'+esc(d.phone)+'" target="_blank" rel="noopener">WhatsApp</a>'+
       '<a class="btn sm o" style="display:inline-flex;align-items:center;text-decoration:none" href="tel:+91'+esc(d.phone)+'">Call</a>'+
       '<button class="btn sm '+(d.numberVerified?'on':'o')+'" data-a="num" data-id="'+d.id+'">'+(d.numberVerified?'✓ Number verified':'Mark number verified')+'</button>'+
-      ap+hd+del+'</div></div>';
+      (d.addedBy==='admin'&&d.ownerUid==='admin'?'<a class="btn sm w" style="display:inline-flex;align-items:center;text-decoration:none" href="'+welcomeLink(d.name,d.phone)+'" target="_blank" rel="noopener">Send app link</a>':'')+ap+hd+del+'</div></div>';
   }).join('');
 }
 $('list').addEventListener('click',function(e){
@@ -147,6 +202,95 @@ $('list').addEventListener('click',function(e){
   FB.F.updateDoc(FB.F.doc(FB.db,'partners',d.id),ch).then(function(){Object.keys(ch).forEach(function(k){d[k]=ch[k];});render();}).catch(fail);
 });
 function fail(){$('cnt').textContent='Could not save. Check your internet or the Firebase rules.';render();}
+
+/* ---------- supplier ads ---------- */
+var ADS=[],EDIT_AD=null,APHOTO='';
+var SVCN={toddler:'Toddler',elder:'Elder',patient:'Patient',mother:'Mother & newborn',special:'Special needs',physio:'Physio'};
+function today(){var t=new Date();return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');}
+function addDays(n){var t=new Date();t.setDate(t.getDate()+n);return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');}
+function resetAd(){EDIT_AD=null;APHOTO='';['aSup','aText','aPhone'].forEach(function(i){$(i).value='';});$('aStart').value=today();$('aEnd').value=addDays(30);
+  $('aPv').innerHTML='Photo';$('aErr').textContent='';$('aCancel').hidden=true;$('adFormTitle').textContent='Add supplier ad';$('aSave').textContent='Save ad';
+  document.querySelectorAll('#aSvc input').forEach(function(c){c.checked=c.value==='patient'||c.value==='elder';});}
+$('sw').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#sw button').forEach(function(x){x.classList.toggle('on',x===b);});
+  var ads=b.dataset.v==='ads';$('panel').hidden=ads;$('adPanel').hidden=!ads;if(ads){if(!$('aStart').value)resetAd();loadAds();}});
+$('aPhoto').addEventListener('change',function(e){var f=e.target.files&&e.target.files[0];if(!f)return;var img=new Image(),url=URL.createObjectURL(f);
+  img.onload=function(){var s=320,c=document.createElement('canvas');c.width=s;c.height=s;var m=Math.min(img.width,img.height);
+    var g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,s,s);g.drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,s,s);
+    APHOTO=c.toDataURL('image/jpeg',0.75);$('aPv').innerHTML='<img src="'+APHOTO+'">';URL.revokeObjectURL(url);};img.src=url;});
+function adStatus(a){var t=today();if(!a.active)return['t-x','Stopped'];if(a.end<t)return['t-x','Expired'];if(a.start>t)return['t-s','Starts '+a.start];
+  var left=Math.round((new Date(a.end)-new Date(t))/86400000);return['t-r','Running · '+left+' day'+(left===1?'':'s')+' left'];}
+function loadAds(){$('aCnt').textContent='Loading…';
+  FB.F.getDocs(FB.F.collection(FB.db,'ads')).then(function(s){ADS=[];s.forEach(function(d){var x=d.data();x.id=d.id;ADS.push(x);});
+    ADS.sort(function(a,b){return (b.end||'').localeCompare(a.end||'');});renderAds();}).catch(function(){$('aCnt').textContent='Could not load ads. Check the Firebase rules.';});}
+function renderAds(){var run=ADS.filter(function(a){return adStatus(a)[1].indexOf('Running')===0;}).length;
+  $('aCnt').textContent=ADS.length+' ad'+(ADS.length===1?'':'s')+' · '+run+' running now';
+  $('adList').innerHTML=ADS.map(function(a){var st=adStatus(a);
+    return '<div class="row"><div class="rh">'+(a.photo?'<img src="'+a.photo+'" alt="" style="border-radius:12px">':'<div class="ph">AD</div>')+'<div><b>'+esc(a.supplier)+'</b><span>+91 '+esc(a.phone)+'</span></div></div>'+
+      '<div><span class="tag '+st[0]+'">'+st[1]+'</span></div><div class="info">'+esc(a.text)+'<br>Shown in: '+(a.services||[]).map(function(x){return SVCN[x]||x;}).join(', ')+'<br>'+esc(a.start)+' to '+esc(a.end)+'</div>'+
+      '<div class="acts"><button class="btn sm o" data-ad="edit" data-id="'+a.id+'">Edit / extend</button>'+
+      (a.active?'<button class="btn sm o" data-ad="stop" data-id="'+a.id+'">Stop</button>':'<button class="btn sm g" data-ad="start" data-id="'+a.id+'">Restart</button>')+
+      (CONFIRM===a.id?'<button class="btn sm r" data-ad="del2" data-id="'+a.id+'">Tap again to delete</button>':'<button class="btn sm r" data-ad="del" data-id="'+a.id+'">Delete</button>')+'</div></div>';}).join('');}
+$('adList').addEventListener('click',function(e){var b=e.target.closest('button[data-ad]');if(!b)return;var a=ADS.filter(function(x){return x.id===b.dataset.id;})[0];if(!a)return;var k=b.dataset.ad;
+  if(k==='edit'){EDIT_AD=a.id;APHOTO=a.photo||'';$('aSup').value=a.supplier;$('aText').value=a.text;$('aPhone').value=a.phone;$('aStart').value=a.start;$('aEnd').value=a.end;
+    $('aPv').innerHTML=APHOTO?'<img src="'+APHOTO+'">':'Photo';document.querySelectorAll('#aSvc input').forEach(function(c){c.checked=(a.services||[]).indexOf(c.value)>-1;});
+    $('adFormTitle').textContent='Edit supplier ad';$('aSave').textContent='Save changes';$('aCancel').hidden=false;window.scrollTo({top:0,behavior:'smooth'});return;}
+  if(k==='del'){CONFIRM=a.id;renderAds();return;}
+  if(k==='del2'){FB.F.deleteDoc(FB.F.doc(FB.db,'ads',a.id)).then(function(){CONFIRM=null;ADS=ADS.filter(function(x){return x.id!==a.id;});renderAds();}).catch(function(){$('aCnt').textContent='Could not delete.';});return;}
+  var on=k==='start';FB.F.updateDoc(FB.F.doc(FB.db,'ads',a.id),{active:on}).then(function(){a.active=on;renderAds();}).catch(function(){$('aCnt').textContent='Could not save.';});});
+$('aCancel').addEventListener('click',resetAd);
+$('aSave').addEventListener('click',function(){
+  var d={supplier:$('aSup').value.trim(),text:$('aText').value.trim(),phone:$('aPhone').value.replace(/\D/g,'').slice(-10),
+    services:[].slice.call(document.querySelectorAll('#aSvc input:checked')).map(function(c){return c.value;}),start:$('aStart').value,end:$('aEnd').value,photo:APHOTO,active:true};
+  if(d.supplier.length<2)return $('aErr').textContent='Enter the supplier name.';
+  if(d.text.length<3)return $('aErr').textContent='Enter the ad text.';
+  if(!/^[6-9]\d{9}$/.test(d.phone))return $('aErr').textContent='Enter a valid 10-digit mobile number.';
+  if(!d.services.length)return $('aErr').textContent='Tick at least one care type.';
+  if(!d.start||!d.end||d.end<d.start)return $('aErr').textContent='Check the start and end dates.';
+  $('aErr').textContent='';$('aSave').disabled=true;
+  var id=EDIT_AD||('ad'+Date.now());
+  FB.F.setDoc(FB.F.doc(FB.db,'ads',id),d).then(function(){$('aSave').disabled=false;resetAd();loadAds();})
+  .catch(function(){$('aSave').disabled=false;$('aErr').textContent='Could not save. Check the Firebase rules.';});
+});
+
+
+/* ---------- add carer from admin ---------- */
+var APP_URL='https://qmsmumbai-technician.github.io/letuscare-app/partner.html';
+function welcomeLink(name,phone){
+  var t='Namaste '+name+', Let Us Care has added your profile so families near you can call you.\n\nTo add your own details (photo, skills, rate):\n1. Open '+APP_URL+'\n2. Tap "I want to give care" and fill the short form with this same mobile number\n3. Tap the green WhatsApp button and press Send to verify your number\n\nIt is free. Families pay you directly.';
+  return 'https://wa.me/91'+phone+'?text='+encodeURIComponent(t);
+}
+function cReset(){['cName','cPhone','cArea','cLoc','cExp','cRate'].forEach(function(i){$(i).value='';});$('cErr').textContent='';
+  document.querySelectorAll('#cSvc input,#cLang input').forEach(function(c){c.checked=false;});$('cApprove').checked=true;$('cVer').checked=false;}
+$('addOpen').addEventListener('click',function(){cReset();$('cForm').hidden=false;$('addOpen').hidden=true;});
+$('cCancel').addEventListener('click',function(){$('cForm').hidden=true;$('addOpen').hidden=false;});
+$('cGps').addEventListener('click',function(){if(!navigator.geolocation){$('cErr').textContent='Location not available.';return;}
+  $('cGps').textContent='Finding…';navigator.geolocation.getCurrentPosition(function(p){$('cLoc').value=p.coords.latitude.toFixed(5)+', '+p.coords.longitude.toFixed(5);$('cGps').textContent='📍 Use my current location';},
+  function(){$('cGps').textContent='📍 Use my current location';$('cErr').textContent='Allow location, or paste lat, lng from Google Maps.';},{enableHighAccuracy:true,timeout:15000});});
+$('cSave').addEventListener('click',function(){
+  var name=$('cName').value.trim().replace(/\s+/g,' '),phone=$('cPhone').value.replace(/\D/g,'').slice(-10);
+  var svc=[].slice.call(document.querySelectorAll('#cSvc input:checked')).map(function(c){return c.value;});
+  var m=$('cLoc').value.match(/(-?\d+(?:\.\d+)?)\s*[, ]\s*(-?\d+(?:\.\d+)?)/);
+  if(name.length<2)return $('cErr').textContent='Enter the carer name.';
+  if(!/^[6-9]\d{9}$/.test(phone))return $('cErr').textContent='Enter a valid 10-digit mobile number.';
+  if(ALL.some(function(d){return d.phone===phone;}))return $('cErr').textContent='This number is already registered.';
+  if(!svc.length)return $('cErr').textContent='Tick at least one care type.';
+  if(!m)return $('cErr').textContent='Enter the location (lat, lng) or tap Use my current location.';
+  var lat=+(+m[1]).toFixed(5),lng=+(+m[2]).toFixed(5);
+  if(lat<6||lat>37||lng<68||lng>98)return $('cErr').textContent='This location is not in India. Check the numbers (lat first, then lng).';
+  var d={name:name,phone:phone,gender:document.querySelector('#cGender input:checked').value,services:svc,lat:lat,lng:lng,available:true,
+    area:$('cArea').value.trim(),languages:[].slice.call(document.querySelectorAll('#cLang input:checked')).map(function(c){return c.value;}),
+    status:$('cApprove').checked?'approved':'pending',numberVerified:$('cVer').checked,policeVerified:false,addedBy:'admin',
+    ownerUid:'admin',createdAt:FB.F.serverTimestamp()};
+  var ex=parseInt($('cExp').value,10);if(!isNaN(ex))d.experience=ex;
+  if($('cRate').value.trim())d.rate=$('cRate').value.trim();
+  $('cSave').disabled=true;$('cErr').textContent='';
+  FB.F.setDoc(FB.F.doc(FB.db,'partners',phone),d)
+  .then(function(){$('cSave').disabled=false;$('cForm').hidden=true;$('addOpen').hidden=false;TAB=d.status==='approved'?'approved':'pending';
+    $('cDone').hidden=false;$('cDoneTxt').textContent=name+' added.';$('cDoneWa').href=welcomeLink(name,phone);load();})
+  .catch(function(){$('cSave').disabled=false;$('cErr').textContent='Could not save. Check the Firebase rules.';});
+});
+
 $('tabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;TAB=b.dataset.t;CONFIRM=null;render();});
 $('q').addEventListener('input',render);
 $('reload').addEventListener('click',load);
