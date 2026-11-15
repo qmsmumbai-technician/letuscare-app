@@ -47,6 +47,17 @@ body{margin:0;background:#F7F8FA;color:var(--ink);font-family:'Mukta','Mukta Vaa
 .msg b{display:block;color:var(--ink);font-size:17px;margin-bottom:4px}
 .lim{margin:0;border-radius:14px;background:#FDECEC;color:#8E1B14;border:1px solid #F5C2BE;padding:10px 12px;font-size:14.5px;line-height:1.4}
 .locb{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:13px;border:1.5px solid var(--t);background:#fff;color:var(--t);font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;width:100%}
+.ad{background:linear-gradient(180deg,#2A2F45,#3A3F5C);color:#fff;border-radius:18px;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.ad .hdA{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:800;font-size:15px}
+.ad .hdA i{font-style:normal;font-size:11px;font-weight:800;background:#FFC107;color:#222;border-radius:5px;padding:1px 6px;flex-shrink:0}
+.ad .row{display:flex;gap:8px;align-items:center;background:#fff;color:#1D2433;border-radius:12px;padding:6px}
+.ad img{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0}
+.ad .row b{display:block;font-size:15.5px;line-height:1.2}
+.ad .row p{margin:2px 0 0;font-size:13px;line-height:1.3;color:#374151;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ad .btA{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ad .btA a{min-height:36px;border-radius:10px;border:1.5px solid #fff;color:#fff;font-weight:700;font-size:13.5px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer}
+.ad .btA a.w{background:#fff;color:#2A2F45}
+.ad small{font-size:11px;line-height:1.25;color:#C9CCE0}
 </style>
 </head>
 <body>
@@ -92,7 +103,7 @@ function $(id){return document.getElementById(id);}
 function T(x){return LUC.T(x);}
 function esc(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 var key=(new URLSearchParams(location.search).get('svc')||'').toLowerCase();if(!SVC[key])key='elder';
-var S=SVC[key],ALL=[],HERE=null,F={};
+var S=SVC[key],ALL=[],HERE=null,F={},ADS=[];
 var r=document.documentElement.style;r.setProperty('--t',S[3]);r.setProperty('--t-soft',S[4]);r.setProperty('--t-line',S[5]);
 $('svcImg').src=S[1];$('sheetBtn').href=S[2];
 
@@ -121,9 +132,9 @@ function render(){
   list.sort(function(a,b){if(a.km!=null&&b.km!=null)return a.km-b.km;var x=a.numberVerified?0:1,y=b.numberVerified?0:1;return x-y;});
   list=list.slice(0,40);
   $('count').textContent=list.length?(list.length+' '+T(list.length===1?'carer':'carers')+(HERE?' · '+T('nearest first'):'')):T('No carers found');
-  if(!list.length){$('list').innerHTML='<p class="msg"><b>'+esc(T('No carers here yet'))+'</b>'+esc(T('Carers are registering now. Please check again in a few days, or remove a filter.'))+'</p>';return;}
+  if(!list.length){$('list').innerHTML='<p class="msg"><b>'+esc(T('No carers here yet'))+'</b>'+esc(T('Carers are registering now. Please check again in a few days, or remove a filter.'))+'</p>'+adHtml(0)+adHtml(1);return;}
   var cols=['#E9A47A','#7FA6E3','#E58FB2','#7DC49A','#B79AE0','#E3B65C'];
-  $('list').innerHTML=list.map(function(d,i){
+  var cards=list.map(function(d,i){
     var ver=!!d.numberVerified;
     var av=d.photo?'<img class="av" src="'+d.photo+'" alt="">':'<div class="av" style="background:'+cols[i%cols.length]+'">'+esc((d.name||'?').charAt(0).toUpperCase())+'</div>';
     var facts=[];
@@ -138,10 +149,27 @@ function render(){
       (facts.length?'<div class="facts">'+facts.map(function(f){return '<span>'+f+'</span>';}).join('')+'</div>':'')+
       (sk.length?'<div class="sk">'+sk.map(function(s){return '<i>'+esc(T(s))+'</i>';}).join('')+'</div>':'')+
       '<div class="bt"><a class="call" data-id="'+d.id+'" data-act="call">📞 '+esc(T('Call'))+'</a><a class="wa" data-id="'+d.id+'" data-act="wa">'+esc(T('WhatsApp'))+'</a></div></article>';
-  }).join('');
+  });
+  /* supplier ads: first after the 3rd carer, second after the 8th (or at the end) */
+  var a0=adHtml(0),a1=adHtml(1);
+  if(a0)cards.splice(Math.min(3,cards.length),0,a0);
+  if(a1)cards.splice(Math.min(9,cards.length),0,a1);
+  $('list').innerHTML=cards.join('');
 }
+var AD_HEAD={toddler:'Child care products near you',elder:'Elder care products near you',patient:'Patient products near you',mother:'Mother and baby products near you',special:'Special needs products near you',physio:'Physiotherapy products near you'};
+function adHtml(i){
+  var a=ADS[i];if(!a)return '';
+  return '<article class="ad"><div class="hdA"><span>🛒 '+esc(T(AD_HEAD[key]))+'</span><i>'+esc(T('Ads'))+'</i></div>'+
+    '<div class="row">'+(a.photo?'<img src="'+a.photo+'" alt="">':'')+'<div><b>'+esc(a.supplier)+'</b><p>'+esc(a.text)+'</p></div></div>'+
+    '<div class="btA"><a data-ad="'+i+'" data-act="call">📞 '+esc(T('Call shop'))+'</a><a class="w" data-ad="'+i+'" data-act="wa">'+esc(T('WhatsApp shop'))+'</a></div>'+
+    '<small>'+esc(T('Advertisement'))+' · '+esc(T('Let Us Care does not sell or check these products.'))+'</small></article>';
+}
+
 $('list').addEventListener('click',function(e){
   var a=e.target.closest('a[data-act]');if(!a)return;e.preventDefault();
+  if(a.dataset.ad!=null){var ad=ADS[+a.dataset.ad];if(!ad)return;
+    if(a.dataset.act==='call'){location.href='tel:+91'+ad.phone;return;}
+    window.open('https://wa.me/91'+ad.phone+'?text='+encodeURIComponent(T('Hello, I saw your advertisement on the Let Us Care app. Please share details.')),'_blank');return;}
   var d=ALL.filter(function(x){return x.id===a.dataset.id;})[0];if(!d||!canContact(d.id))return;
   if(a.dataset.act==='call'){location.href='tel:+91'+d.phone;return;}
   var msg=T('Hello')+' '+d.name+', '+T('I found you on the Let Us Care app.')+' '+T('I need')+' '+T(S[0]).toLowerCase()+'. '+T('Are you available? Please call me.');
@@ -164,6 +192,13 @@ function load(){
   var V='10.12.2',B='https://www.gstatic.com/firebasejs/'+V+'/';
   Promise.all([import(B+'firebase-app.js'),import(B+'firebase-firestore.js'),import('./firebase-config.js')]).then(function(m){
     var app=m[0].initializeApp(m[2].firebaseConfig),F2=m[1],db=F2.getFirestore(app);
+    /* supplier ads are optional: if they fail to load, carers still show */
+    F2.getDocs(F2.query(F2.collection(db,'ads'),F2.where('active','==',true))).then(function(s){
+      var t=new Date(),td=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+      var arr=[];s.forEach(function(doc){var x=doc.data();if((x.services||[]).indexOf(key)>-1&&x.start<=td&&x.end>=td&&x.phone)arr.push(x);});
+      for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),k=arr[i];arr[i]=arr[j];arr[j]=k;}
+      ADS=arr.slice(0,2);render();
+    }).catch(function(){});
     return F2.getDocs(F2.query(F2.collection(db,'partners'),F2.where('status','==','approved')));
   }).then(function(snap){
     ALL=[];snap.forEach(function(doc){var d=doc.data();d.id=doc.id;if((d.services||[]).indexOf(key)>-1)ALL.push(d);});
