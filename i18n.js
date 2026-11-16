@@ -914,7 +914,12 @@ var ROWS=[
 ["Link my profile", "मेरी प्रोफ़ाइल जोड़ें", "माझी प्रोफाइल जोडा", "મારી પ્રોફાઇલ જોડો"],
 ["Did not get the code? Message us on WhatsApp", "कोड नहीं मिला? हमें WhatsApp करें", "कोड मिळाला नाही? आम्हाला WhatsApp करा", "કોડ મળ્યો નથી? અમને WhatsApp કરો"],
 ["Please enter the 4-digit code.", "कृपया 4 अंकों का कोड डालें।", "कृपया 4 अंकी कोड टाका.", "કૃપા કરી 4 અંકનો કોડ નાખો."],
-["This code is not correct. Please check the WhatsApp message, or message us.", "यह कोड सही नहीं है। कृपया WhatsApp मैसेज देखें, या हमें मैसेज करें।", "हा कोड बरोबर नाही. कृपया WhatsApp मेसेज तपासा, किंवा आम्हाला मेसेज करा.", "આ કોડ સાચો નથી. કૃપા કરી WhatsApp મેસેજ તપાસો, અથવા અમને મેસેજ કરો."]
+["This code is not correct. Please check the WhatsApp message, or message us.", "यह कोड सही नहीं है। कृपया WhatsApp मैसेज देखें, या हमें मैसेज करें।", "हा कोड बरोबर नाही. कृपया WhatsApp मेसेज तपासा, किंवा आम्हाला मेसेज करा.", "આ કોડ સાચો નથી. કૃપા કરી WhatsApp મેસેજ તપાસો, અથવા અમને મેસેજ કરો."],
+["within 7 km", "7 km के अंदर", "7 km च्या आत", "7 km ની અંદર"],
+["No carer within 7 km yet", "अभी 7 km के अंदर कोई केयरटेकर नहीं", "अजून 7 km च्या आत कोणी केअरटेकर नाही", "હજી 7 km ની અંદર કોઈ કેરટેકર નથી"],
+["Nearest carers further away:", "थोड़ी दूर के सबसे पास वाले केयरटेकर:", "थोड्या दूरचे सर्वात जवळचे केअरटेकर:", "થોડે દૂરના સૌથી નજીકના કેરટેકર:"],
+["Carers further away (more than 7 km)", "दूर के केयरटेकर (7 km से ज़्यादा)", "दूरचे केअरटेकर (7 km पेक्षा जास्त)", "દૂરના કેરટેકર (7 km થી વધુ)"],
+["Show carers further away", "दूर के केयरटेकर भी दिखाएँ", "दूरचे केअरटेकरही दाखवा", "દૂરના કેરટેકર પણ બતાવો"]
 ];
 var L=['en','hi','mr','gu'];
 var LOCALE={en:'en-IN',hi:'hi-IN',mr:'mr-IN',gu:'gu-IN'};

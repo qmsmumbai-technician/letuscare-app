@@ -413,6 +413,10 @@ function signIn(){
   });
 }
 
+/* public profile keeps location rounded to about 1 km; exact location, references and emergency contact are private */
+function rnd(x){return x==null?x:Math.round(x*100)/100;}
+function savePriv(phone,o){return FB.F.setDoc(FB.F.doc(FB.db,'partnerPrivate',phone),o,{merge:true});}
+function loadPriv(phone){return signIn().then(function(){return FB.F.getDoc(FB.F.doc(FB.db,'partnerPrivate',phone));}).then(function(s){return s.exists()?s.data():{};}).catch(function(){return {};});}
 /* ---------- views ---------- */
 function showReg(){$('loading').hidden=true;$('statusView').hidden=true;$('statusView').style.display='';$('form').hidden=true;$('regView').hidden=false;$('regView').style.display='flex';}
 function showForm(){showReg();}
@@ -439,17 +443,17 @@ $('rSubmit').addEventListener('click',function(){
       var ex=sn.data()||{};
       if(ex.ownerUid==='admin'){
         /* admin added this carer: link it to this phone with the details just typed; the number must be verified again on WhatsApp */
-        var up={ownerUid:USER.uid,numberVerified:false,name:name,gender:state.gender[0],services:state.services.slice(),lat:state.lat,lng:state.lng,available:true,lastSeen:FB.F.serverTimestamp()};
+        var up={ownerUid:USER.uid,numberVerified:false,name:name,gender:state.gender[0],services:state.services.slice(),lat:rnd(state.lat),lng:rnd(state.lng),available:true,lastSeen:FB.F.serverTimestamp()};
         if(state.photo)up.photo=state.photo;
-        return FB.F.updateDoc(FB.F.doc(FB.db,'partners',p[0]),up).then(function(){var m={};Object.keys(ex).forEach(function(k){m[k]=ex[k];});Object.keys(up).forEach(function(k){m[k]=up[k];});m.lastSeen=null;return m;});
+        return FB.F.updateDoc(FB.F.doc(FB.db,'partners',p[0]),up).then(function(){return savePriv(p[0],{lat:state.lat,lng:state.lng});}).then(function(){var m={};Object.keys(ex).forEach(function(k){m[k]=ex[k];});Object.keys(up).forEach(function(k){m[k]=up[k];});m.lastSeen=null;return m;});
       }
       throw {code:'permission-denied'};
     }
     var user=USER;
-    var data={name:name,phone:p[0],gender:state.gender[0],services:state.services.slice(),lat:state.lat,lng:state.lng,available:true,
+    var data={name:name,phone:p[0],gender:state.gender[0],services:state.services.slice(),lat:rnd(state.lat),lng:rnd(state.lng),available:true,
       ownerUid:user.uid,status:'pending',numberVerified:false,policeVerified:false,createdAt:FB.F.serverTimestamp(),lastSeen:FB.F.serverTimestamp()};
     if(state.photo)data.photo=state.photo;
-    return FB.F.setDoc(FB.F.doc(FB.db,'partners',p[0]),data).then(function(){return data;});
+    return FB.F.setDoc(FB.F.doc(FB.db,'partners',p[0]),data).then(function(){return savePriv(p[0],{lat:state.lat,lng:state.lng});}).then(function(){return data;});
   }).then(function(data){
     try{localStorage.setItem('luc_partner_phone',p[0]);}catch(e){}
     $('regView').hidden=true;$('regView').style.display='';data.lastSeen=null;showStatus(data);window.scrollTo({top:0,behavior:'smooth'});
@@ -537,6 +541,7 @@ function fillForm(d){
   $('exp').value=d.experience!=null?d.experience:'';$('rate').value=d.rate||'';$('about').value=d.about||'';
   $('area').value=d.area||'';state.lat=d.lat;state.lng=d.lng;if(d.lat!=null){$('gps').classList.add('ok');$('gpsTxt').textContent=T('Location saved');}
   $('ref1').value=d.ref1||'';$('ref2').value=d.ref2||'';$('emer').value=d.emergency||'';
+  loadPriv(d.phone).then(function(pv){if(pv.lat!=null){state.lat=pv.lat;state.lng=pv.lng;}['ref1','ref2'].forEach(function(k){if(pv[k]!=null)$(k).value=pv[k];});if(pv.emergency!=null)$('emer').value=pv.emergency;});
   var map={gender:[d.gender],periods:d.periods,languages:d.languages,skills:d.skills,qual:d.qual,days:d.days,night:d.night?[d.night]:[],travel:d.travelKm?[String(d.travelKm)]:[],household:d.household,rateUnit:d.rateUnit?[d.rateUnit]:[],police:d.police?[d.police]:[]};
   Object.keys(map).forEach(function(k){state[k]=(map[k]||[]).slice();
     document.querySelectorAll('[data-group="'+k+'"] .chip').forEach(function(c){var on=state[k].indexOf(c.dataset.v)>-1;c.classList.toggle('on',on);c.setAttribute('aria-pressed',on?'true':'false');});});
@@ -563,13 +568,14 @@ function submit(){
   var data={name:v('name').replace(/\s+/g,' '),gender:state.gender[0],services:state.services.slice(),
     skills:state.skills.slice(),qual:state.qual.slice(),periods:state.periods.slice(),days:state.days.slice(),night:(state.night[0]||''),
     travelKm:parseInt(state.travel[0]||'0',10),household:state.household.slice(),rate:v('rate'),languages:state.languages.slice(),
-    about:v('about'),area:v('area'),lat:state.lat,lng:state.lng,police:(state.police[0]||'no'),ref1:v('ref1'),ref2:v('ref2'),emergency:v('emer'),
+    about:v('about'),area:v('area'),lat:rnd(state.lat),lng:rnd(state.lng),police:(state.police[0]||'no'),
     available:ME.available!==false};
   var ag=parseInt(v('age'),10);if(!isNaN(ag))data.age=ag;
   var ex=parseInt(v('exp'),10);if(!isNaN(ex))data.experience=ex;
   if(state.rateUnit[0])data.rateUnit=state.rateUnit[0];
   if(state.photo)data.photo=state.photo;
-  signIn().then(function(){return FB.F.updateDoc(FB.F.doc(FB.db,'partners',ME.phone),data);})
+  var priv={lat:state.lat,lng:state.lng,ref1:v('ref1'),ref2:v('ref2'),emergency:v('emer')};
+  signIn().then(function(){return FB.F.updateDoc(FB.F.doc(FB.db,'partners',ME.phone),data);}).then(function(){return savePriv(ME.phone,priv);})
   .then(function(){var m={};Object.keys(ME).forEach(function(k){m[k]=ME[k];});Object.keys(data).forEach(function(k){m[k]=data[k];});EDIT=false;
     btn.removeAttribute('aria-busy');$('form').hidden=true;showStatus(m);window.scrollTo({top:0,behavior:'smooth'});})
   .catch(function(){btn.removeAttribute('aria-busy');btn.textContent=LUC.T('Save changes');showErr('Could not save. Please check your internet and try again.');});

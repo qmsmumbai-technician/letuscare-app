@@ -58,6 +58,8 @@ body{margin:0;background:#F7F8FA;color:var(--ink);font-family:'Mukta','Mukta Vaa
 .ad .btA a{min-height:36px;border-radius:10px;border:1.5px solid #fff;color:#fff;font-weight:700;font-size:13.5px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer}
 .ad .btA a.w{background:#fff;color:#2A2F45}
 .ad small{font-size:11px;line-height:1.25;color:#C9CCE0}
+.msg.far{border-style:solid;background:var(--t-soft);color:var(--ink)}.msg b{display:block}
+.more{display:block;width:100%;padding:14px;border-radius:16px;border:2px solid var(--t);background:#fff;color:var(--t);font:inherit;font-weight:700;font-size:15.5px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -98,7 +100,7 @@ var SVC={toddler:['Toddler care','toddler.webp','toddler.html','#D35400','#FFF3E
  special:['Special needs care','special.webp','special.html','#6A1B9A','#F4EDFA','#DCC6EE'],
  physio:['Physiotherapy at home','physio.webp','physio.html','#B7791F','#FFF8E1','#F3D98E']};
 var UNIT={hour:'per hour',day:'per day',month:'per month',visit:'per visit'};
-var DAILY_LIMIT=10;
+var DAILY_LIMIT=10,NEAR_KM=7;
 function $(id){return document.getElementById(id);}
 function T(x){return LUC.T(x);}
 function esc(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
@@ -130,13 +132,27 @@ function render(){
     return true;
   });
   list.sort(function(a,b){if(a.km!=null&&b.km!=null)return a.km-b.km;var x=a.numberVerified?0:1,y=b.numberVerified?0:1;return x-y;});
+  /* families see carers within 7 km; carers further away only if none are near, or if the family asks */
+  var far=[];
+  if(HERE){far=list.filter(function(d){return d.km!=null&&d.km>NEAR_KM;});list=list.filter(function(d){return d.km==null||d.km<=NEAR_KM;});}
+  var onlyFar=!list.length&&far.length>0;
+  if(onlyFar){list=far.slice(0,20);far=[];}
   list=list.slice(0,40);
-  $('count').textContent=list.length?(list.length+' '+T(list.length===1?'carer':'carers')+(HERE?' · '+T('nearest first'):'')):T('No carers found');
+  $('count').textContent=list.length?(list.length+' '+T(list.length===1?'carer':'carers')+(HERE&&!onlyFar?' · '+T('within 7 km'):'')+(HERE?' · '+T('nearest first'):'')):T('No carers found');
   if(!list.length){$('list').innerHTML='<p class="msg"><b>'+esc(T('No carers here yet'))+'</b>'+esc(T('Carers are registering now. Please check again in a few days, or remove a filter.'))+'</p>'+adHtml(0)+adHtml(1);return;}
-  var cols=['#E9A47A','#7FA6E3','#E58FB2','#7DC49A','#B79AE0','#E3B65C'];
-  var cards=list.map(function(d,i){
+  var cards=list.map(card);
+  if(onlyFar)cards.unshift('<p class="msg far"><b>'+esc(T('No carer within 7 km yet'))+'</b>'+esc(T('Nearest carers further away:'))+'</p>');
+  /* supplier ads: first after the 3rd carer, second after the 8th (or at the end) */
+  var a0=adHtml(0),a1=adHtml(1);
+  if(a0)cards.splice(Math.min(3,cards.length),0,a0);
+  if(a1)cards.splice(Math.min(9,cards.length),0,a1);
+  if(far.length)cards.push(F.far?'<p class="msg far"><b>'+esc(T('Carers further away (more than 7 km)'))+'</b></p>'+far.slice(0,20).map(card).join(''):'<button type="button" class="more" id="moreBtn">'+esc(T('Show carers further away'))+' ('+far.length+')</button>');
+  $('list').innerHTML=cards.join('');
+}
+var COLS=['#E9A47A','#7FA6E3','#E58FB2','#7DC49A','#B79AE0','#E3B65C'];
+function card(d,i){
     var ver=!!d.numberVerified;
-    var av=d.photo?'<img class="av" src="'+d.photo+'" alt="">':'<div class="av" style="background:'+cols[i%cols.length]+'">'+esc((d.name||'?').charAt(0).toUpperCase())+'</div>';
+    var av=d.photo?'<img class="av" src="'+d.photo+'" alt="">':'<div class="av" style="background:'+COLS[i%COLS.length]+'">'+esc((d.name||'?').charAt(0).toUpperCase())+'</div>';
     var facts=[];
     if(d.experience!=null)facts.push('🧰 '+d.experience+' '+T('years experience'));
     if((d.languages||[]).length)facts.push('🗣 '+d.languages.map(T).join(', '));
@@ -145,17 +161,11 @@ function render(){
     var sk=(d.skills||[]).slice(0,4);
     return '<article class="cr"><div class="hd">'+av+'<div class="nm"><b>'+esc(d.name)+'</b>'+
       (ver?'<span class="vb ok">✓ '+esc(T('Number verified'))+'</span>':'<span class="vb no">'+esc(T('Number not verified yet'))+'</span>')+
-      '<span class="sn">'+esc(seen(d))+'</span></div>'+(d.km!=null?'<span class="km">'+(d.km<1?d.km.toFixed(1):Math.round(d.km*10)/10)+' km</span>':'')+'</div>'+
+      '<span class="sn">'+esc(seen(d))+'</span></div>'+(d.km!=null?'<span class="km">'+'~'+Math.max(1,Math.round(d.km))+' km</span>':'')+'</div>'+
       (facts.length?'<div class="facts">'+facts.map(function(f){return '<span>'+f+'</span>';}).join('')+'</div>':'')+
       (sk.length?'<div class="sk">'+sk.map(function(s){return '<i>'+esc(T(s))+'</i>';}).join('')+'</div>':'')+
       '<div class="bt"><a class="call" data-id="'+d.id+'" data-act="call">📞 '+esc(T('Call'))+'</a><a class="wa" data-id="'+d.id+'" data-act="wa">'+esc(T('WhatsApp'))+'</a></div></article>';
-  });
-  /* supplier ads: first after the 3rd carer, second after the 8th (or at the end) */
-  var a0=adHtml(0),a1=adHtml(1);
-  if(a0)cards.splice(Math.min(3,cards.length),0,a0);
-  if(a1)cards.splice(Math.min(9,cards.length),0,a1);
-  $('list').innerHTML=cards.join('');
-}
+  }
 var AD_HEAD={toddler:'Child care products near you',elder:'Elder care products near you',patient:'Patient products near you',mother:'Mother and baby products near you',special:'Special needs products near you',physio:'Physiotherapy products near you'};
 function adHtml(i){
   var a=ADS[i];if(!a)return '';
@@ -166,6 +176,7 @@ function adHtml(i){
 }
 
 $('list').addEventListener('click',function(e){
+  if(e.target.closest('#moreBtn')){F.far=true;render();return;}
   var a=e.target.closest('a[data-act]');if(!a)return;e.preventDefault();
   if(a.dataset.ad!=null){var ad=ADS[+a.dataset.ad];if(!ad)return;
     if(a.dataset.act==='call'){location.href='tel:+91'+ad.phone;return;}
