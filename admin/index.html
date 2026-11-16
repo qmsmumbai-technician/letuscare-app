@@ -146,11 +146,32 @@ $('logout').addEventListener('click',function(){FB.A.signOut(FB.auth);});
 
 function load(){
   $('cnt').textContent='Loading…';
-  FB.F.getDocs(FB.F.collection(FB.db,'partners')).then(function(s){
-    ALL=[];s.forEach(function(d){var x=d.data();x.id=d.id;ALL.push(x);});
+  var PRIV={};
+  FB.F.getDocs(FB.F.collection(FB.db,'partnerPrivate')).then(function(ps){ps.forEach(function(d){PRIV[d.id]=d.data();});},function(){})
+  .then(function(){return FB.F.getDocs(FB.F.collection(FB.db,'partners'));}).then(function(s){
+    ALL=[];s.forEach(function(d){var x=d.data();x.id=d.id;x.priv=PRIV[d.id]||{};ALL.push(x);});
+    migrate();
     ALL.sort(function(a,b){return ((b.createdAt&&b.createdAt.toMillis&&b.createdAt.toMillis())||0)-((a.createdAt&&a.createdAt.toMillis&&a.createdAt.toMillis())||0);});
     render();
   }).catch(function(){$('cnt').textContent='Could not load carers. Check the Firebase rules.';});
+}
+/* move exact location, references and emergency contact out of the public profile (one time, for older records) */
+function rnd(x){return x==null?x:Math.round(x*100)/100;}
+function migrate(){
+  var todo=ALL.filter(function(d){return d.ref1!=null||d.ref2!=null||d.emergency!=null||(d.lat!=null&&(d.lat!==rnd(d.lat)||d.lng!==rnd(d.lng)));});
+  if(!todo.length)return;
+  var done=0;
+  todo.forEach(function(d){
+    var pv={};
+    if(d.priv.lat==null&&d.lat!=null){pv.lat=d.lat;pv.lng=d.lng;}
+    ['ref1','ref2','emergency'].forEach(function(k){if(d[k]!=null&&d.priv[k]==null)pv[k]=d[k];});
+    var pub={lat:rnd(d.lat),lng:rnd(d.lng),ref1:FB.F.deleteField(),ref2:FB.F.deleteField(),emergency:FB.F.deleteField()};
+    FB.F.setDoc(FB.F.doc(FB.db,'partnerPrivate',d.id),pv,{merge:true})
+    .then(function(){return FB.F.updateDoc(FB.F.doc(FB.db,'partners',d.id),pub);})
+    .then(function(){Object.keys(pv).forEach(function(k){d.priv[k]=pv[k];});d.lat=pub.lat;d.lng=pub.lng;delete d.ref1;delete d.ref2;delete d.emergency;done++;
+      if(done===todo.length){render();$('cnt').textContent='Protected private details of '+done+' older carer record'+(done===1?'':'s')+'.';}})
+    .catch(function(){$('cnt').textContent='Could not move private details. Publish the new Firebase rules (v37) first.';});
+  });
 }
 function counts(){var c={pending:0,approved:0,hidden:0,unverified:0,all:ALL.length};ALL.forEach(function(d){c[d.status]=(c[d.status]||0)+1;if(!d.numberVerified&&d.status!=='hidden')c.unverified++;});return c;}
 function render(){
@@ -174,7 +195,9 @@ function render(){
     if((d.languages||[]).length)info.push(d.languages.join(', '));
     if(d.area)info.push(d.area);
     if(d.police&&d.police!=='no')info.push('Police certificate: '+d.police);
-    if(d.ref1)info.push('Ref: '+d.ref1+(d.ref2?' · '+d.ref2:''));
+    var pv=d.priv||{},r1=pv.ref1||d.ref1,r2=pv.ref2||d.ref2,em=pv.emergency||d.emergency;
+    if(r1||r2)info.push('Ref: '+[r1,r2].filter(Boolean).join(' · '));
+    if(em)info.push('Emergency: '+em);
     info.push('Registered '+dt(d.createdAt)+' · last seen '+ago(d.lastSeen));
     var ph=d.photo?'<img src="'+d.photo+'" alt="">':'<div class="ph">'+esc((d.name||'?').charAt(0))+'</div>';
     var ap=d.status==='approved'?'<button class="btn sm o" data-a="pending" data-id="'+d.id+'">Un-approve</button>':'<button class="btn sm g" data-a="approve" data-id="'+d.id+'">✓ Approve</button>';
@@ -193,7 +216,7 @@ $('list').addEventListener('click',function(e){
   var d=ALL.filter(function(x){return x.id===b.dataset.id;})[0];if(!d)return;
   var a=b.dataset.a,ch=null;
   if(a==='delete'){CONFIRM=d.id;render();return;}
-  if(a==='delete2'){b.disabled=true;FB.F.deleteDoc(FB.F.doc(FB.db,'partners',d.id)).then(function(){ALL=ALL.filter(function(x){return x.id!==d.id;});CONFIRM=null;render();}).catch(fail);return;}
+  if(a==='delete2'){b.disabled=true;FB.F.deleteDoc(FB.F.doc(FB.db,'partners',d.id)).then(function(){return FB.F.deleteDoc(FB.F.doc(FB.db,'partnerPrivate',d.id)).catch(function(){});}).then(function(){ALL=ALL.filter(function(x){return x.id!==d.id;});CONFIRM=null;render();}).catch(fail);return;}
   if(a==='num')ch={numberVerified:!d.numberVerified};
   if(a==='approve')ch={status:'approved'};
   if(a==='pending')ch={status:'pending'};
@@ -278,7 +301,7 @@ $('cSave').addEventListener('click',function(){
   if(!m)return $('cErr').textContent='Enter the location (lat, lng) or tap Use my current location.';
   var lat=+(+m[1]).toFixed(5),lng=+(+m[2]).toFixed(5);
   if(lat<6||lat>37||lng<68||lng>98)return $('cErr').textContent='This location is not in India. Check the numbers (lat first, then lng).';
-  var d={name:name,phone:phone,gender:document.querySelector('#cGender input:checked').value,services:svc,lat:lat,lng:lng,available:true,
+  var d={name:name,phone:phone,gender:document.querySelector('#cGender input:checked').value,services:svc,lat:rnd(lat),lng:rnd(lng),available:true,
     area:$('cArea').value.trim(),languages:[].slice.call(document.querySelectorAll('#cLang input:checked')).map(function(c){return c.value;}),
     status:$('cApprove').checked?'approved':'pending',numberVerified:$('cVer').checked,policeVerified:false,addedBy:'admin',
     ownerUid:'admin',createdAt:FB.F.serverTimestamp()};
@@ -286,6 +309,7 @@ $('cSave').addEventListener('click',function(){
   if($('cRate').value.trim())d.rate=$('cRate').value.trim();
   $('cSave').disabled=true;$('cErr').textContent='';
   FB.F.setDoc(FB.F.doc(FB.db,'partners',phone),d)
+  .then(function(){return FB.F.setDoc(FB.F.doc(FB.db,'partnerPrivate',phone),{lat:lat,lng:lng});})
   .then(function(){$('cSave').disabled=false;$('cForm').hidden=true;$('addOpen').hidden=false;TAB=d.status==='approved'?'approved':'pending';
     $('cDone').hidden=false;$('cDoneTxt').textContent=name+' added.';$('cDoneWa').href=welcomeLink(name,phone);load();})
   .catch(function(){$('cSave').disabled=false;$('cErr').textContent='Could not save. Check the Firebase rules.';});
@@ -297,7 +321,7 @@ $('reload').addEventListener('click',load);
 $('csv').addEventListener('click',function(){
   var cols=['phone','name','gender','age','status','numberVerified','policeVerified','available','services','skills','qual','experience','periods','days','night','travelKm','household','rate','rateUnit','languages','area','lat','lng','police','ref1','ref2','emergency','about','createdAt','lastSeen'];
   var q=function(v){if(v&&v.toMillis)v=new Date(v.toMillis()).toISOString();if(Array.isArray(v))v=v.join('; ');v=v==null?'':String(v);return '"'+v.replace(/"/g,'""')+'"';};
-  var csv='﻿'+cols.join(',')+'\n'+ALL.map(function(d){return cols.map(function(c){return q(d[c]);}).join(',');}).join('\n');
+  var csv='﻿'+cols.join(',')+'\n'+ALL.map(function(d){return cols.map(function(c){var pv=d.priv||{};return q((['lat','lng','ref1','ref2','emergency'].indexOf(c)>-1&&pv[c]!=null)?pv[c]:d[c]);}).join(',');}).join('\n');
   var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='letuscare-carers-'+new Date().toISOString().slice(0,10)+'.csv';document.body.appendChild(a);a.click();a.remove();
 });
 </script>
